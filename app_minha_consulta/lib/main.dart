@@ -9,7 +9,7 @@ class MinhaConsulta extends StatelessWidget {
     return MaterialApp(
       title: 'Minha Consulta',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(title: 'Minha Consulta (Anderson & Fernando)'),
     );
