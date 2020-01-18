@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MinhaConsulta());
 
-class MyApp extends StatelessWidget {
+class MinhaConsulta extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'APLICATIVO BASE PARA INICIAR PROJETO\n\n',
+              'App BASE PARA INICIAR PROJETO\n\n',
             ),
             Text(
               'You have pushed the button this many times:',
