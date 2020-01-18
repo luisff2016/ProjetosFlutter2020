@@ -15,6 +15,10 @@ class MinhaConsulta extends StatelessWidget {
     );
   }
 }
+// TODO criar as telas do aplicativo
+// TODO criar banco de dados
+// FIXME resolver navegacao entre telas
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -50,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'App BASE PARA INICIAR PROJETO\n\n',
+              'App BASE PARA INICIAR PROJETO',
             ),
             Text(
               'You have pushed the button this many times:',
