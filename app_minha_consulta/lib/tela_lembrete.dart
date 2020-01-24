@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class TelaHorario extends StatefulWidget {
+class TelaLembrete extends StatefulWidget {
   @override
-  _TelaHorarioState createState() => _TelaHorarioState();
+  _TelaLembreteState createState() => _TelaLembreteState();
 }
 
-class _TelaHorarioState extends State<TelaHorario> {
+class _TelaLembreteState extends State<TelaLembrete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

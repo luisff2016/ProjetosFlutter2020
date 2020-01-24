@@ -1,7 +1,4 @@
-// Copyright 2014 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
+import 'package:app_minha_consulta/home_page.dart';
 import 'package:flutter/material.dart';
 
 class TelaLogin extends StatefulWidget {
@@ -18,18 +15,8 @@ class _LoginPageState extends State<TelaLogin> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         brightness: Brightness.light,
-        leading: IconButton(
-          icon: const BackButtonIcon(),
-          tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-          onPressed: () {
-            // The login screen is immediately displayed on top of the Shrine
-            // home screen using onGenerateRoute and so rootNavigator must be
-            // set to true in order to get out of Shrine completely.
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-        ),
       ),
       body: SafeArea(
         child: ListView(
@@ -38,7 +25,7 @@ class _LoginPageState extends State<TelaLogin> {
             const SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset('packages/shrine_images/diamond.png'),
+                Image.asset('imagens/medico.bmp'),
                 const SizedBox(height: 16.0),
                 Text(
                   'MINHA CONSULTA',
@@ -80,11 +67,9 @@ class _LoginPageState extends State<TelaLogin> {
                         borderRadius: BorderRadius.all(Radius.circular(7.0)),
                       ),
                       onPressed: () {
-                        // The login screen is immediately displayed on top of
-                        // the Shrine home screen using onGenerateRoute and so
-                        // rootNavigator must be set to true in order to get out
-                        // of Shrine completely.
-                        Navigator.of(context, rootNavigator: true).pop();
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context)=> HomePage()));
                       },
                     ),
                     RaisedButton(
@@ -94,7 +79,9 @@ class _LoginPageState extends State<TelaLogin> {
                         borderRadius: BorderRadius.all(Radius.circular(7.0)),
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context)=> HomePage()));
                       },
                     ),
                   ],
