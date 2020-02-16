@@ -1,11 +1,12 @@
+import 'package:app_minha_consulta/view/tela_alergia.dart';
+import 'package:app_minha_consulta/view/tela_arquivo.dart';
+import 'package:app_minha_consulta/view/tela_consulta.dart';
+import 'package:app_minha_consulta/view/tela_contato.dart';
+import 'package:app_minha_consulta/view/tela_horario.dart';
+import 'package:app_minha_consulta/view/tela_lembrete.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app_minha_consulta/tela_consulta.dart';
-import 'package:app_minha_consulta/tela_arquivo.dart';
-import 'package:app_minha_consulta/tela_contato.dart';
-import 'package:app_minha_consulta/tela_horario.dart';
-import 'package:app_minha_consulta/tela_lembrete.dart';
-import 'package:app_minha_consulta/tela_alergia.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
