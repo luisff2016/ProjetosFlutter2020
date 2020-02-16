@@ -1,72 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:app_minha_consulta/tela_login.dart';
 
-void main() => runApp(MinhaConsulta());
-
-class MinhaConsulta extends StatelessWidget {
-  
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Minha Consulta',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: MyHomePage(title: 'Minha Consulta (Anderson & Fernando)'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    
-    return Scaffold(
-      appBar: AppBar(
-    
-        title: Text(widget.title),
-      ),
-      body: Center(
-    
-        child: Column(
-    
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'App BASE PARA INICIAR PROJETO\n\n',
-            ),
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+void main(){
+  runApp(
+    MaterialApp(
+      //home: HomePage(),
+      home: TelaLogin(),
+      )
+  );
 }
