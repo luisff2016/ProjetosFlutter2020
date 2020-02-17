@@ -29,7 +29,7 @@ class _LoginPageState extends State<TelaLogin> {
                 const SizedBox(height: 16.0),
                 Text(
                   'MINHA CONSULTA 2.0',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline,
                 ),
               ],
             ),
