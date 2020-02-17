@@ -10,7 +10,7 @@ class _TelaHorarioState extends State<TelaHorario> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Empresa"),
+        title: Text("Medicação"),
       ),
       body: SingleChildScrollView(
         child: Container(

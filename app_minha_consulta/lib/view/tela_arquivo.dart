@@ -11,7 +11,7 @@ class _TelaArquivoState extends State<TelaArquivo> {
     return Scaffold(
       appBar: AppBar(
 
-        title: Text("Empresa"),
+        title: Text("Arquivo"),
       ),
       body: SingleChildScrollView(
         child: Container(
