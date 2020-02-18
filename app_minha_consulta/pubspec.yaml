@@ -23,10 +23,28 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  # dependecias de mediminder
+  rxdart: ^0.22.0
+  provider: ^3.0.0+1
+  shared_preferences: 0.5.2
+  flutter_local_notifications:
+  flare_flutter:
+    git: 
+      url: git://github.com/2d-inc/Flare-Flutter.git
+      ref: dev
+      path: flare_flutter
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # dependecias de mediminder
+  flutter_launcher_icons: "^0.7.2"
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: false
+  image_path: "assets/logo/Mediminder_Logo.png"
 
 
 # For information on the generic Dart part of this file, see the
