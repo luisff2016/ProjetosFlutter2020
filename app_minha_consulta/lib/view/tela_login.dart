@@ -28,7 +28,7 @@ class _LoginPageState extends State<TelaLogin> {
                 Image.asset('imagens/medico.bmp'),
                 const SizedBox(height: 16.0),
                 Text(
-                  'MINHA CONSULTA 2.1',
+                  'MINHA CONSULTA 2.11',
                   style: Theme.of(context).textTheme.headline,
                 ),
               ],
