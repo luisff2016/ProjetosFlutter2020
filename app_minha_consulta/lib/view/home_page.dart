@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset("imagens/logo_ufs_hu.png"),
+              Image.asset("assets/images/logo_ufs_hu.png"),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Consulta"),
                         GestureDetector(
                           onTap: _abrirConsulta,
-                          child: Image.asset("imagens/medico.bmp"),
+                          child: Image.asset("assets/images/medico.bmp"),
                         ),
                       ],
                     ),
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Arquivo"),
                         GestureDetector(
                           onTap: _abrirArquivo,
-                          child: Image.asset("imagens/medico.bmp"),
+                          child: Image.asset("assets/images/medico.bmp"),
                         ),
                       ],
                     ),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Contato"),
                         GestureDetector(
                           onTap: _abrirContato,
-                          child: Image.asset("imagens/medico.bmp"),
+                          child: Image.asset("assets/images/medico.bmp"),
                         ),
                       ],
                     ),
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Horario"),
                         GestureDetector(
                           onTap: _abrirHorario,
-                          child: Image.asset("imagens/medico.bmp"),
+                          child: Image.asset("assets/images/medico.bmp"),
                         ),
                       ],
                     ),
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Lembrete"),
                         GestureDetector(
                           onTap: _abrirLembrete,
-                          child: Image.asset("imagens/remember.png"),
+                          child: Image.asset("assets/images/medico.bmp"),
                         ),
                       ],
                     ),
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Alergia"),
                         GestureDetector(
                           onTap: _abrirAlergia,
-                          child: Image.asset("imagens/pills.png"),
+                          child: Image.asset("assets/images/medico.bmp"),
                         ),
                       ],
                     ),
