@@ -19,7 +19,7 @@ class _TelaLembreteState extends State<TelaLembrete> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Image.asset("imagens/detalhe_empresa.png"),
+                  Image.asset("assets/images/detalhe_empresa.png"),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(

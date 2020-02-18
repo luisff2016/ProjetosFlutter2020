@@ -25,7 +25,7 @@ class _LoginPageState extends State<TelaLogin> {
             const SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset('imagens/medico.bmp'),
+                Image.asset('assets/images/medico.bmp'),
                 const SizedBox(height: 16.0),
                 Text(
                   'MINHA CONSULTA 2.11',
