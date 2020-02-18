@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Lembrete"),
                         GestureDetector(
                           onTap: _abrirLembrete,
-                          child: Image.asset("imagens/medico.bmp"),
+                          child: Image.asset("imagens/remember.png"),
                         ),
                       ],
                     ),
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                         Text("Alergia"),
                         GestureDetector(
                           onTap: _abrirAlergia,
-                          child: Image.asset("imagens/medico.bmp"),
+                          child: Image.asset("imagens/pills.png"),
                         ),
                       ],
                     ),
