@@ -10,7 +10,7 @@ class _TelaAlergiaState extends State<TelaAlergia> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Empresa"),
+        title: Text("Alergia"),
       ),
       body: SingleChildScrollView(
         child: Container(

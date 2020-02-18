@@ -10,7 +10,7 @@ class _TelaContatoState extends State<TelaContato> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Empresa"),
+        title: Text("Contato"),
       ),
       body: SingleChildScrollView(
         child: Container(

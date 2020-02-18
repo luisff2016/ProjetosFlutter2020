@@ -10,7 +10,7 @@ class _TelaConsultaState extends State<TelaConsulta> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Empresa"),
+        title: Text("Consultas"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -24,26 +24,29 @@ class _TelaConsultaState extends State<TelaConsulta> {
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       "Sobre a empresa",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.deepOrange
-                      ),
+                      style: TextStyle(fontSize: 20, color: Colors.deepOrange),
                     ),
-
                   )
                 ],
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                ),
+                child: Text("escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......."),
               )
             ],
           ),

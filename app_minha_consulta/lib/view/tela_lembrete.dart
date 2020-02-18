@@ -10,7 +10,7 @@ class _TelaLembreteState extends State<TelaLembrete> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Empresa"),
+        title: Text("Lembrete"),
       ),
       body: SingleChildScrollView(
         child: Container(
