@@ -2,10 +2,6 @@ import 'package:app_minha_consulta/anexos/app_hospital/hosp_conta.dart';
 import 'package:app_minha_consulta/anexos/app_hospital/hosp_inicio.dart';
 import 'package:flutter/material.dart';
 
-/**void main() {
-  runApp(TabBarDemo());
-}*/
-
 class TabBarDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
