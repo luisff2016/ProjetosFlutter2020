@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:app_minha_consulta/view/tela_alergia.dart';
 import 'package:app_minha_consulta/view/tela_arquivo.dart';
+import 'package:app_minha_consulta/view/tela_cadastro.dart';
 import 'package:app_minha_consulta/view/tela_consulta.dart';
 import 'package:app_minha_consulta/view/tela_contato.dart';
 import 'package:app_minha_consulta/view/tela_horario.dart';
 import 'package:app_minha_consulta/view/tela_lembrete.dart';
+import 'package:app_minha_consulta/view/tela_menu.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,131 +16,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _abrirConsulta() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaConsulta()));
-  }
-
-  void _abrirArquivo() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaArquivo()));
-  }
-
-  void _abrirContato() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaContato()));
-  }
-
-  void _abrirHorario() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaHorario()));
-  }
-
-  void _abrirLembrete() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaLembrete()));
-  }
-
-  void _abrirAlergia() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaAlergia()));
-  }
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Minha Consulta 1802"),
-        backgroundColor: Colors.blueAccent,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text("Minha Consulta - home"),
+          backgroundColor: Colors.blueAccent,
+          bottom: TabBar(tabs: [
+            Tab(
+              icon: Icon(Icons.home),
+              text: "INÍCIO",
+            ),
+            Tab(
+              icon: Icon(Icons.message),
+              text: "MENSAGENS",
+            ),
+            Tab(
+              icon: Icon(Icons.account_circle),
+              text: "CONTA",
+            ),
+          ]),
+        ),
+        body: TabBarView(
+          children: [
+            TelaMenu(),
+            Icon(Icons.directions_transit),
+            TelaCadastro(),
+          ],
+        ),
       ),
-      body: Container(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset("assets/images/logo_ufs_hu.png"),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text("Consulta"),
-                        GestureDetector(
-                          onTap: _abrirConsulta,
-                          child: Image.asset("assets/images/medico.bmp"),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text("Arquivo"),
-                        GestureDetector(
-                          onTap: _abrirArquivo,
-                          child: Image.asset("assets/images/medico.bmp"),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text("Contato"),
-                        GestureDetector(
-                          onTap: _abrirContato,
-                          child: Image.asset("assets/images/medico.bmp"),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text("Horario"),
-                        GestureDetector(
-                          onTap: _abrirHorario,
-                          child: Image.asset("assets/images/medico.bmp"),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text("Lembrete"),
-                        GestureDetector(
-                          onTap: _abrirLembrete,
-                          child: Image.asset("assets/images/medico.bmp"),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text("Alergia"),
-                        GestureDetector(
-                          onTap: _abrirAlergia,
-                          child: Image.asset("assets/images/medico.bmp"),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )),
     );
   }
 }
