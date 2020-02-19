@@ -1,68 +1,127 @@
 import 'package:flutter/material.dart';
 
+import 'home_page.dart';
+import 'tela_login.dart';
+
 class TelaCadastro extends StatefulWidget {
   @override
-  _ContaState createState() => _ContaState();
+  _TelaCadastroState createState() => _TelaCadastroState();
 }
 
-class _ContaState extends State<TelaCadastro> {
+class _TelaCadastroState extends State<TelaCadastro> {
+  final TextEditingController _prontuarioController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Container(
-            height:150,
-            width: 350,
-            child: Image.asset(
-              'assets/images/logo.png',
-            ),
+          const SizedBox(height: 10.0),
+          Column(
+            children: <Widget>[
+              Container(
+                height: 100,
+                width: 500,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                ),
+              ),
+              const SizedBox(height: 16.0),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20,20,20,20),
-            child: TextField(
-              decoration: InputDecoration(
+          const SizedBox(height: 20.0),
+          PrimaryColorOverride(
+            color: Colors.blue,
+            child: Container(
+              child: TextField(
+                controller: _prontuarioController,
+                keyboardType: TextInputType.numberWithOptions(),
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'E-mail'
+                  labelText: 'Prontuario',
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20,5,20,20),
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
+          const SizedBox(height: 20.0),
+          PrimaryColorOverride(
+            color: Colors.blue,
+            child: Container(
+              child: TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.numberWithOptions(),
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Senha'
+                  labelText: 'E-mail',
+                ),
               ),
             ),
           ),
-          RaisedButton(
-            color: Colors.blueAccent,
-            textColor: Colors.white,
-            child: Text("ENTRAR"),
-            onPressed: (){},
+          const SizedBox(height: 12.0),
+          PrimaryColorOverride(
+            color: Colors.blue,
+            child: Container(
+              child: TextField(
+                controller: _senhaController,
+                keyboardType: TextInputType.numberWithOptions(),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Senha',
+                ),
+              ),
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Center(
-              child: Text(
-                  "Recuperar minha senha",
-              style: TextStyle(
-                color: Colors.blueAccent
-              ),),
-            )
+          Wrap(
+            children: <Widget>[
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: RaisedButton(
+                          padding: EdgeInsets.all(8),
+                          child: const Text('CADASTRAR'),
+                          elevation: 8.0,
+                          shape: const BeveledRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(7.0)),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: RaisedButton(
+                          child: const Text('RECUPERAR'),
+                          elevation: 8.0,
+                          shape: const BeveledRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(7.0)),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
-          Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 40),
-              child: Center(
-                child: Text(
-                    "Cadastre-se",
-                  style: TextStyle(
-                    color: Colors.blueAccent
-                  ),),
-              )
-          )
         ],
       ),
     );

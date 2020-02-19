@@ -1,4 +1,4 @@
-import 'dart:math';
+/*import 'dart:math';
 
 import 'package:app_minha_consulta/view/tela_alergia.dart';
 import 'package:app_minha_consulta/view/tela_arquivo.dart';
@@ -6,7 +6,8 @@ import 'package:app_minha_consulta/view/tela_cadastro.dart';
 import 'package:app_minha_consulta/view/tela_consulta.dart';
 import 'package:app_minha_consulta/view/tela_contato.dart';
 import 'package:app_minha_consulta/view/tela_horario.dart';
-import 'package:app_minha_consulta/view/tela_lembrete.dart';
+import 'package:app_minha_consulta/view/tela_lembrete.dart';*/
+import 'package:app_minha_consulta/view/tela_cadastro.dart';
 import 'package:app_minha_consulta/view/tela_menu.dart';
 import 'package:flutter/material.dart';
 
