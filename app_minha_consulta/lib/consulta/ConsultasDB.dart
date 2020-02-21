@@ -82,15 +82,15 @@ if (_db == null) {
 
 
   /// Create a Map from a consulta.
-  Map<String, dynamic> consultaToMap(Consulta inconsulta) {
+  Map<String, dynamic> consultaToMap(Consulta inConsulta) {
 
-    print("##126 Consultas ConsultasDB.consultaToMap(): inconsulta = $inconsulta");
+    print("##126 Consultas ConsultasDB.consultaToMap(): inConsulta = $inConsulta");
     Map<String, dynamic> map = Map<String, dynamic>();
-    map["id"] = inconsulta.id;
-    map["title"] = inconsulta.title;
-    map["description"] = inconsulta.description;
-    map["apptDate"] = inconsulta.apptDate;
-    map["apptTime"] = inconsulta.apptTime;
+    map["id"] = inConsulta.id;
+    map["title"] = inConsulta.title;
+    map["description"] = inConsulta.description;
+    map["apptDate"] = inConsulta.apptDate;
+    map["apptTime"] = inConsulta.apptTime;
     print("##127 Consultas ConsultasDB.consultaToMap(): map = $map");
 
     return map;
@@ -100,10 +100,10 @@ if (_db == null) {
 
   /// Create a consulta.
   ///
-  /// @param inconsulta the consulta object to create.
-  Future create(consulta inconsulta) async {
+  /// @param inConsulta the consulta object to create.
+  Future create(Consulta inConsulta) async {
 
-    print("##128 Consultas ConsultasDB.create(): inconsulta = $inconsulta");
+    print("##128 Consultas ConsultasDB.create(): inConsulta = $inConsulta");
 
     Database db = await database;
 
@@ -117,10 +117,10 @@ if (_db == null) {
       "INSERT INTO Consultas (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
       [
         id,
-        inconsulta.title,
-        inconsulta.description,
-        inconsulta.apptDate,
-        inconsulta.apptTime
+        inConsulta.title,
+        inConsulta.description,
+        inConsulta.apptDate,
+        inConsulta.apptTime
       ]
     );
 
@@ -131,7 +131,7 @@ if (_db == null) {
   ///
   /// @param  inID The ID of the consulta to get.
   /// @return      The corresponding consulta object.
-  Future<consulta> get(int inID) async {
+  Future<Consulta> get(int inID) async {
 
     print("##129 Consultas ConsultasDB.get(): inID = $inID");
 
@@ -162,14 +162,14 @@ if (_db == null) {
 
   /// Update a consulta.
   ///
-  /// @param inconsulta The consulta to update.
-  Future update(consulta inconsulta) async {
+  /// @param inConsulta The consulta to update.
+  Future update(Consulta inConsulta) async {
 
-    print("##133 Consultas ConsultasDB.update(): inconsulta = $inconsulta");
+    print("##133 Consultas ConsultasDB.update(): inConsulta = $inConsulta");
 
     Database db = await database;
     return await db.update(
-      "Consultas", consultaToMap(inconsulta), where : "id = ?", whereArgs : [ inconsulta.id ]
+      "Consultas", consultaToMap(inConsulta), where : "id = ?", whereArgs : [ inConsulta.id ]
     );
 
   } /* End update(). */

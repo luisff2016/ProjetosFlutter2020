@@ -6,7 +6,7 @@ import 'minha_consulta.dart';
 
 
 void main() {
-  //WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   print("##1 main(): FlutterBook Starting");
   startMeUp() async {
     Directory docsDir = await getApplicationDocumentsDirectory();

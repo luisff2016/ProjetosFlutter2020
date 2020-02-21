@@ -4,6 +4,7 @@ import 'anotacoes/Anotacoes.dart';
 import 'contato/Contatos.dart';
 import 'medicamento/Medicamentos.dart';
 import 'nota/Notas.dart';
+import 'view/home_page.dart';
 
 class MinhaConsulta extends StatelessWidget {
   /// The build() method.
@@ -32,7 +33,7 @@ class MinhaConsulta extends StatelessWidget {
                 /* End AppBar. */
                 body: TabBarView(children: [
                   //Teste(),
-                  Anotacoes(),
+                  HomePage(),//Anotacoes(),
                   //Teste(),
                   Contatos(),
                   //Teste(),

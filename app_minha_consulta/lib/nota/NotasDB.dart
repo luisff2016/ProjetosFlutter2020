@@ -20,11 +20,10 @@ class NotasDB {
   Future get database async {
     try {
       if (_db == null) {
+        print("##120 ERRO _db: null");
         _db = await init();
       }
-
       print("##45 Notas NotasDB.get-database(): _db = $_db");
-
       return _db;
     } catch (e) {
       print("##46 ERRO get-database(): $e ");

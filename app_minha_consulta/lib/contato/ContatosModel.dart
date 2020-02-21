@@ -4,7 +4,6 @@ import "../BaseModel.dart";
 /// A class representing this PIM entity type.
 class Contato {
 
-
   /// The fields this entity type contains.
   int id;
   String name;
