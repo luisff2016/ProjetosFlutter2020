@@ -41,7 +41,7 @@ class MedicamentosDB {
     print("##22 Medicamentos MedicamentosDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
-      await inDB.execute("CREATE TABLE IF NOT EXISTS Medicamentos ("
+      await inDB.execute("CREATE TABLE IF NOT EXISTS medicamentos ("
           "id INTEGER PRIMARY KEY,"
           "description TEXT,"
           "dueDate TEXT,"
@@ -91,7 +91,7 @@ class MedicamentosDB {
     Database db = await database;
 
     // Get largest current id in the table, plus one, to be the new ID.
-    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM Medicamentos");
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM medicamentos");
     int id = val.first["id"];
     if (id == null) {
       id = 1;
@@ -99,7 +99,7 @@ class MedicamentosDB {
 
     // Insert into table.
     return await db.rawInsert(
-        "INSERT INTO Medicamentos (id, description, dueDate, completed) VALUES (?, ?, ?, ?)",
+        "INSERT INTO medicamentos (id, description, dueDate, completed) VALUES (?, ?, ?, ?)",
         [id, inMedicamento.description, inMedicamento.dueDate, inMedicamento.completed]);
   } /* End create(). */
 
@@ -125,7 +125,7 @@ class MedicamentosDB {
     print("##30 Medicamentos MedicamentosDB.getAll()");
     try {
       Database db = await database;
-      var recs = await db.query("Medicamentos");
+      var recs = await db.query("medicamentos");
       var list =
           recs.isNotEmpty ? recs.map((m) => medicamentoFromMap(m)).toList() : [];
 
@@ -146,7 +146,7 @@ class MedicamentosDB {
     print("##33 Medicamentos MedicamentosDB.update(): inMedicamento = $inMedicamento");
 
     Database db = await database;
-    return await db.update("Medicamentos", medicamentoToMap(inMedicamento),
+    return await db.update("medicamentos", medicamentoToMap(inMedicamento),
         where: "id = ?", whereArgs: [inMedicamento.id]);
   } /* End update(). */
 
@@ -158,7 +158,7 @@ class MedicamentosDB {
     print("##34 Taasks MedicamentosDB.delete(): inID = $inID");
 
     Database db = await database;
-    return await db.delete("Medicamentos", where: "id = ?", whereArgs: [inID]);
+    return await db.delete("medicamentos", where: "id = ?", whereArgs: [inID]);
   } /* End delete(). */
 
 } /* End class. */

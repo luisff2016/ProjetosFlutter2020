@@ -54,33 +54,33 @@ class ContatosDB {
   } /* End init(). */
 
   /// Create a contatos from a Map.
-  Contatos contatosFromMap(Map inMap) {
-    print("##83 contatoss ContatosDB.contatosFromMap(): inMap = $inMap");
+  Contato contatoFromMap(Map inMap) {
+    print("##83 contatoss ContatosDB.contatoFromMap(): inMap = $inMap");
 
-    Contatos contatos = Contatos();
-    contatos.id = inMap["id"];
-    contatos.name = inMap["name"];
-    contatos.phone = inMap["phone"];
-    contatos.email = inMap["email"];
-    contatos.birthday = inMap["birthday"];
+    Contato contato = Contato();
+    contato.id = inMap["id"];
+    contato.name = inMap["name"];
+    contato.phone = inMap["phone"];
+    contato.email = inMap["email"];
+    contato.birthday = inMap["birthday"];
 
     print(
-        "##84 contatoss ContatosDB.contatosFromMap(): contatos = $contatos");
+        "##84 contatoss ContatosDB.contatoFromMap(): contato = $contato");
 
-    return contatos;
-  } /* End contatosFromMap(); */
+    return contato;
+  } /* End contatoFromMap(); */
 
   /// Create a Map from a contatos.
-  Map<String, dynamic> contatosToMap(Contatos inContatos) {
+  Map<String, dynamic> contatoToMap(Contato inContato) {
     print(
-        "##85 contatoss ContatosDB.contatosToMap(): inContatos = $inContatos");
+        "##85 contatoss ContatosDB.contatosToMap(): inContato = $inContato");
 
     Map<String, dynamic> map = Map<String, dynamic>();
-    map["id"] = inContatos.id;
-    map["name"] = inContatos.name;
-    map["phone"] = inContatos.phone;
-    map["email"] = inContatos.email;
-    map["birthday"] = inContatos.birthday;
+    map["id"] = inContato.id;
+    map["name"] = inContato.name;
+    map["phone"] = inContato.phone;
+    map["email"] = inContato.email;
+    map["birthday"] = inContato.birthday;
 
     print("##86 contatoss ContatosDB.contatosToMap(): map = $map");
 
@@ -89,10 +89,10 @@ class ContatosDB {
 
   /// Create a contatos.
   ///
-  /// @param  inContatos the contatos object to create.
+  /// @param  inContato the contatos object to create.
   /// @return           The ID of the created contatos.
-  Future create(Contatos inContatos) async {
-    print("##87 contatoss ContatosDB.create(): inContatos = $inContatos");
+  Future create(Contato inContato) async {
+    print("##87 contatoss ContatosDB.create(): inContato = $inContato");
 
     Database db = await database;
 
@@ -108,10 +108,10 @@ class ContatosDB {
         "INSERT INTO contatoss (id, name, email, phone, birthday) VALUES (?, ?, ?, ?, ?)",
         [
           id,
-          inContatos.name,
-          inContatos.email,
-          inContatos.phone,
-          inContatos.birthday
+          inContato.name,
+          inContato.email,
+          inContato.phone,
+          inContato.birthday
         ]);
 
     return id;
@@ -121,7 +121,7 @@ class ContatosDB {
   ///
   /// @param  inID The ID of the contatos to get.
   /// @return      The corresponding contatos object.
-  Future<Contatos> get(int inID) async {
+  Future<Contato> get(int inID) async {
     print("##88 contatoss ContatosDB.get(): inID = $inID");
 
     Database db = await database;
@@ -129,7 +129,7 @@ class ContatosDB {
 
     print("##89 contatoss ContatosDB.get(): rec.first = $rec.first");
 
-    return contatosFromMap(rec.first);
+    return contatoFromMap(rec.first);
   } /* End get(). */
 
   /// Get all contatoss.
@@ -141,7 +141,7 @@ class ContatosDB {
       Database db = await database;
       var recs = await db.query("contatoss");
       var list =
-          recs.isNotEmpty ? recs.map((m) => contatosFromMap(m)).toList() : [];
+          recs.isNotEmpty ? recs.map((m) => contatoFromMap(m)).toList() : [];
 
       print("##91 contatoss ContatosDB.getAll(): list = $list");
 
@@ -154,14 +154,14 @@ class ContatosDB {
 
   /// Update a contatos.
   ///
-  /// @param  inContatos The contatos to update.
+  /// @param  inContato The contatos to update.
   /// @return           Future.
-  Future update(Contatos inContatos) async {
-    print("##93 contatoss ContatosDB.update(): inContatos = $inContatos");
+  Future update(Contato inContato) async {
+    print("##93 contatos ContatosDB.update(): inContato = $inContato");
 
     Database db = await database;
-    return await db.update("contatoss", contatosToMap(inContatos),
-        where: "id = ?", whereArgs: [inContatos.id]);
+    return await db.update("contatos", contatoToMap(inContato),
+        where: "id = ?", whereArgs: [inContato.id]);
   } /* End update(). */
 
   /// Delete a contatos.
@@ -172,7 +172,7 @@ class ContatosDB {
     print("##94 contatoss ContatosDB.delete(): inID = $inID");
 
     Database db = await database;
-    return await db.delete("contatoss", where: "id = ?", whereArgs: [inID]);
+    return await db.delete("contatos", where: "id = ?", whereArgs: [inID]);
   } /* End delete(). */
 
 } /* End class. */

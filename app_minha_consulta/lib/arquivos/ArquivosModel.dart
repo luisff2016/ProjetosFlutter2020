@@ -2,7 +2,7 @@ import "../BaseModel.dart";
 
 
 /// A class representing this PIM entity type.
-class Appointment {
+class Arquivo {
 
 
   /// The fields this entity type contains.
@@ -25,16 +25,16 @@ class Appointment {
 /// ********************************************************************************************************************
 /// The model backing this entity type's views.
 /// ********************************************************************************************************************
-class AppointmentsModel extends BaseModel {
+class ArquivosModel extends BaseModel {
 
 
-  /// The appointment time.  Needed to be able to display what the user picks in the Text widget on the entry screen.
+  /// The Arquivo time.  Needed to be able to display what the user picks in the Text widget on the entry screen.
   String apptTime;
 
 
-  /// For display of the appointment time chosen by the user.
+  /// For display of the Arquivo time chosen by the user.
   ///
-  /// @param inApptTime The appointment date in HH:MM form.
+  /// @param inApptTime The Arquivo date in HH:MM form.
   void setApptTime(String inApptTime) {
 
     apptTime = inApptTime;
@@ -47,4 +47,4 @@ class AppointmentsModel extends BaseModel {
 
 
 // The one and only instance of this model.
-AppointmentsModel appointmentsModel = AppointmentsModel();
+ArquivosModel arquivosModel = ArquivosModel();

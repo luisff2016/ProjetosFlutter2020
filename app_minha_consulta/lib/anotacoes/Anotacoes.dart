@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "Anotacoes_DB.dart";
-import "Anotacoes_Controldart";
-import "Anotacoes_View.dart";
-import "Anotacoes_Model.dart" show AnotacoesModel, anotacoesModel;
+import "AnotacoesDB.dart";
+import "AnotacoesList.dart";
+import "AnotacoesForm.dart";
+import "AnotacoesModel.dart" show AnotacoesModel, anotacoesModel;
 
 /// ********************************************************************************************************************
 /// The Anotacoes screen.
@@ -14,7 +14,7 @@ class Anotacoes extends StatelessWidget {
     print("##140 Anotacoes.constructor");
 
     // Initial load of data.
-    anotacoesModel.loadData("anotacoes", AnotacoesDBWorker.db);
+    anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -30,7 +30,7 @@ class Anotacoes extends StatelessWidget {
                 (BuildContext inContext, Widget inChild,
                     AnotacoesModel inModel) {
           return IndexedStack(index: inModel.stackIndex, children: [
-            AnotacoesLista(),
+            AnotacoesList(),
             AnotacoesForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */

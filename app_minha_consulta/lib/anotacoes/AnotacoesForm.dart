@@ -2,14 +2,14 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "../utils.dart" as utils;
-import "AppointmentsDBWorker.dart";
-import "AppointmentsModel.dart" show AppointmentsModel, appointmentsModel;
+import "AnotacoesDB.dart";
+import "AnotacoesModel.dart" show AnotacoesModel, anotacoesModel;
 
 
 /// ********************************************************************************************************************
 /// The Appointments Entry sub-screen.
 /// ********************************************************************************************************************
-class AppointmentsEntry extends StatelessWidget {
+class AnotacoesForm extends StatelessWidget {
 
 
   /// Controllers for TextFields.
@@ -22,16 +22,16 @@ class AppointmentsEntry extends StatelessWidget {
 
 
   /// Constructor.
-  AppointmentsEntry() {
+  AnotacoesForm() {
 
-    print("##105 AppointmentsEntry.constructor");
+    print("##105 AnotacoesForm.constructor");
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      appointmentsModel.entityBeingEdited.title = _titleEditingController.text;
+      anotacoesModel.entityBeingEdited.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      appointmentsModel.entityBeingEdited.description = _descriptionEditingController.text;
+      anotacoesModel.entityBeingEdited.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -43,17 +43,17 @@ class AppointmentsEntry extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##106 AppointmentsEntry.build()");
+    print("##106 AnotacoesForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = appointmentsModel.entityBeingEdited.title;
-    _descriptionEditingController.text = appointmentsModel.entityBeingEdited.description;
+    _titleEditingController.text = anotacoesModel.entityBeingEdited.title;
+    _descriptionEditingController.text = anotacoesModel.entityBeingEdited.description;
 
     // Return widget.
     return ScopedModel(
-      model : appointmentsModel,
-      child : ScopedModelDescendant<AppointmentsModel>(
-        builder : (BuildContext inContext, Widget inChild, AppointmentsModel inModel) {
+      model : anotacoesModel,
+      child : ScopedModelDescendant<AnotacoesModel>(
+        builder : (BuildContext inContext, Widget inChild, AnotacoesModel inModel) {
           return Scaffold(
             bottomNavigationBar : Padding(
               padding : EdgeInsets.symmetric(vertical : 0, horizontal : 10),
@@ -71,7 +71,7 @@ class AppointmentsEntry extends StatelessWidget {
                   Spacer(),
                   FlatButton(
                     child : Text("Save"),
-                    onPressed : () { _save(inContext, appointmentsModel); }
+                    onPressed : () { _save(inContext, anotacoesModel); }
                   )
                 ]
               )
@@ -106,17 +106,17 @@ class AppointmentsEntry extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(appointmentsModel.chosenDate == null ? "" : appointmentsModel.chosenDate),
+                    subtitle : Text(anotacoesModel.chosenDate == null ? "" : anotacoesModel.chosenDate),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
                         String chosenDate = await utils.selectDate(
-                          inContext, appointmentsModel, appointmentsModel.entityBeingEdited.apptDate
+                          inContext, anotacoesModel, anotacoesModel.entityBeingEdited.apptDate
                         );
                         if (chosenDate != null) {
-                          appointmentsModel.entityBeingEdited.apptDate = chosenDate;
+                          anotacoesModel.entityBeingEdited.apptDate = chosenDate;
                         }
                       }
                     )
@@ -125,7 +125,7 @@ class AppointmentsEntry extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.alarm),
                     title : Text("Time"),
-                    subtitle : Text(appointmentsModel.apptTime == null ? "" : appointmentsModel.apptTime),
+                    subtitle : Text(anotacoesModel.apptTime == null ? "" : anotacoesModel.apptTime),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
@@ -153,8 +153,8 @@ class AppointmentsEntry extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (appointmentsModel.entityBeingEdited.apptTime != null) {
-      List timeParts = appointmentsModel.entityBeingEdited.apptTime.split(",");
+    if (anotacoesModel.entityBeingEdited.apptTime != null) {
+      List timeParts = anotacoesModel.entityBeingEdited.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,8 +165,8 @@ class AppointmentsEntry extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      appointmentsModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
-      appointmentsModel.setApptTime(picked.format(inContext));
+      anotacoesModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
+      anotacoesModel.setApptTime(picked.format(inContext));
     }
 
   } /* End _selectTime(). */
@@ -175,10 +175,10 @@ class AppointmentsEntry extends StatelessWidget {
   /// Save this contact to the database.
   ///
   /// @param inContext The BuildContext of the parent widget.
-  /// @param inModel   The AppointmentsModel.
-  void _save(BuildContext inContext, AppointmentsModel inModel) async {
+  /// @param inModel   The AnotacoesModel.
+  void _save(BuildContext inContext, AnotacoesModel inModel) async {
 
-      print("##107 AppointmentsEntry._save()");
+      print("##107 AnotacoesForm._save()");
 
       // Abort if form isn't valid.
       if (!_formKey.currentState.validate()) { return; }
@@ -186,19 +186,19 @@ class AppointmentsEntry extends StatelessWidget {
       // Creating a new appointment.
       if (inModel.entityBeingEdited.id == null) {
 
-        print("##108 AppointmentsEntry._save(): Creating: ${inModel.entityBeingEdited}");
-        await AppointmentsDBWorker.db.create(appointmentsModel.entityBeingEdited);
+        print("##108 AnotacoesForm._save(): Creating: ${inModel.entityBeingEdited}");
+        await AnotacoesDB.db.create(anotacoesModel.entityBeingEdited);
 
       // Updating an existing appointment.
       } else {
 
-        print("##109 AppointmentsEntry._save(): Updating: ${inModel.entityBeingEdited}");
-        await AppointmentsDBWorker.db.update(appointmentsModel.entityBeingEdited);
+        print("##109 AnotacoesForm._save(): Updating: ${inModel.entityBeingEdited}");
+        await AnotacoesDB.db.update(anotacoesModel.entityBeingEdited);
 
       }
 
       // Reload data from database to update list.
-      appointmentsModel.loadData("appointments", AppointmentsDBWorker.db);
+      anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
 
       // Go back to the list view.
       inModel.setStackIndex(0);
@@ -208,7 +208,7 @@ class AppointmentsEntry extends StatelessWidget {
         SnackBar(
           backgroundColor : Colors.green,
           duration : Duration(seconds : 2),
-          content : Text("Appointment saved")
+          content : Text("Anotacoes salvas")
         )
       );
 

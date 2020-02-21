@@ -20,11 +20,10 @@ class NotasDB {
   Future get database async {
     try {
       if (_db == null) {
+        print("##120 ERRO _db: null");
         _db = await init();
       }
-
       print("##45 Notas NotasDB.get-database(): _db = $_db");
-
       return _db;
     } catch (e) {
       print("##46 ERRO get-database(): $e ");
@@ -75,9 +74,7 @@ class NotasDB {
     map["title"] = inNota.title;
     map["content"] = inNota.content;
     map["color"] = inNota.color;
-
     print("##51 notas NotasDB.notaToMap(): map = $map");
-
     return map;
   } /* End notaToMap(). */
 

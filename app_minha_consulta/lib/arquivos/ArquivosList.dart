@@ -5,14 +5,14 @@ import "package:intl/intl.dart";
 import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
 import "package:flutter_calendar_carousel/classes/event.dart";
 import "package:flutter_calendar_carousel/classes/event_list.dart";
-import 'Anotacoes_DB.dart';
-import "Anotacoes_Model.dart" show Anotacoes, AnotacoesModel, anotacoesModel;
+import "ArquivosDB.dart";
+import "ArquivosModel.dart" show Arquivo, ArquivosModel, arquivosModel;
 
 
 /// ********************************************************************************************************************
-/// The Anotacoes List sub-screen.
+/// The Arquivos List sub-screen.
 /// ********************************************************************************************************************
-class AnotacoesLista extends StatelessWidget {
+class ArquivosList extends StatelessWidget {
 
 
   /// The build() method.
@@ -21,13 +21,13 @@ class AnotacoesLista extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##97 AnotacoessList.build()");
+    print("##97 ArquivossList.build()");
 
-    // The list of dates with anotacoes.
+    // The list of dates with arquivos.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < anotacoesModel.entityList.length; i++) {
-      Anotacoes anotacoes = anotacoesModel.entityList[i];
-      List dateParts = anotacoes.apptDate.split(",");
+    for (int i = 0; i < arquivosModel.entityList.length; i++) {
+      Arquivo arquivo = arquivosModel.entityList[i];
+      List dateParts = arquivo.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2]));
       _markedDateMap.add(
         apptDate, Event(date : apptDate, icon : Container(decoration : BoxDecoration(color : Colors.blue)))
@@ -35,21 +35,21 @@ class AnotacoesLista extends StatelessWidget {
     }
 
     // Return widget.
-    return ScopedModel<AnotacoesModel>(
-      model : anotacoesModel,
-      child : ScopedModelDescendant<AnotacoesModel>(
+    return ScopedModel<ArquivosModel>(
+      model : arquivosModel,
+      child : ScopedModelDescendant<ArquivosModel>(
         builder : (inContext, inChild, inModel) {
           return Scaffold(
-            // Add anotacoes.
+            // Add arquivo.
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),
               onPressed : () async {
-                anotacoesModel.entityBeingEdited = Anotacoes();
+                arquivosModel.entityBeingEdited = Arquivo();
                 DateTime now = DateTime.now();
-                anotacoesModel.entityBeingEdited.apptDate = "${now.year},${now.month},${now.day}";
-                anotacoesModel.setChosenDate(DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                anotacoesModel.setApptTime(null);
-                anotacoesModel.setStackIndex(1);
+                arquivosModel.entityBeingEdited.apptDate = "${now.year},${now.month},${now.day}";
+                arquivosModel.setChosenDate(DateFormat.yMMMMd("en_US").format(now.toLocal()));
+                arquivosModel.setApptTime(null);
+                arquivosModel.setStackIndex(1);
               }
             ),
               body : Column(
@@ -62,7 +62,7 @@ class AnotacoesLista extends StatelessWidget {
                       daysHaveCircularBorder : false,
                       markedDatesMap : _markedDateMap,
                       onDayPressed : (DateTime inDate, List<Event> inEvents) {
-                        _showAnotacoes(inDate, inContext);
+                        _showArquivos(inDate, inContext);
                       }
                     ) /* End CalendarCarousel. */
                   ) /* End Container. */
@@ -77,28 +77,28 @@ class AnotacoesLista extends StatelessWidget {
   } /* End build(). */
 
 
-  /// Show a bottom sheet to see the anotacoes for the selected day.
+  /// Show a bottom sheet to see the arquivos for the selected day.
   ///
   /// @param inDate    The date selected.
   /// @param inContext The build context of the parent widget.
-  void _showAnotacoes(DateTime inDate, BuildContext inContext) async {
+  void _showArquivos(DateTime inDate, BuildContext inContext) async {
 
     print(
-      "##98 AnotacoesList._showAnotacoes(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})"
+      "##98 ArquivosList._showArquivos(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})"
     );
 
-    print("##99 AnotacoesList._showAnotacoes(): anotacoesModel.entityList.length = "
-      "${anotacoesModel.entityList.length}");
-    print("##100 AnotacoesList._showAnotacoes(): anotacoesModel.entityList = "
-      "${anotacoesModel.entityList}");
+    print("##99 ArquivosList._showArquivos(): arquivosModel.entityList.length = "
+      "${arquivosModel.entityList.length}");
+    print("##100 ArquivosList._showArquivos(): arquivosModel.entityList = "
+      "${arquivosModel.entityList}");
 
     showModalBottomSheet(
       context : inContext,
       builder : (BuildContext inContext) {
-        return ScopedModel<AnotacoesModel>(
-          model : anotacoesModel,
-          child : ScopedModelDescendant<AnotacoesModel>(
-            builder : (BuildContext inContext, Widget inChild, AnotacoesModel inModel) {
+        return ScopedModel<ArquivosModel>(
+          model : arquivosModel,
+          child : ScopedModelDescendant<ArquivosModel>(
+            builder : (BuildContext inContext, Widget inChild, ArquivosModel inModel) {
               return Scaffold(
                 body : Container(
                   child : Padding(
@@ -114,27 +114,27 @@ class AnotacoesLista extends StatelessWidget {
                           Divider(),
                           Expanded(
                             child : ListView.builder(
-                              itemCount : anotacoesModel.entityList.length,
+                              itemCount : arquivosModel.entityList.length,
                               itemBuilder : (BuildContext inBuildContext, int inIndex) {
-                                Anotacoes anotacoes = anotacoesModel.entityList[inIndex];
-                                print("##101 AnotacoesList._showAnotacoes().ListView.builder(): "
-                                  "anotacoes = $anotacoes");
-                                // Filter out any anotacoes that isn't for the specified date.
-                                if (anotacoes.apptDate != "${inDate.year},${inDate.month},${inDate.day}") {
+                                Arquivo arquivo = arquivosModel.entityList[inIndex];
+                                print("##101 ArquivosList._showArquivos().ListView.builder(): "
+                                  "arquivo = $arquivo");
+                                // Filter out any arquivo that isn't for the specified date.
+                                if (arquivo.apptDate != "${inDate.year},${inDate.month},${inDate.day}") {
                                   return Container(height : 0);
                                 }
-                                print("##102 AnotacoesList._showAnotacoes().ListView.builder(): "
-                                  "INCLUDING anotacoes = $anotacoes");
-                                // If the anotacoes has a time, format it for display.
+                                print("##102 ArquivosList._showArquivos().ListView.builder(): "
+                                  "INCLUDING arquivo = $arquivo");
+                                // If the arquivo has a time, format it for display.
                                 String apptTime = "";
-                                if (anotacoes.apptTime != null) {
-                                  List timeParts = anotacoes.apptTime.split(",");
+                                if (arquivo.apptTime != null) {
+                                  List timeParts = arquivo.apptTime.split(",");
                                   TimeOfDay at = TimeOfDay(
                                     hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1])
                                   );
                                   apptTime = " (${at.format(inContext)})";
                                 }
-                                // Return a widget for the anotacoes since it's for the correct date.
+                                // Return a widget for the arquivo since it's for the correct date.
                                 return Slidable(
                                   actionPane: SlidableBehindActionPane(),//delegate : SlidableDrawerDelegate(),
                                   actionExtentRatio : .25,
@@ -142,11 +142,11 @@ class AnotacoesLista extends StatelessWidget {
                                   margin : EdgeInsets.only(bottom : 8),
                                     color : Colors.grey.shade300,
                                     child : ListTile(
-                                      title : Text("${anotacoes.title}$apptTime"),
-                                      subtitle : anotacoes.description == null ?
-                                        null : Text("${anotacoes.description}"),
-                                      // Edit existing anotacoes.
-                                      onTap : () async { _editAnotacoes(inContext, anotacoes); }
+                                      title : Text("${arquivo.title}$apptTime"),
+                                      subtitle : arquivo.description == null ?
+                                        null : Text("${arquivo.description}"),
+                                      // Edit existing arquivo.
+                                      onTap : () async { _editArquivo(inContext, arquivo); }
                                     )
                                   ),
                                   secondaryActions : [
@@ -154,7 +154,7 @@ class AnotacoesLista extends StatelessWidget {
                                       caption : "Delete",
                                       color : Colors.red,
                                       icon : Icons.delete,
-                                      onTap : () => _deleteAnotacoes(inBuildContext, anotacoes)
+                                      onTap : () => _deleteArquivo(inBuildContext, arquivo)
                                     )
                                   ]
                                 ); /* End Slidable. */
@@ -173,63 +173,63 @@ class AnotacoesLista extends StatelessWidget {
       } /* End dialog.builder. */
     ); /* End showModalBottomSheet(). */
 
-  } /* End _showAnotacoes(). */
+  } /* End _showArquivos(). */
 
 
-  /// Handle taps on an anotacoes to trigger editing.
+  /// Handle taps on an arquivo to trigger editing.
   ///
   /// @param inContext     The BuildContext of the parent widget.
-  /// @param inAnotacoes The Anotacoes being edited.
-  void _editAnotacoes(BuildContext inContext, Anotacoes inAnotacoes) async {
+  /// @param inArquivo The Arquivo being edited.
+  void _editArquivo(BuildContext inContext, Arquivo inArquivo) async {
 
-    print("##103 AnotacoesList._editAnotacoes(): inAnotacoes = $inAnotacoes");
+    print("##103 ArquivosList._editArquivo(): inArquivo = $inArquivo");
 
     // Get the data from the database and send to the edit view.
-    anotacoesModel.entityBeingEdited = await AnotacoesDBWorker.db.get(inAnotacoes.id);
+    arquivosModel.entityBeingEdited = await ArquivosDB.db.get(inArquivo.id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (anotacoesModel.entityBeingEdited.apptDate == null) {
-      anotacoesModel.setChosenDate(null);
+    if (arquivosModel.entityBeingEdited.apptDate == null) {
+      arquivosModel.setChosenDate(null);
     } else {
-      List dateParts = anotacoesModel.entityBeingEdited.apptDate.split(",");
+      List dateParts = arquivosModel.entityBeingEdited.apptDate.split(",");
       DateTime apptDate = DateTime(
         int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2])
       );
-      anotacoesModel.setChosenDate(
+      arquivosModel.setChosenDate(
         DateFormat.yMMMMd("en_US").format(apptDate.toLocal())
       );
     }
-    if (anotacoesModel.entityBeingEdited.apptTime == null) {
-      anotacoesModel.setApptTime(null);
+    if (arquivosModel.entityBeingEdited.apptTime == null) {
+      arquivosModel.setApptTime(null);
     } else {
-      List timeParts = anotacoesModel.entityBeingEdited.apptTime.split(",");
+      List timeParts = arquivosModel.entityBeingEdited.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
         hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1])
       );
-      anotacoesModel.setApptTime(apptTime.format(inContext));
+      arquivosModel.setApptTime(apptTime.format(inContext));
     }
-    anotacoesModel.setStackIndex(1);
+    arquivosModel.setStackIndex(1);
     Navigator.pop(inContext);
 
-  } /* End _editAnotacoes. */
+  } /* End _editArquivo. */
 
 
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext     The parent build context.
-  /// @param  inAnotacoes The anotacoes (potentially) being deleted.
+  /// @param  inArquivo The arquivo (potentially) being deleted.
   /// @return               Future.
-  Future _deleteAnotacoes(BuildContext inContext, Anotacoes inAnotacoes) async {
+  Future _deleteArquivo(BuildContext inContext, Arquivo inArquivo) async {
 
-    print("##104 AnotacoesList._deleteAnotacoes(): inAnotacoes = $inAnotacoes");
+    print("##104 ArquivosList._deleteArquivo(): inArquivo = $inArquivo");
 
     return showDialog(
       context : inContext,
       barrierDismissible : false,
       builder : (BuildContext inAlertContext) {
         return AlertDialog(
-          title : Text("Delete Anotacoes"),
-          content : Text("Are you sure you want to delete ${inAnotacoes.title}?"),
+          title : Text("Delete Arquivo"),
+          content : Text("Are you sure you want to delete ${inArquivo.title}?"),
           actions : [
             FlatButton(child : Text("Cancel"),
               onPressed: () {
@@ -240,17 +240,17 @@ class AnotacoesLista extends StatelessWidget {
             FlatButton(child : Text("Delete"),
               onPressed : () async {
                 // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                await AnotacoesDBWorker.db.delete(inAnotacoes.id);
+                await ArquivosDB.db.delete(inArquivo.id);
                 Navigator.of(inAlertContext).pop();
                 Scaffold.of(inContext).showSnackBar(
                   SnackBar(
                     backgroundColor : Colors.red,
                     duration : Duration(seconds : 2),
-                    content : Text("Anotacoes deleted")
+                    content : Text("Arquivo deleted")
                   )
                 );
                 // Reload data from database to update list.
-                anotacoesModel.loadData("anotacoes", AnotacoesDBWorker.db);
+                arquivosModel.loadData("arquivos", ArquivosDB.db);
               }
             )
           ]
@@ -258,7 +258,7 @@ class AnotacoesLista extends StatelessWidget {
       }
     );
 
-  } /* End _deleteAnotacoes(). */
+  } /* End _deleteArquivo(). */
 
 
 } /* End class. */
