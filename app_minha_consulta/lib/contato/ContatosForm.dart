@@ -32,13 +32,13 @@ class ContatosForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _nameEditingController.addListener(() {
-      ContatosModel.entityBeingEdited.name = _nameEditingController.text;
+      contatosModel.entityBeingEdited.name = _nameEditingController.text;
     });
     _phoneEditingController.addListener(() {
-      ContatosModel.entityBeingEdited.phone = _phoneEditingController.text;
+      contatosModel.entityBeingEdited.phone = _phoneEditingController.text;
     });
     _emailEditingController.addListener(() {
-      ContatosModel.entityBeingEdited.email = _emailEditingController.text;
+      contatosModel.entityBeingEdited.email = _emailEditingController.text;
     });
 
   } /* End constructor. */
@@ -53,9 +53,9 @@ class ContatosForm extends StatelessWidget {
     print("##69 ContatosForm.build()");
 
     // Set value of controllers.
-    _nameEditingController.text = ContatosModel.entityBeingEdited.name;
-    _phoneEditingController.text = ContatosModel.entityBeingEdited.phone;
-    _emailEditingController.text = ContatosModel.entityBeingEdited.email;
+    _nameEditingController.text = contatosModel.entityBeingEdited.name;
+    _phoneEditingController.text = contatosModel.entityBeingEdited.phone;
+    _emailEditingController.text = contatosModel.entityBeingEdited.email;
 
     // Return widget.
     return ScopedModel(
@@ -142,17 +142,17 @@ class ContatosForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Birthday"),
-                    subtitle : Text(ContatosModel.chosenDate == null ? "" : ContatosModel.chosenDate),
+                    subtitle : Text(contatosModel.chosenDate == null ? "" : contatosModel.chosenDate),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
                         String chosenDate = await utils.selectDate(
-                          inContext, ContatosModel, ContatosModel.entityBeingEdited.birthday
+                          inContext, contatosModel, contatosModel.entityBeingEdited.birthday
                         );
                         if (chosenDate != null) {
-                          ContatosModel.entityBeingEdited.birthday = chosenDate;
+                          contatosModel.entityBeingEdited.birthday = chosenDate;
                         }
                       }
                     )
@@ -190,7 +190,7 @@ class ContatosForm extends StatelessWidget {
                       // Copy the file into the app's docs directory.
                       cameraImage.copySync(join(utils.docsDir.path, "avatar"));
                       // Tell the entry screen to rebuild itself to show the avatar.
-                      ContatosModel.triggerRebuild();
+                      contatosModel.triggerRebuild();
                     }
                     // Hide this dialog.
                     Navigator.of(inDialogContext).pop();
@@ -205,7 +205,7 @@ class ContatosForm extends StatelessWidget {
                       // Copy the file into the app's docs directory.
                       galleryImage.copySync(join(utils.docsDir.path, "avatar"));
                       // Tell the entry screen to rebuild itself to show the avatar.
-                      ContatosModel.triggerRebuild();
+                      contatosModel.triggerRebuild();
                     }
                     // Hide this dialog.
                     Navigator.of(inDialogContext).pop();
@@ -245,7 +245,7 @@ class ContatosForm extends StatelessWidget {
     } else {
 
       print("##72 ContatosForm._save(): Updating: ${inModel.entityBeingEdited}");
-      id = ContatosModel.entityBeingEdited.id;
+      id = contatosModel.entityBeingEdited.id;
       await ContatosDB.db.update(contatosModel.entityBeingEdited);
 
     }
@@ -258,7 +258,7 @@ class ContatosForm extends StatelessWidget {
     }
 
     // Reload data from database to update list.
-    ContatosModel.loadData("contacts", ContatosDB.db);
+    contatosModel.loadData("contacts", ContatosDB.db);
 
     // Go back to the list view.
     inModel.setStackIndex(0);

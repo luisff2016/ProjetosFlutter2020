@@ -28,10 +28,10 @@ class ConsultasForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      ConsultasModel.entityBeingEdited.title = _titleEditingController.text;
+      consultasModel.entityBeingEdited.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      ConsultasModel.entityBeingEdited.description = _descriptionEditingController.text;
+      consultasModel.entityBeingEdited.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -46,12 +46,12 @@ class ConsultasForm extends StatelessWidget {
     print("##106 ConsultasForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = ConsultasModel.entityBeingEdited.title;
-    _descriptionEditingController.text = ConsultasModel.entityBeingEdited.description;
+    _titleEditingController.text = consultasModel.entityBeingEdited.title;
+    _descriptionEditingController.text = consultasModel.entityBeingEdited.description;
 
     // Return widget.
     return ScopedModel(
-      model : ConsultasModel,
+      model : consultasModel,
       child : ScopedModelDescendant<ConsultasModel>(
         builder : (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
           return Scaffold(
@@ -71,7 +71,7 @@ class ConsultasForm extends StatelessWidget {
                   Spacer(),
                   FlatButton(
                     child : Text("Save"),
-                    onPressed : () { _save(inContext, ConsultasModel); }
+                    onPressed : () { _save(inContext, consultasModel); }
                   )
                 ]
               )
@@ -106,17 +106,17 @@ class ConsultasForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(ConsultasModel.chosenDate == null ? "" : ConsultasModel.chosenDate),
+                    subtitle : Text(consultasModel.chosenDate == null ? "" : consultasModel.chosenDate),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
                         String chosenDate = await utils.selectDate(
-                          inContext, ConsultasModel, ConsultasModel.entityBeingEdited.apptDate
+                          inContext, consultasModel, consultasModel.entityBeingEdited.apptDate
                         );
                         if (chosenDate != null) {
-                          ConsultasModel.entityBeingEdited.apptDate = chosenDate;
+                          consultasModel.entityBeingEdited.apptDate = chosenDate;
                         }
                       }
                     )
@@ -125,7 +125,7 @@ class ConsultasForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.alarm),
                     title : Text("Time"),
-                    subtitle : Text(ConsultasModel.apptTime == null ? "" : ConsultasModel.apptTime),
+                    subtitle : Text(consultasModel.apptTime == null ? "" : consultasModel.apptTime),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
@@ -153,8 +153,8 @@ class ConsultasForm extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (ConsultasModel.entityBeingEdited.apptTime != null) {
-      List timeParts = ConsultasModel.entityBeingEdited.apptTime.split(",");
+    if (consultasModel.entityBeingEdited.apptTime != null) {
+      List timeParts = consultasModel.entityBeingEdited.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,8 +165,8 @@ class ConsultasForm extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      ConsultasModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
-      ConsultasModel.setApptTime(picked.format(inContext));
+      consultasModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
+      consultasModel.setApptTime(picked.format(inContext));
     }
 
   } /* End _selectTime(). */
@@ -187,18 +187,18 @@ class ConsultasForm extends StatelessWidget {
       if (inModel.entityBeingEdited.id == null) {
 
         print("##108 ConsultasForm._save(): Creating: ${inModel.entityBeingEdited}");
-        await ConsultasDB.db.create(ConsultasModel.entityBeingEdited);
+        await ConsultasDB.db.create(consultasModel.entityBeingEdited);
 
       // Updating an existing appointment.
       } else {
 
         print("##109 ConsultasForm._save(): Updating: ${inModel.entityBeingEdited}");
-        await ConsultasDB.db.update(ConsultasModel.entityBeingEdited);
+        await ConsultasDB.db.update(consultasModel.entityBeingEdited);
 
       }
 
       // Reload data from database to update list.
-      ConsultasModel.loadData("Consultas", ConsultasDB.db);
+      consultasModel.loadData("Consultas", ConsultasDB.db);
 
       // Go back to the list view.
       inModel.setStackIndex(0);

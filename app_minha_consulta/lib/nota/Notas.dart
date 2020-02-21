@@ -18,7 +18,8 @@ class Notas extends StatelessWidget {
     print("##62 Notes.constructor");
 
     // Initial load of data.
-    notasModel.loadData("notes", NotasDB.db);
+    notasModel.loadData("notas", NotasDB.db);
+    //notasModel.loadData(inEntityType, inDatabase);
 
   } /* End constructor. */
 

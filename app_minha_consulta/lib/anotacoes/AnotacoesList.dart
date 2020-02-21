@@ -1,3 +1,4 @@
+import 'package:app_minha_consulta/anotacoes/Anotacoes.dart';
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
@@ -5,25 +6,25 @@ import "package:intl/intl.dart";
 import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
 import "package:flutter_calendar_carousel/classes/event.dart";
 import "package:flutter_calendar_carousel/classes/event_list.dart";
-import "ConsultasDB.dart";
-import "ConsultasModel.dart" show Consulta, ConsultasModel, consultasModel;
+import "AnotacoesDB.dart";
+import "AnotacoesModel.dart" show Anotacao, AnotacoesModel, anotacoesModel;
 
 /// ********************************************************************************************************************
-/// The Consulta, List sub-screen.
+/// The Anotacoess List sub-screen.
 /// ********************************************************************************************************************
-class ConsultasList extends StatelessWidget {
+class AnotacoesList extends StatelessWidget {
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##97 ConsultasList.build()");
+    print("##97 AnotacoesList.build()");
 
-    // The list of dates with Consulta,.
+    // The list of dates with anotacoess.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < consultasModel.entityList.length; i++) {
-      Consulta consulta = consultasModel.entityList[i];
-      List dateParts = consulta.apptDate.split(",");
+    for (int i = 0; i < anotacoesModel.entityList.length; i++) {
+      Anotacao anotacao = anotacoesModel.entityList[i];
+      List dateParts = anotacao.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
       _markedDateMap.add(
@@ -34,23 +35,23 @@ class ConsultasList extends StatelessWidget {
     }
 
     // Return widget.
-    return ScopedModel<ConsultasModel>(
-        model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(
+    return ScopedModel<AnotacoesModel>(
+        model: anotacoesModel,
+        child: ScopedModelDescendant<AnotacoesModel>(
             builder: (inContext, inChild, inModel) {
           return Scaffold(
-              // Add Consulta,
+              // Add anotacoes.
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () async {
-                    consultasModel.entityBeingEdited = Consulta();
+                    anotacoesModel.entityBeingEdited = Anotacoes();
                     DateTime now = DateTime.now();
-                    consultasModel.entityBeingEdited.apptDate =
+                    anotacoesModel.entityBeingEdited.apptDate =
                         "${now.year},${now.month},${now.day}";
-                    consultasModel.setChosenDate(
+                    anotacoesModel.setChosenDate(
                         DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                    consultasModel.setApptTime(null);
-                    consultasModel.setStackIndex(1);
+                    anotacoesModel.setApptTime(null);
+                    anotacoesModel.setStackIndex(1);
                   }),
               body: Column(children: [
                 Expanded(
@@ -62,7 +63,7 @@ class ConsultasList extends StatelessWidget {
                             markedDatesMap: _markedDateMap,
                             onDayPressed:
                                 (DateTime inDate, List<Event> inEvents) {
-                              _showConsulta(inDate, inContext);
+                              _showAnotacoess(inDate, inContext);
                             }) /* End CalendarCarousel. */
                         ) /* End Container. */
                     ) /* End Expanded. */
@@ -74,28 +75,27 @@ class ConsultasList extends StatelessWidget {
         ); /* End ScopedModel. */
   } /* End build(). */
 
-  /// Show a bottom sheet to see the Consulta, for the selected day.
+  /// Show a bottom sheet to see the anotacoess for the selected day.
   ///
   /// @param inDate    The date selected.
   /// @param inContext The build context of the parent widget.
-  void _showConsulta(DateTime inDate, BuildContext inContext) async {
+  void _showAnotacoess(DateTime inDate, BuildContext inContext) async {
     print(
-        "##98 Consulta,List._showConsulta,(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
+        "##98 AnotacoessList._showAnotacoess(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
 
-    print(
-        "##99 Consulta,List._showConsulta,(): consultasModel.entityList.length = "
-        "${consultasModel.entityList.length}");
-    print("##100 Consulta,List._showConsulta,(): consultasModel.entityList = "
-        "${consultasModel.entityList}");
+    print("##99 AnotacoessList._showAnotacoess(): "
+        "anotacoesModel.entityList.length = ${anotacoesModel.entityList.length}");
+    print("##100 AnotacoessList._showAnotacoess(): "
+        "anotacoesModel.entityList = ${anotacoesModel.entityList}");
 
     showModalBottomSheet(
         context: inContext,
         builder: (BuildContext inContext) {
-          return ScopedModel<ConsultasModel>(
-              model: consultasModel,
-              child: ScopedModelDescendant<ConsultasModel>(builder:
+          return ScopedModel<AnotacoesModel>(
+              model: anotacoesModel,
+              child: ScopedModelDescendant<AnotacoesModel>(builder:
                       (BuildContext inContext, Widget inChild,
-                          ConsultasModel inModel) {
+                          AnotacoesModel inModel) {
                 return Scaffold(
                     body: Container(
                         child: Padding(
@@ -113,33 +113,34 @@ class ConsultasList extends StatelessWidget {
                               Expanded(
                                   child: ListView.builder(
                                       itemCount:
-                                          consultasModel.entityList.length,
+                                          anotacoesModel.entityList.length,
                                       itemBuilder: (BuildContext inBuildContext,
                                           int inIndex) {
-                                        Consulta consulta =
-                                            consultasModel.entityList[inIndex];
+                                        Anotacao anotacao =
+                                            anotacoesModel.entityList[inIndex];
                                         print(
-                                            "##101 Consulta.List._showConsulta().ListView.builder(): Consulta = $Consulta");
-                                        // Filter out any Consulta,that isn't for the specified date.
-                                        if (consulta.apptDate !=
+                                            "##101 AnotacoessList._showAnotacao().ListView.builder(): "
+                                            "anotacao = $anotacao");
+                                        // Filter out any anotacoes that isn't for the specified date.
+                                        if (anotacao.apptDate !=
                                             "${inDate.year},${inDate.month},${inDate.day}") {
                                           return Container(height: 0);
                                         }
                                         print(
-                                            "##102 ConsultasList._showConsulta().ListView.builder(): "
-                                            "INCLUDING Consulta = $Consulta");
-                                        // If the Consulta,has a time, format it for display.
+                                            "##102 AnotacoessList._showAnotacoess().ListView.builder(): "
+                                            "INCLUDING Anotacao = $Anotacao");
+                                        // If the anotacoes has a time, format it for display.
                                         String apptTime = "";
-                                        if (consulta.apptTime != null) {
+                                        if (anotacao.apptTime != null) {
                                           List timeParts =
-                                              consulta.apptTime.split(",");
+                                              anotacao.apptTime.split(",");
                                           TimeOfDay at = TimeOfDay(
                                               hour: int.parse(timeParts[0]),
                                               minute: int.parse(timeParts[1]));
                                           apptTime =
                                               " (${at.format(inContext)})";
                                         }
-                                        // Return a widget for the Consulta,since it's for the correct date.
+                                        // Return a widget for the anotacoes since it's for the correct date.
                                         return Slidable(
                                             actionPane:
                                                 SlidableBehindActionPane(), //delegate : SlidableDrawerDelegate(),
@@ -150,26 +151,26 @@ class ConsultasList extends StatelessWidget {
                                                 color: Colors.grey.shade300,
                                                 child: ListTile(
                                                     title: Text(
-                                                        "${consulta.title}$apptTime"),
-                                                    subtitle: consulta
+                                                        "${anotacao.title}$apptTime"),
+                                                    subtitle: anotacao
                                                                 .description ==
                                                             null
                                                         ? null
                                                         : Text(
-                                                            "${consulta.description}"),
-                                                    // Edit existing Consulta,
+                                                            "${anotacao.description}"),
+                                                    // Edit existing anotacoes.
                                                     onTap: () async {
-                                                      _editConsulta(
-                                                          inContext, consulta);
+                                                      _editAnotacao(
+                                                          inContext, anotacao);
                                                     })),
                                             secondaryActions: [
                                               IconSlideAction(
-                                                caption: "Delete",
-                                                color: Colors.red,
-                                                icon: Icons.delete,
-                                                onTap: () => _deleteConsulta(
-                                                    inBuildContext, consulta),
-                                              )
+                                                  caption: "Delete",
+                                                  color: Colors.red,
+                                                  icon: Icons.delete,
+                                                  onTap: () => _deleteAnotacao(
+                                                      inBuildContext,
+                                                      anotacao))
                                             ]); /* End Slidable. */
                                       } /* End itemBuilder. */
                                       ) /* End ListView.builder. */
@@ -185,59 +186,60 @@ class ConsultasList extends StatelessWidget {
               ); /* End ScopedModel(). */
         } /* End dialog.builder. */
         ); /* End showModalBottomSheet(). */
-  } /* End _showConsulta,(). */
+  } /* End _showAnotacoess(). */
 
-  /// Handle taps on an Consulta,to trigger editing.
+  /// Handle taps on an anotacoes to trigger editing.
   ///
   /// @param inContext     The BuildContext of the parent widget.
-  /// @param inConsulta,The Consulta,being edited.
-  void _editConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##103 ConsultasList._editConsulta: inConsulta = $inConsulta");
+  /// @param inAnotacao The Anotacoes being edited.
+  void _editAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
+    print("##103 AnotacoessList._editAnotacao(): inAnotacao = $inAnotacao");
 
     // Get the data from the database and send to the edit view.
-    // consultasModel.entityBeingEdited = await ConsultasDB.db.get(inConsulta,id);
+    anotacoesModel.entityBeingEdited = await AnotacoesDB.db.get(inAnotacao.id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (consultasModel.entityBeingEdited.apptDate == null) {
-      consultasModel.setChosenDate(null);
+    if (anotacoesModel.entityBeingEdited.apptDate == null) {
+      anotacoesModel.setChosenDate(null);
     } else {
-      List dateParts = consultasModel.entityBeingEdited.apptDate.split(",");
+      List dateParts = anotacoesModel.entityBeingEdited.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
-      consultasModel
+      anotacoesModel
           .setChosenDate(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
-    if (consultasModel.entityBeingEdited.apptTime == null) {
-      consultasModel.setApptTime(null);
+    if (anotacoesModel.entityBeingEdited.apptTime == null) {
+      anotacoesModel.setApptTime(null);
     } else {
-      List timeParts = consultasModel.entityBeingEdited.apptTime.split(",");
+      List timeParts = anotacoesModel.entityBeingEdited.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
           hour: int.parse(timeParts[0]), minute: int.parse(timeParts[1]));
-      consultasModel.setApptTime(apptTime.format(inContext));
+      anotacoesModel.setApptTime(apptTime.format(inContext));
     }
-    consultasModel.setStackIndex(1);
+    anotacoesModel.setStackIndex(1);
     Navigator.pop(inContext);
-  } /* End _editConsulta, */
+  } /* End _editAnotacao. */
 
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext     The parent build context.
-  /// @param  inConsulta,The Consulta,(potentially) being deleted.
+  /// @param  inAnotacao The anotacoes (potentially) being deleted.
   /// @return               Future.
-  Future _deleteConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##104 ConsultasList._deleteConsulta: inConsulta = $inConsulta");
+  Future _deleteAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
+    print(
+        "##104 AnotacoessList._deleteAnotacao(): inAnotacao = $inAnotacao");
 
     return showDialog(
         context: inContext,
         barrierDismissible: false,
         builder: (BuildContext inAlertContext) {
           return AlertDialog(
-              title: Text("Delete Consulta"),
+              title: Text("Excluir Anotação"),
               content:
-                  Text("Are you sure you want to delete ${inConsulta.title}?"),
+                  Text("Are you sure you want to delete ${inAnotacao.title}?"),
               actions: [
                 FlatButton(
-                    child: Text("Cancel"),
+                    child: Text("Cancelar"),
                     onPressed: () {
                       // Just hide dialog.
                       Navigator.of(inAlertContext).pop();
@@ -246,17 +248,17 @@ class ConsultasList extends StatelessWidget {
                     child: Text("Delete"),
                     onPressed: () async {
                       // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                      await ConsultasDB.db.delete(inConsulta.id);
+                      await AnotacoesDB.db.delete(inAnotacao.id);
                       Navigator.of(inAlertContext).pop();
                       Scaffold.of(inContext).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
-                          content: Text("Consulta excluida")));
+                          content: Text("Anotacoes deleted")));
                       // Reload data from database to update list.
-                      consultasModel.loadData("consulta", ConsultasDB.db);
+                      anotacoesModel.loadData("anotacoess", AnotacoesDB.db);
                     })
               ]);
         });
-  } /* End _deleteConsulta,). */
+  } /* End _deleteAnotacao(). */
 
 } /* End class. */

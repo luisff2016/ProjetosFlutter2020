@@ -1,11 +1,10 @@
-import 'package:app_minha_consulta/medicacao/Medicacao.dart';
 import 'package:flutter/material.dart';
 
 import 'anotacoes/Anotacoes.dart';
 import 'contato/Contatos.dart';
-import 'notas/Notas.dart';
-
-
+import 'medicamento/Medicamentos.dart';
+import 'nota/Notas.dart';
+import 'view/home_page.dart';
 
 class MinhaConsulta extends StatelessWidget {
   /// The build() method.
@@ -34,13 +33,13 @@ class MinhaConsulta extends StatelessWidget {
                 /* End AppBar. */
                 body: TabBarView(children: [
                   //Teste(),
-                  Anotacao(),
+                  HomePage(),//Anotacoes(),
                   //Teste(),
-                  Contato(),
+                  Contatos(),
                   //Teste(),
-                  Nota(),
+                  Notas(),
                   //Teste(),
-                  Medicacao(),
+                  Medicamentos(),
                 ] /* End TabBarView.children. */
                     ) /* End TabBarView. */
                 ) /* End Scaffold. */
