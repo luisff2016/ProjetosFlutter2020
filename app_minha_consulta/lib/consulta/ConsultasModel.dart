@@ -2,16 +2,13 @@ import "../BaseModel.dart";
 
 
 /// A class representing this PIM entity type.
-class Appointment {
-
-
+class Consulta {
   /// The fields this entity type contains.
   int id;
   String title;
   String description;
   String apptDate; // YYYY,MM,DD
   String apptTime; // HH,MM
-
 
   /// Just for debugging, so we get something useful in the console.
   String toString() {
@@ -25,16 +22,16 @@ class Appointment {
 /// ********************************************************************************************************************
 /// The model backing this entity type's views.
 /// ********************************************************************************************************************
-class AppointmentsModel extends BaseModel {
+class ConsultasModel extends BaseModel {
 
 
-  /// The appointment time.  Needed to be able to display what the user picks in the Text widget on the entry screen.
+  /// The Consulta time.  Needed to be able to display what the user picks in the Text widget on the entry screen.
   String apptTime;
 
 
-  /// For display of the appointment time chosen by the user.
+  /// For display of the Consulta time chosen by the user.
   ///
-  /// @param inApptTime The appointment date in HH:MM form.
+  /// @param inApptTime The Consulta date in HH:MM form.
   void setApptTime(String inApptTime) {
 
     apptTime = inApptTime;
@@ -47,4 +44,4 @@ class AppointmentsModel extends BaseModel {
 
 
 // The one and only instance of this model.
-AppointmentsModel appointmentsModel = AppointmentsModel();
+ConsultasModel consultasModel = ConsultasModel();

@@ -1,20 +1,20 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "AppointmentsDBWorker.dart";
-import "AppointmentsList.dart";
-import "AppointmentsEntry.dart";
-import "AppointmentsModel.dart" show AppointmentsModel, appointmentsModel;
+import "ArquivosDB.dart";
+import "ArquivosList.dart";
+import "ArquivosForm.dart";
+import "ArquivosModel.dart" show ArquivosModel, arquivosModel;
 
 /// ********************************************************************************************************************
-/// The Appointments screen.
+/// The Arquivos screen.
 /// ********************************************************************************************************************
-class Appointments extends StatelessWidget {
+class Arquivos extends StatelessWidget {
   /// Constructor.
-  Appointments() {
-    print("##140 Appointments.constructor");
+  Arquivos() {
+    print("##140 Arquivos.constructor");
 
     // Initial load of data.
-    appointmentsModel.loadData("appointments", AppointmentsDBWorker.db);
+    arquivosModel.loadData("arquivos", ArquivosDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -22,16 +22,16 @@ class Appointments extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##141 Appointments.build()");
+    print("##141 Arquivos.build()");
 
-    return ScopedModel<AppointmentsModel>(
-        model: appointmentsModel,
-        child: ScopedModelDescendant<AppointmentsModel>(builder:
+    return ScopedModel<ArquivosModel>(
+        model: arquivosModel,
+        child: ScopedModelDescendant<ArquivosModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    AppointmentsModel inModel) {
+                    ArquivosModel inModel) {
           return IndexedStack(index: inModel.stackIndex, children: [
-            AppointmentsList(),
-            AppointmentsEntry()
+            ArquivosList(),
+            ArquivosForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */

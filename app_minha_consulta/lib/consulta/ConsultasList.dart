@@ -5,14 +5,14 @@ import "package:intl/intl.dart";
 import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
 import "package:flutter_calendar_carousel/classes/event.dart";
 import "package:flutter_calendar_carousel/classes/event_list.dart";
-import "AppointmentsDBWorker.dart";
-import "AppointmentsModel.dart" show Appointment, AppointmentsModel, appointmentsModel;
+import "ConsultasDB.dart";
+import "ConsultasModel.dart" show Consulta, ConsultasModel, consultasModel;
 
 
 /// ********************************************************************************************************************
-/// The Appointments List sub-screen.
+/// The Consulta, List sub-screen.
 /// ********************************************************************************************************************
-class AppointmentsList extends StatelessWidget {
+class ConsultasList extends StatelessWidget {
 
 
   /// The build() method.
@@ -21,13 +21,13 @@ class AppointmentsList extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##97 AppointmentssList.build()");
+    print("##97 ConsultasList.build()");
 
-    // The list of dates with appointments.
+    // The list of dates with Consulta,.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < appointmentsModel.entityList.length; i++) {
-      Appointment appointment = appointmentsModel.entityList[i];
-      List dateParts = appointment.apptDate.split(",");
+    for (int i = 0; i < consultasModel.entityList.length; i++) {
+      Consulta,Consulta,= consultasModel.entityList[i];
+      List dateParts = Consulta,apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2]));
       _markedDateMap.add(
         apptDate, Event(date : apptDate, icon : Container(decoration : BoxDecoration(color : Colors.blue)))
@@ -35,21 +35,21 @@ class AppointmentsList extends StatelessWidget {
     }
 
     // Return widget.
-    return ScopedModel<AppointmentsModel>(
-      model : appointmentsModel,
-      child : ScopedModelDescendant<AppointmentsModel>(
+    return ScopedModel<ConsultasModel>(
+      model : consultasModel,
+      child : ScopedModelDescendant<ConsultasModel>(
         builder : (inContext, inChild, inModel) {
           return Scaffold(
-            // Add appointment.
+            // Add Consulta,
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),
               onPressed : () async {
-                appointmentsModel.entityBeingEdited = Appointment();
+                consultasModel.entityBeingEdited = Consulta();
                 DateTime now = DateTime.now();
-                appointmentsModel.entityBeingEdited.apptDate = "${now.year},${now.month},${now.day}";
-                appointmentsModel.setChosenDate(DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                appointmentsModel.setApptTime(null);
-                appointmentsModel.setStackIndex(1);
+                consultasModel.entityBeingEdited.apptDate = "${now.year},${now.month},${now.day}";
+                consultasModel.setChosenDate(DateFormat.yMMMMd("en_US").format(now.toLocal()));
+                consultasModel.setApptTime(null);
+                consultasModel.setStackIndex(1);
               }
             ),
               body : Column(
@@ -62,7 +62,7 @@ class AppointmentsList extends StatelessWidget {
                       daysHaveCircularBorder : false,
                       markedDatesMap : _markedDateMap,
                       onDayPressed : (DateTime inDate, List<Event> inEvents) {
-                        _showAppointments(inDate, inContext);
+                        _showConsulta,(inDate, inContext);
                       }
                     ) /* End CalendarCarousel. */
                   ) /* End Container. */
@@ -77,28 +77,28 @@ class AppointmentsList extends StatelessWidget {
   } /* End build(). */
 
 
-  /// Show a bottom sheet to see the appointments for the selected day.
+  /// Show a bottom sheet to see the Consulta, for the selected day.
   ///
   /// @param inDate    The date selected.
   /// @param inContext The build context of the parent widget.
-  void _showAppointments(DateTime inDate, BuildContext inContext) async {
+  void _showConsulta,(DateTime inDate, BuildContext inContext) async {
 
     print(
-      "##98 AppointmentsList._showAppointments(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})"
+      "##98 Consulta,List._showConsulta,(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})"
     );
 
-    print("##99 AppointmentsList._showAppointments(): appointmentsModel.entityList.length = "
-      "${appointmentsModel.entityList.length}");
-    print("##100 AppointmentsList._showAppointments(): appointmentsModel.entityList = "
-      "${appointmentsModel.entityList}");
+    print("##99 Consulta,List._showConsulta,(): consultasModel.entityList.length = "
+      "${consultasModel.entityList.length}");
+    print("##100 Consulta,List._showConsulta,(): consultasModel.entityList = "
+      "${consultasModel.entityList}");
 
     showModalBottomSheet(
       context : inContext,
       builder : (BuildContext inContext) {
-        return ScopedModel<AppointmentsModel>(
-          model : appointmentsModel,
-          child : ScopedModelDescendant<AppointmentsModel>(
-            builder : (BuildContext inContext, Widget inChild, AppointmentsModel inModel) {
+        return ScopedModel<consultasModel>(
+          model : consultasModel,
+          child : ScopedModelDescendant<consultasModel>(
+            builder : (BuildContext inContext, Widget inChild, consultasModel inModel) {
               return Scaffold(
                 body : Container(
                   child : Padding(
@@ -114,27 +114,27 @@ class AppointmentsList extends StatelessWidget {
                           Divider(),
                           Expanded(
                             child : ListView.builder(
-                              itemCount : appointmentsModel.entityList.length,
+                              itemCount : consultasModel.entityList.length,
                               itemBuilder : (BuildContext inBuildContext, int inIndex) {
-                                Appointment appointment = appointmentsModel.entityList[inIndex];
-                                print("##101 AppointmentsList._showAppointments().ListView.builder(): "
-                                  "appointment = $appointment");
-                                // Filter out any appointment that isn't for the specified date.
-                                if (appointment.apptDate != "${inDate.year},${inDate.month},${inDate.day}") {
+                                Consulta,Consulta,= consultasModel.entityList[inIndex];
+                                print("##101 Consulta,List._showConsulta,().ListView.builder(): "
+                                  "Consulta,= $Consulta,);
+                                // Filter out any Consulta,that isn't for the specified date.
+                                if (Consulta,apptDate != "${inDate.year},${inDate.month},${inDate.day}") {
                                   return Container(height : 0);
                                 }
-                                print("##102 AppointmentsList._showAppointments().ListView.builder(): "
-                                  "INCLUDING appointment = $appointment");
-                                // If the appointment has a time, format it for display.
+                                print("##102 Consulta,List._showConsulta,().ListView.builder(): "
+                                  "INCLUDING Consulta,= $Consulta,);
+                                // If the Consulta,has a time, format it for display.
                                 String apptTime = "";
-                                if (appointment.apptTime != null) {
-                                  List timeParts = appointment.apptTime.split(",");
+                                if (Consulta,apptTime != null) {
+                                  List timeParts = Consulta,apptTime.split(",");
                                   TimeOfDay at = TimeOfDay(
                                     hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1])
                                   );
                                   apptTime = " (${at.format(inContext)})";
                                 }
-                                // Return a widget for the appointment since it's for the correct date.
+                                // Return a widget for the Consulta,since it's for the correct date.
                                 return Slidable(
                                   actionPane: SlidableBehindActionPane(),//delegate : SlidableDrawerDelegate(),
                                   actionExtentRatio : .25,
@@ -142,11 +142,11 @@ class AppointmentsList extends StatelessWidget {
                                   margin : EdgeInsets.only(bottom : 8),
                                     color : Colors.grey.shade300,
                                     child : ListTile(
-                                      title : Text("${appointment.title}$apptTime"),
-                                      subtitle : appointment.description == null ?
-                                        null : Text("${appointment.description}"),
-                                      // Edit existing appointment.
-                                      onTap : () async { _editAppointment(inContext, appointment); }
+                                      title : Text("${Consulta,title}$apptTime"),
+                                      subtitle : Consulta,description == null ?
+                                        null : Text("${Consulta,description}"),
+                                      // Edit existing Consulta,
+                                      onTap : () async { _editConsulta,inContext, Consulta,; }
                                     )
                                   ),
                                   secondaryActions : [
@@ -154,7 +154,7 @@ class AppointmentsList extends StatelessWidget {
                                       caption : "Delete",
                                       color : Colors.red,
                                       icon : Icons.delete,
-                                      onTap : () => _deleteAppointment(inBuildContext, appointment)
+                                      onTap : () => _deleteConsulta,inBuildContext, Consulta,
                                     )
                                   ]
                                 ); /* End Slidable. */
@@ -173,63 +173,63 @@ class AppointmentsList extends StatelessWidget {
       } /* End dialog.builder. */
     ); /* End showModalBottomSheet(). */
 
-  } /* End _showAppointments(). */
+  } /* End _showConsulta,(). */
 
 
-  /// Handle taps on an appointment to trigger editing.
+  /// Handle taps on an Consulta,to trigger editing.
   ///
   /// @param inContext     The BuildContext of the parent widget.
-  /// @param inAppointment The Appointment being edited.
-  void _editAppointment(BuildContext inContext, Appointment inAppointment) async {
+  /// @param inConsulta,The Consulta,being edited.
+  void _editConsulta,BuildContext inContext, Consulta,inConsulta, async {
 
-    print("##103 AppointmentsList._editAppointment(): inAppointment = $inAppointment");
+    print("##103 Consulta,List._editConsulta,): inConsulta,= $inConsulta,);
 
     // Get the data from the database and send to the edit view.
-    appointmentsModel.entityBeingEdited = await AppointmentsDBWorker.db.get(inAppointment.id);
+    consultasModel.entityBeingEdited = await ConsultasDB.db.get(inConsulta,id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (appointmentsModel.entityBeingEdited.apptDate == null) {
-      appointmentsModel.setChosenDate(null);
+    if (consultasModel.entityBeingEdited.apptDate == null) {
+      consultasModel.setChosenDate(null);
     } else {
-      List dateParts = appointmentsModel.entityBeingEdited.apptDate.split(",");
+      List dateParts = consultasModel.entityBeingEdited.apptDate.split(",");
       DateTime apptDate = DateTime(
         int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2])
       );
-      appointmentsModel.setChosenDate(
+      consultasModel.setChosenDate(
         DateFormat.yMMMMd("en_US").format(apptDate.toLocal())
       );
     }
-    if (appointmentsModel.entityBeingEdited.apptTime == null) {
-      appointmentsModel.setApptTime(null);
+    if (consultasModel.entityBeingEdited.apptTime == null) {
+      consultasModel.setApptTime(null);
     } else {
-      List timeParts = appointmentsModel.entityBeingEdited.apptTime.split(",");
+      List timeParts = consultasModel.entityBeingEdited.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
         hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1])
       );
-      appointmentsModel.setApptTime(apptTime.format(inContext));
+      consultasModel.setApptTime(apptTime.format(inContext));
     }
-    appointmentsModel.setStackIndex(1);
+    consultasModel.setStackIndex(1);
     Navigator.pop(inContext);
 
-  } /* End _editAppointment. */
+  } /* End _editConsulta, */
 
 
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext     The parent build context.
-  /// @param  inAppointment The appointment (potentially) being deleted.
+  /// @param  inConsulta,The Consulta,(potentially) being deleted.
   /// @return               Future.
-  Future _deleteAppointment(BuildContext inContext, Appointment inAppointment) async {
+  Future _deleteConsulta,BuildContext inContext, Consulta,inConsulta, async {
 
-    print("##104 AppointmentsList._deleteAppointment(): inAppointment = $inAppointment");
+    print("##104 Consulta,List._deleteConsulta,): inConsulta,= $inConsulta,);
 
     return showDialog(
       context : inContext,
       barrierDismissible : false,
       builder : (BuildContext inAlertContext) {
         return AlertDialog(
-          title : Text("Delete Appointment"),
-          content : Text("Are you sure you want to delete ${inAppointment.title}?"),
+          title : Text("Delete Consulta,),
+          content : Text("Are you sure you want to delete ${inConsulta,title}?"),
           actions : [
             FlatButton(child : Text("Cancel"),
               onPressed: () {
@@ -240,17 +240,17 @@ class AppointmentsList extends StatelessWidget {
             FlatButton(child : Text("Delete"),
               onPressed : () async {
                 // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                await AppointmentsDBWorker.db.delete(inAppointment.id);
+                await ConsultasDB.db.delete(inConsulta,id);
                 Navigator.of(inAlertContext).pop();
                 Scaffold.of(inContext).showSnackBar(
                   SnackBar(
                     backgroundColor : Colors.red,
                     duration : Duration(seconds : 2),
-                    content : Text("Appointment deleted")
+                    content : Text("Consulta,deleted")
                   )
                 );
                 // Reload data from database to update list.
-                appointmentsModel.loadData("appointments", AppointmentsDBWorker.db);
+                consultasModel.loadData("Consulta,", ConsultasDB.db);
               }
             )
           ]
@@ -258,7 +258,7 @@ class AppointmentsList extends StatelessWidget {
       }
     );
 
-  } /* End _deleteAppointment(). */
+  } /* End _deleteConsulta,). */
 
 
 } /* End class. */

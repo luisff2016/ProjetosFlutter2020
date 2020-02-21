@@ -2,14 +2,14 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "../utils.dart" as utils;
-import "AppointmentsDBWorker.dart";
-import "AppointmentsModel.dart" show AppointmentsModel, appointmentsModel;
+import "ArquivosDB.dart";
+import "ArquivosModel.dart" show ArquivosModel, arquivosModel;
 
 
 /// ********************************************************************************************************************
-/// The Appointments Entry sub-screen.
+/// The Arquivos Entry sub-screen.
 /// ********************************************************************************************************************
-class AppointmentsEntry extends StatelessWidget {
+class ArquivosForm extends StatelessWidget {
 
 
   /// Controllers for TextFields.
@@ -22,16 +22,16 @@ class AppointmentsEntry extends StatelessWidget {
 
 
   /// Constructor.
-  AppointmentsEntry() {
+  ArquivosForm() {
 
-    print("##105 AppointmentsEntry.constructor");
+    print("##105 ArquivosForm.constructor");
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      appointmentsModel.entityBeingEdited.title = _titleEditingController.text;
+      arquivosModel.entityBeingEdited.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      appointmentsModel.entityBeingEdited.description = _descriptionEditingController.text;
+      arquivosModel.entityBeingEdited.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -43,17 +43,17 @@ class AppointmentsEntry extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##106 AppointmentsEntry.build()");
+    print("##106 ArquivosForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = appointmentsModel.entityBeingEdited.title;
-    _descriptionEditingController.text = appointmentsModel.entityBeingEdited.description;
+    _titleEditingController.text = arquivosModel.entityBeingEdited.title;
+    _descriptionEditingController.text = arquivosModel.entityBeingEdited.description;
 
     // Return widget.
     return ScopedModel(
-      model : appointmentsModel,
-      child : ScopedModelDescendant<AppointmentsModel>(
-        builder : (BuildContext inContext, Widget inChild, AppointmentsModel inModel) {
+      model : arquivosModel,
+      child : ScopedModelDescendant<ArquivosModel>(
+        builder : (BuildContext inContext, Widget inChild, ArquivosModel inModel) {
           return Scaffold(
             bottomNavigationBar : Padding(
               padding : EdgeInsets.symmetric(vertical : 0, horizontal : 10),
@@ -71,7 +71,7 @@ class AppointmentsEntry extends StatelessWidget {
                   Spacer(),
                   FlatButton(
                     child : Text("Save"),
-                    onPressed : () { _save(inContext, appointmentsModel); }
+                    onPressed : () { _save(inContext, arquivosModel); }
                   )
                 ]
               )
@@ -106,17 +106,17 @@ class AppointmentsEntry extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(appointmentsModel.chosenDate == null ? "" : appointmentsModel.chosenDate),
+                    subtitle : Text(arquivosModel.chosenDate == null ? "" : arquivosModel.chosenDate),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
                         String chosenDate = await utils.selectDate(
-                          inContext, appointmentsModel, appointmentsModel.entityBeingEdited.apptDate
+                          inContext, arquivosModel, arquivosModel.entityBeingEdited.apptDate
                         );
                         if (chosenDate != null) {
-                          appointmentsModel.entityBeingEdited.apptDate = chosenDate;
+                          arquivosModel.entityBeingEdited.apptDate = chosenDate;
                         }
                       }
                     )
@@ -125,7 +125,7 @@ class AppointmentsEntry extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.alarm),
                     title : Text("Time"),
-                    subtitle : Text(appointmentsModel.apptTime == null ? "" : appointmentsModel.apptTime),
+                    subtitle : Text(arquivosModel.apptTime == null ? "" : arquivosModel.apptTime),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
@@ -153,8 +153,8 @@ class AppointmentsEntry extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (appointmentsModel.entityBeingEdited.apptTime != null) {
-      List timeParts = appointmentsModel.entityBeingEdited.apptTime.split(",");
+    if (arquivosModel.entityBeingEdited.apptTime != null) {
+      List timeParts = arquivosModel.entityBeingEdited.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,8 +165,8 @@ class AppointmentsEntry extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      appointmentsModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
-      appointmentsModel.setApptTime(picked.format(inContext));
+      arquivosModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
+      arquivosModel.setApptTime(picked.format(inContext));
     }
 
   } /* End _selectTime(). */
@@ -175,10 +175,10 @@ class AppointmentsEntry extends StatelessWidget {
   /// Save this contact to the database.
   ///
   /// @param inContext The BuildContext of the parent widget.
-  /// @param inModel   The AppointmentsModel.
-  void _save(BuildContext inContext, AppointmentsModel inModel) async {
+  /// @param inModel   The ArquivosModel.
+  void _save(BuildContext inContext, ArquivosModel inModel) async {
 
-      print("##107 AppointmentsEntry._save()");
+      print("##107 ArquivosForm._save()");
 
       // Abort if form isn't valid.
       if (!_formKey.currentState.validate()) { return; }
@@ -186,19 +186,19 @@ class AppointmentsEntry extends StatelessWidget {
       // Creating a new appointment.
       if (inModel.entityBeingEdited.id == null) {
 
-        print("##108 AppointmentsEntry._save(): Creating: ${inModel.entityBeingEdited}");
-        await AppointmentsDBWorker.db.create(appointmentsModel.entityBeingEdited);
+        print("##108 ArquivosForm._save(): Creating: ${inModel.entityBeingEdited}");
+        await ArquivosDB.db.create(arquivosModel.entityBeingEdited);
 
       // Updating an existing appointment.
       } else {
 
-        print("##109 AppointmentsEntry._save(): Updating: ${inModel.entityBeingEdited}");
-        await AppointmentsDBWorker.db.update(appointmentsModel.entityBeingEdited);
+        print("##109 ArquivosForm._save(): Updating: ${inModel.entityBeingEdited}");
+        await ArquivosDB.db.update(arquivosModel.entityBeingEdited);
 
       }
 
       // Reload data from database to update list.
-      appointmentsModel.loadData("appointments", AppointmentsDBWorker.db);
+      arquivosModel.loadData("arquivos", ArquivosDB.db);
 
       // Go back to the list view.
       inModel.setStackIndex(0);

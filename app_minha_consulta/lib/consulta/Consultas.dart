@@ -25,7 +25,7 @@ class Consultas extends StatelessWidget {
     print("##141 Consultas.build()");
 
     return ScopedModel<ConsultasModel>(
-        model: ConsultasModel,
+        model: consultasModel,
         child: ScopedModelDescendant<ConsultasModel>(builder:
                 (BuildContext inContext, Widget inChild,
                     ConsultasModel inModel) {

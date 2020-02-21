@@ -1,18 +1,18 @@
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
 import "../utils.dart" as utils;
-import "AppointmentsModel.dart";
+import "ConsultasModel.dart";
 
 
 /// ********************************************************************************************************************
-/// Database provider class for appointments.
+/// Database provider class for Consultas.
 /// ********************************************************************************************************************
-class AppointmentsDBWorker {
+class ConsultasDB {
 
 
   /// Static instance and private constructor, since this is a singleton.
-  AppointmentsDBWorker._();
-  static final AppointmentsDBWorker db = AppointmentsDBWorker._();
+  ConsultasDB._();
+  static final ConsultasDB db = ConsultasDB._();
 
 
   /// The one and only database instance.
@@ -28,7 +28,7 @@ if (_db == null) {
       print("##120 ERRO _db: null");
       _db = await init();
     }
-    print("##121 appointments AppointmentsDBWorker.get-database(): _db = $_db");
+    print("##121 Consultas ConsultasDB.get-database(): _db = $_db");
     return _db;
     }catch(e){
       print("##122 ERRO _db: try_catch($e)");
@@ -44,12 +44,12 @@ if (_db == null) {
   /// @return A Database instance.
   Future<Database> init() async {
 
-    String path = join(utils.docsDir.path, "appointments.db");
-    print("##123 appointments AppointmentsDBWorker.init(): path = $path");
+    String path = join(utils.docsDir.path, "Consultas.db");
+    print("##123 Consultas ConsultasDB.init(): path = $path");
     Database db = await openDatabase(path, version : 1, onOpen : (db) { },
       onCreate : (Database inDB, int inVersion) async {
         await inDB.execute(
-          "CREATE TABLE IF NOT EXISTS appointments ("
+          "CREATE TABLE IF NOT EXISTS consultas ("
             "id INTEGER PRIMARY KEY,"
             "title TEXT,"
             "description TEXT,"
@@ -64,94 +64,94 @@ if (_db == null) {
   } /* End init(). */
 
 
-  /// Create a Appointment from a Map.
-  Appointment appointmentFromMap(Map inMap) {
+  /// Create a consulta from a Map.
+  Consulta consultaFromMap(Map inMap) {
 
-    print("##124 appointments AppointmentsDBWorker.appointmentFromMap(): inMap = $inMap");
-    Appointment appointment = Appointment();
-    appointment.id = inMap["id"];
-    appointment.title = inMap["title"];
-    appointment.description = inMap["description"];
-    appointment.apptDate = inMap["apptDate"];
-    appointment.apptTime = inMap["apptTime"];
-    print("##125 appointments AppointmentsDBWorker.appointmentFromMap(): appointment = $appointment");
+    print("##124 Consultas ConsultasDB.consultaFromMap(): inMap = $inMap");
+    Consulta consulta = Consulta();
+    consulta.id = inMap["id"];
+    consulta.title = inMap["title"];
+    consulta.description = inMap["description"];
+    consulta.apptDate = inMap["apptDate"];
+    consulta.apptTime = inMap["apptTime"];
+    print("##125 Consultas ConsultasDB.consultaFromMap(): consulta = $consulta");
 
-    return appointment;
+    return consulta;
 
-  } /* End appointmentFromMap(); */
+  } /* End consultaFromMap(); */
 
 
-  /// Create a Map from a Appointment.
-  Map<String, dynamic> appointmentToMap(Appointment inAppointment) {
+  /// Create a Map from a consulta.
+  Map<String, dynamic> consultaToMap(Consulta inconsulta) {
 
-    print("##126 appointments AppointmentsDBWorker.appointmentToMap(): inAppointment = $inAppointment");
+    print("##126 Consultas ConsultasDB.consultaToMap(): inconsulta = $inconsulta");
     Map<String, dynamic> map = Map<String, dynamic>();
-    map["id"] = inAppointment.id;
-    map["title"] = inAppointment.title;
-    map["description"] = inAppointment.description;
-    map["apptDate"] = inAppointment.apptDate;
-    map["apptTime"] = inAppointment.apptTime;
-    print("##127 appointments AppointmentsDBWorker.appointmentToMap(): map = $map");
+    map["id"] = inconsulta.id;
+    map["title"] = inconsulta.title;
+    map["description"] = inconsulta.description;
+    map["apptDate"] = inconsulta.apptDate;
+    map["apptTime"] = inconsulta.apptTime;
+    print("##127 Consultas ConsultasDB.consultaToMap(): map = $map");
 
     return map;
 
-  } /* End appointmentToMap(). */
+  } /* End consultaToMap(). */
 
 
-  /// Create a appointment.
+  /// Create a consulta.
   ///
-  /// @param inAppointment the Appointment object to create.
-  Future create(Appointment inAppointment) async {
+  /// @param inconsulta the consulta object to create.
+  Future create(consulta inconsulta) async {
 
-    print("##128 appointments AppointmentsDBWorker.create(): inAppointment = $inAppointment");
+    print("##128 Consultas ConsultasDB.create(): inconsulta = $inconsulta");
 
     Database db = await database;
 
     // Get largest current id in the table, plus one, to be the new ID.
-    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM appointments");
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM Consultas");
     int id = val.first["id"];
     if (id == null) { id = 1; }
 
     // Insert into table.
     return await db.rawInsert(
-      "INSERT INTO appointments (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO Consultas (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
       [
         id,
-        inAppointment.title,
-        inAppointment.description,
-        inAppointment.apptDate,
-        inAppointment.apptTime
+        inconsulta.title,
+        inconsulta.description,
+        inconsulta.apptDate,
+        inconsulta.apptTime
       ]
     );
 
   } /* End create(). */
 
 
-  /// Get a specific appointment.
+  /// Get a specific consulta.
   ///
-  /// @param  inID The ID of the appointment to get.
-  /// @return      The corresponding Appointment object.
-  Future<Appointment> get(int inID) async {
+  /// @param  inID The ID of the consulta to get.
+  /// @return      The corresponding consulta object.
+  Future<consulta> get(int inID) async {
 
-    print("##129 appointments AppointmentsDBWorker.get(): inID = $inID");
+    print("##129 Consultas ConsultasDB.get(): inID = $inID");
 
     Database db = await database;
-    var rec = await db.query("appointments", where : "id = ?", whereArgs : [ inID ]);
-    print("##130 appointments AppointmentsDBWorker.get(): rec.first = $rec.first");
-    return appointmentFromMap(rec.first);
+    var rec = await db.query("Consultas", where : "id = ?", whereArgs : [ inID ]);
+    print("##130 Consultas ConsultasDB.get(): rec.first = $rec.first");
+    return consultaFromMap(rec.first);
 
   } /* End get(). */
 
 
-  /// Get all appointments.
+  /// Get all Consultas.
   ///
-  /// @return A List of Appointment objects.
+  /// @return A List of consulta objects.
   Future<List> getAll() async {
     try{
       Database db = await database;
-      var recs = await db.query("appointments");
-      var list = recs.isNotEmpty ? recs.map((m) => appointmentFromMap(m)).toList() : [ ];
-      print("##131 appointments AppointmentsDBWorker.getAll(): list = $list");
+      var recs = await db.query("Consultas");
+      var list = recs.isNotEmpty ? recs.map((m) => consultaFromMap(m)).toList() : [ ];
+      print("##131 Consultas ConsultasDB.getAll(): list = $list");
       return list;
     }catch(e){
       print("##132 ERRO getAll(): $e ");
@@ -160,30 +160,30 @@ if (_db == null) {
   } /* End getAll(). */
 
 
-  /// Update a appointment.
+  /// Update a consulta.
   ///
-  /// @param inAppointment The appointment to update.
-  Future update(Appointment inAppointment) async {
+  /// @param inconsulta The consulta to update.
+  Future update(consulta inconsulta) async {
 
-    print("##133 appointments AppointmentsDBWorker.update(): inAppointment = $inAppointment");
+    print("##133 Consultas ConsultasDB.update(): inconsulta = $inconsulta");
 
     Database db = await database;
     return await db.update(
-      "appointments", appointmentToMap(inAppointment), where : "id = ?", whereArgs : [ inAppointment.id ]
+      "Consultas", consultaToMap(inconsulta), where : "id = ?", whereArgs : [ inconsulta.id ]
     );
 
   } /* End update(). */
 
 
-  /// Delete a appointment.
+  /// Delete a consulta.
   ///
-  /// @param inID The ID of the appointment to delete.
+  /// @param inID The ID of the consulta to delete.
   Future delete(int inID) async {
 
-    print("##134 appointments AppointmentsDBWorker.delete(): inID = $inID");
+    print("##134 Consultas ConsultasDB.delete(): inID = $inID");
 
     Database db = await database;
-    return await db.delete("appointments", where : "id = ?", whereArgs : [ inID ]);
+    return await db.delete("Consultas", where : "id = ?", whereArgs : [ inID ]);
 
   } /* End delete(). */
 
