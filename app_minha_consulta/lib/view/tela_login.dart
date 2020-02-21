@@ -15,102 +15,109 @@ class _LoginPageState extends State<TelaLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 5.0,
-        backgroundColor: Colors.blue,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
         brightness: Brightness.light,
-        title: Text(
-          'MINHA CONSULTA - login',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-          textWidthBasis: TextWidthBasis.longestLine,
-        ),
       ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          children: <Widget>[
-            const SizedBox(height: 10.0),
-            Column(
-              children: <Widget>[
-                Container(
-                  height: 100,
-                  width: 500,
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-              ],
+      home: Scaffold(
+        appBar: AppBar(
+          elevation: 5.0,
+          backgroundColor: Colors.blue,
+          brightness: Brightness.light,
+          title: Text(
+            'MINHA CONSULTA - login',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 20.0),
-            PrimaryColorOverride(
-              color: Colors.blue,
-              child: Container(
-                child: TextField(
-                  controller: _usernameController,
-                  keyboardType: TextInputType.numberWithOptions(),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Prontuario',
+            textAlign: TextAlign.center,
+            textWidthBasis: TextWidthBasis.longestLine,
+          ),
+        ),
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            children: <Widget>[
+              const SizedBox(height: 10.0),
+              Column(
+                children: <Widget>[
+                  Container(
+                    height: 100,
+                    width: 500,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              PrimaryColorOverride(
+                color: Colors.blue,
+                child: Container(
+                  child: TextField(
+                    controller: _usernameController,
+                    keyboardType: TextInputType.numberWithOptions(),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Prontuario',
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12.0),
-            PrimaryColorOverride(
-              color: Colors.blue,
-              child: Container(
-                child: TextField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.numberWithOptions(),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Senha',
+              const SizedBox(height: 12.0),
+              PrimaryColorOverride(
+                color: Colors.blue,
+                child: Container(
+                  child: TextField(
+                    controller: _passwordController,
+                    keyboardType: TextInputType.numberWithOptions(),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Senha',
+                    ),
                   ),
                 ),
               ),
-            ),
-            Wrap(
-              children: <Widget>[
-                ButtonBar(
-                  alignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: const Text('ENTRAR'),
-                      elevation: 8.0,
-                      shape: const BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(7.0)),
+              Wrap(
+                children: <Widget>[
+                  ButtonBar(
+                    alignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RaisedButton(
+                        child: const Text('ENTRAR'),
+                        elevation: 8.0,
+                        shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
-                      },
-                    ),
-                    const SizedBox(width: 40.0),
-                    FlatButton(
-                      child: const Text('CANCELAR'),
-                      shape: const BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                      const SizedBox(width: 40.0),
+                      FlatButton(
+                        child: const Text('CANCELAR'),
+                        shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TelaLogin()));
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TelaLogin()));
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

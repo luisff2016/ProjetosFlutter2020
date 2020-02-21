@@ -1,18 +1,17 @@
-//import 'package:app_minha_consulta/anexos/app_hospital/hospital_main.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:app_minha_consulta/utils.dart' as utils;
+import 'minha_consulta.dart';
 
-import 'view/tela_login.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      brightness: Brightness.light,
-    ),
-    //home: HomePage(),
-    home: TelaLogin(),
-    //home: TabBarDemo(),
-  ));
+  //WidgetsFlutterBinding.ensureInitialized();
+  print("##1 main(): FlutterBook Starting");
+  startMeUp() async {
+    Directory docsDir = await getApplicationDocumentsDirectory();
+    utils.docsDir = docsDir;
+    runApp(MaterialApp(home: MinhaConsulta()));
+  }
+  startMeUp();
 }
