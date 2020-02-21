@@ -75,9 +75,7 @@ class NotasDB {
     map["title"] = inNota.title;
     map["content"] = inNota.content;
     map["color"] = inNota.color;
-
     print("##51 notas NotasDB.notaToMap(): map = $map");
-
     return map;
   } /* End notaToMap(). */
 
