@@ -67,7 +67,7 @@ class MedicamentosList extends StatelessWidget {
                       // Dim and strikethrough the text when the medicamento is completed.
                       style : medicamento.completed == "true" ?
                         TextStyle(color : Theme.of(inContext).disabledColor, decoration : TextDecoration.lineThrough) :
-                        TextStyle(color : Theme.of(inContext).textTheme.headline6.color)
+                        TextStyle(color : Theme.of(inContext).textTheme.headline.color)
                     ),
                     subtitle : medicamento.dueDate == null ?
                       null :
@@ -77,7 +77,7 @@ class MedicamentosList extends StatelessWidget {
                         style : medicamento.completed == "true" ?
                           TextStyle(color : Theme.of(inContext).disabledColor, decoration : TextDecoration.lineThrough)
                           :
-                          TextStyle(color : Theme.of(inContext).textTheme.headline6.color)
+                          TextStyle(color : Theme.of(inContext).textTheme.headline.color)
                       ),
                     // Edit existing medicamento.
                     onTap : () async {
