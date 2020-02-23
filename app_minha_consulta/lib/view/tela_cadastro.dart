@@ -22,7 +22,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
           Column(
             children: <Widget>[
               Container(
-                height: 100,
+                height: 75,
                 width: 500,
                 child: Image.asset(
                   'assets/images/logo.png',

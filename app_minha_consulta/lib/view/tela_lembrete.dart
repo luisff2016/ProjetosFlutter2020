@@ -19,31 +19,40 @@ class _TelaLembreteState extends State<TelaLembrete> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Image.asset("assets/images/detalhe_empresa.png"),
+                  Container(
+                    height: 75,
+                    width: 500,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       "Sobre a empresa",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.deepOrange
-                      ),
+                      style: TextStyle(fontSize: 20, color: Colors.deepOrange),
                     ),
-
                   )
                 ],
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                    +"escrever texto aqui ......."+"escrever texto aqui ......."
-                ),
+                child: Text("escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......." +
+                    "escrever texto aqui ......."),
               )
             ],
           ),

@@ -1,17 +1,18 @@
+import 'package:app_minha_consulta/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:app_minha_consulta/utils.dart' as utils;
-import 'minha_consulta.dart';
 
-
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print("##1 main(): FlutterBook Starting");
+  print("##001 main(): FlutterBook Starting");
   startMeUp() async {
     Directory docsDir = await getApplicationDocumentsDirectory();
     utils.docsDir = docsDir;
-    runApp(MaterialApp(home: MinhaConsulta()));
+    print("##002 main(): $docsDir !");
+    runApp(MaterialApp(home: HomePage()));
   }
+
   startMeUp();
 }

@@ -17,21 +17,23 @@ class _TelaConsultaState extends State<TelaConsulta> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Image.asset("imagens/detalhe_empresa.png"),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "Sobre a empresa",
-                      style: TextStyle(fontSize: 20, color: Colors.deepOrange),
-                    ),
-                  )
-                ],
+              Container(
+                height: 75,
+                width: 500,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Sobre a empresa",
+                  style: TextStyle(fontSize: 40, color: Colors.deepOrange),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("escrever texto aqui ......." +
+                child: Text("escrever texto aqui 123......." +
                     "escrever texto aqui ......." +
                     "escrever texto aqui ......." +
                     "escrever texto aqui ......." +
