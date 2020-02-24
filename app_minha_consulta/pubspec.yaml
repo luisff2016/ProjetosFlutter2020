@@ -34,7 +34,7 @@ dependencies:
   # dependencias de mediminder
   rxdart: ^0.22.0
   provider: ^3.0.0+1
-  shared_preferences: 0.5.2
+  shared_preferences: ^0.5.6+2
   flutter_local_notifications:
   flare_flutter:
     git: 

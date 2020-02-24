@@ -17,23 +17,19 @@ class _TelaHorarioState extends State<TelaHorario> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    height: 75,
-                    width: 500,
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "Sobre a empresa",
-                      style: TextStyle(fontSize: 20, color: Colors.deepOrange),
-                    ),
-                  )
-                ],
+              Container(
+                height: 75,
+                width: 500,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Sobre a empresa",
+                  style: TextStyle(fontSize: 20, color: Colors.deepOrange),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
