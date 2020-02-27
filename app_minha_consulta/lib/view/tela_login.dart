@@ -15,6 +15,7 @@ class _LoginPageState extends State<TelaLogin> {
 
   @override
   Widget build(BuildContext context) {
+    print("## TelaLogin: Iniciando a aplicacao");
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

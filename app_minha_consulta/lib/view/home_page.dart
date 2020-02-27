@@ -12,14 +12,19 @@ import 'package:app_minha_consulta/view/tela_menu.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+  
   
   @override
   Widget build(BuildContext context) {
+    print("## HomePage: Menu da aplicacao");
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -53,3 +58,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+/**
+ * var connection = new PostgreSQLConnection(
+    "localhost", 5432, "SistemaAGHU", 
+    username: "dart", password: "dart"
+    );
+    //await connection.open();
+ */
