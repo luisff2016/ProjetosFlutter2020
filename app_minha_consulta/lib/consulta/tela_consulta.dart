@@ -1,4 +1,3 @@
-import 'package:app_minha_consulta/consulta/Consultas.dart';
 import 'package:app_minha_consulta/consulta/ConsultasForm.dart';
 import 'package:app_minha_consulta/consulta/ConsultasList.dart';
 import 'package:flutter/material.dart';
