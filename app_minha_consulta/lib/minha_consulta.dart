@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'anotacoes/Anotacoes.dart';
 import 'contato/Contatos.dart';
 import 'medicamento/Medicamentos.dart';
 import 'nota/Notas.dart';

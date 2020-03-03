@@ -6,11 +6,10 @@ class TelaArquivo extends StatefulWidget {
 }
 
 class _TelaArquivoState extends State<TelaArquivo> {
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text("Arquivo"),
       ),
       body: SingleChildScrollView(
@@ -18,29 +17,27 @@ class _TelaArquivoState extends State<TelaArquivo> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Image.asset("images/medico.bmp"),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "Clientes",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.green
-                      ),
-                    ),
-
-                  )
-                ],
+              Container(
+                height: 75,
+                width: 500,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Clientes",
+                  style: TextStyle(fontSize: 20, color: Colors.green),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("Cliente premium" ),
+                child: Text("Cliente premium"),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("Cliente prata" ),
+                child: Text("Cliente prata"),
               ),
             ],
           ),
