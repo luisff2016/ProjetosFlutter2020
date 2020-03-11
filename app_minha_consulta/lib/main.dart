@@ -1,4 +1,5 @@
-import 'package:app_minha_consulta/teste.dart';
+//import 'package:app_minha_consulta/teste.dart';
+import 'package:app_minha_consulta/view/tela_login.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -11,7 +12,7 @@ Future<void> main() async {
     Directory docsDir = await getApplicationDocumentsDirectory();
     utils.docsDir = docsDir;
     print("##002 main(): $docsDir !");
-    runApp(MaterialApp(home: Teste()));
+    runApp(MaterialApp(home: TelaLogin()));
   }
 
   startMeUp();
