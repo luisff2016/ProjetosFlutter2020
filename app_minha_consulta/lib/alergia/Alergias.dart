@@ -19,7 +19,7 @@ class Alergia extends StatelessWidget {
 
     // Initial load of data.
     alergiasModel.loadData("alergia", AlergiasDB.db);
-    //nAlergiasModel.loadData(inEntityType, inDatabase);
+    
 
   } /* End constructor. */
 
