@@ -73,7 +73,7 @@ class MedicamentosList extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough)
                                   : TextStyle(
                                       color: Theme.of(inContext)
-                                          .textTheme.headline1.color)),
+                                          .textTheme.headline.color)),
                           subtitle: medicamento.dueDate == null
                               ? null
                               : Text(sDueDate,
@@ -86,7 +86,7 @@ class MedicamentosList extends StatelessWidget {
                                               TextDecoration.lineThrough)
                                       : TextStyle(
                                           color: Theme.of(inContext)
-                                              .textTheme.headline1.color)),
+                                              .textTheme.headline.color)),
                           // Edit existing medicamento.
                           onTap: () async {
                             // Can't edit a completed medicamento.
