@@ -1,6 +1,5 @@
 import "../BaseModel.dart";
 
-
 /// A class representing this PIM entity type.
 class Nota {
 
@@ -15,7 +14,6 @@ class Nota {
     return "{ id=$id, title=$title, content=$content, color=$color }";
   }
 
-
 } /* End class. */
 
 
@@ -24,26 +22,19 @@ class Nota {
 /// ****************************************************************************
 class NotasModel extends BaseModel {
 
-
   /// The color.  Needed to be able to display what the user picks in the Text widget on the entry screen.
   String color;
-
 
   /// For display of the color chosen by the user.
   ///
   /// @param inColor The color.
   void setColor(String inColor) {
-
     print("##37 NotesModel.setColor(): inColor = $inColor");
-
     color = inColor;
     notifyListeners();
-
   } /* End setColor(). */
-
 
 } /* End class. */
 
-
-// The one and only instance of this model.
+// Instancia unica segundo o padrao Singleton.
 NotasModel notasModel = NotasModel();
