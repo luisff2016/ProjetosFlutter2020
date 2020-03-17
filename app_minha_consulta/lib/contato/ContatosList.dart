@@ -30,6 +30,7 @@ class ContatosList extends StatelessWidget {
         builder : (BuildContext inContext, Widget inChild, ContatosModel inModel) {
           return Scaffold(
             // Add Contato.
+            backgroundColor: Colors.blueGrey,          
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),
               onPressed : () async {

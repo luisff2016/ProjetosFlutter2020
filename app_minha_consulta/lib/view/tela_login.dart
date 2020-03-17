@@ -1,8 +1,6 @@
-//import 'dart:html';
-
 import 'package:app_minha_consulta/view/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show Brightness, TextInputType;
 
 class TelaLogin extends StatefulWidget {
   @override
@@ -10,11 +8,15 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _LoginPageState extends State<TelaLogin> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _prontuarioController = TextEditingController();
+  final TextEditingController _cpfPacienteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    print("## TelaLogin: Iniciando a aplicacao");
+    // simular dados do banco para poder acessar a aplicacao
+    final String cpfBanco = "12345678912";
+    final String prontuarioBanco = "123456";
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -58,7 +60,7 @@ class _LoginPageState extends State<TelaLogin> {
                 color: Colors.blue,
                 child: Container(
                   child: TextField(
-                    controller: _usernameController,
+                    controller: _prontuarioController,
                     keyboardType: TextInputType.numberWithOptions(),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -72,11 +74,11 @@ class _LoginPageState extends State<TelaLogin> {
                 color: Colors.blue,
                 child: Container(
                   child: TextField(
-                    controller: _passwordController,
+                    controller: _cpfPacienteController,
                     keyboardType: TextInputType.numberWithOptions(),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Senha',
+                      labelText: 'CPF do paciente',
                     ),
                   ),
                 ),
@@ -93,10 +95,35 @@ class _LoginPageState extends State<TelaLogin> {
                           borderRadius: BorderRadius.all(Radius.circular(7.0)),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                          if (prontuarioBanco == _prontuarioController.text &&
+                              cpfBanco == _cpfPacienteController.text) {
+                            print("usuario reconhecido");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          } else {
+                            print("usuario nao reconhecido");
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text("erro de login"),
+                                content: Text("Tente novamente!"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TelaLogin()));
+                                      },
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              //barrierDismissible: false,
+                            );
+                          }
                         },
                       ),
                       const SizedBox(width: 40.0),

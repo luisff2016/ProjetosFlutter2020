@@ -1,11 +1,12 @@
 //import 'dart:math';
 
-import 'package:app_minha_consulta/view/tela_alergia.dart';
-import 'package:app_minha_consulta/view/tela_arquivo.dart';
-import 'package:app_minha_consulta/view/tela_consulta.dart';
-import 'package:app_minha_consulta/view/tela_contato.dart';
-import 'package:app_minha_consulta/view/tela_horario.dart';
-import 'package:app_minha_consulta/view/tela_lembrete.dart';
+import 'package:app_minha_consulta/alergia/AlergiasList.dart';
+import 'package:app_minha_consulta/arquivo/ArquivosList.dart';
+import 'package:app_minha_consulta/consulta/ConsultasList.dart';
+
+import 'package:app_minha_consulta/contato/ContatosList.dart';
+import 'package:app_minha_consulta/medicamento/MedicamentosList.dart';
+import 'package:app_minha_consulta/nota/NotasList.dart';
 import 'package:flutter/material.dart';
 
 class TelaMenu extends StatefulWidget {
@@ -14,41 +15,43 @@ class TelaMenu extends StatefulWidget {
 }
 
 class _TelaMenuState extends State<TelaMenu> {
+
   void _abrirConsulta() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaConsulta()));
+        context, MaterialPageRoute(builder: (context) => ConsultasList()));
   }
 
   void _abrirArquivo() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaArquivo()));
+        context, MaterialPageRoute(builder: (context) => ArquivosList()));
   }
 
   void _abrirContato() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaContato()));
+        context, MaterialPageRoute(builder: (context) => ContatosList()));
   }
 
-  void _abrirHorario() {
+  void _abrirMedicamento() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaHorario()));
+        context, MaterialPageRoute(builder: (context) => MedicamentosList()));
   }
 
-  void _abrirLembrete() {
+  void _abrirNota() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaLembrete()));
+        context, MaterialPageRoute(builder: (context) => NotasList()));
   }
 
   void _abrirAlergia() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaAlergia()));
+        context, MaterialPageRoute(builder: (context) => AlergiasList()));
   }
 
   @override
   Widget build(BuildContext context) {
+    print("## TelaMenu: ");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
           height: 75,
@@ -119,7 +122,7 @@ class _TelaMenuState extends State<TelaMenu> {
                 children: <Widget>[
                   Center(
                     child: GestureDetector(
-                      onTap: _abrirHorario,
+                      onTap: _abrirMedicamento,
                       child: Image.asset(
                         'assets/images/horacerta.png',
                         width: 100,
@@ -136,7 +139,7 @@ class _TelaMenuState extends State<TelaMenu> {
                 children: <Widget>[
                   Center(
                     child: GestureDetector(
-                      onTap: _abrirLembrete,
+                      onTap: _abrirNota,
                       child: Image.asset(
                         'assets/images/lembrete.png',
                         width: 100,

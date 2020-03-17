@@ -1,13 +1,14 @@
-import 'package:app_minha_consulta/anotacoes/Anotacoes.dart';
 import "package:flutter/material.dart";
-import "package:scoped_model/scoped_model.dart";
-import "package:flutter_slidable/flutter_slidable.dart";
-import "package:intl/intl.dart";
-import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
 import "package:flutter_calendar_carousel/classes/event.dart";
 import "package:flutter_calendar_carousel/classes/event_list.dart";
+import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
+import "package:flutter_slidable/flutter_slidable.dart";
+import "package:intl/intl.dart";
+import "package:scoped_model/scoped_model.dart";
+
 import "AnotacoesDB.dart";
 import "AnotacoesModel.dart" show Anotacao, AnotacoesModel, anotacoesModel;
+import 'Anotacoes.dart';
 
 /// ********************************************************************************************************************
 /// The Anotacoess List sub-screen.
@@ -169,8 +170,7 @@ class AnotacoesList extends StatelessWidget {
                                                   color: Colors.red,
                                                   icon: Icons.delete,
                                                   onTap: () => _deleteAnotacao(
-                                                      inBuildContext,
-                                                      anotacao))
+                                                      inBuildContext, anotacao))
                                             ]); /* End Slidable. */
                                       } /* End itemBuilder. */
                                       ) /* End ListView.builder. */
@@ -226,8 +226,7 @@ class AnotacoesList extends StatelessWidget {
   /// @param  inAnotacao The anotacoes (potentially) being deleted.
   /// @return               Future.
   Future _deleteAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
-    print(
-        "##104 AnotacoessList._deleteAnotacao(): inAnotacao = $inAnotacao");
+    print("##104 AnotacoessList._deleteAnotacao(): inAnotacao = $inAnotacao");
 
     return showDialog(
         context: inContext,

@@ -1,3 +1,4 @@
+import 'package:app_minha_consulta/consulta/tela_consulta.dart';
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
@@ -36,22 +37,17 @@ class ConsultasList extends StatelessWidget {
     // Return widget.
     return ScopedModel<ConsultasModel>(
         model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(
-            builder: (inContext, inChild, inModel) {
+        child: ScopedModelDescendant<ConsultasModel>(builder:
+                (BuildContext inContext, Widget inChild,
+                    ConsultasModel inModel) {
           return Scaffold(
               // Add Consulta,
               floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add, color: Colors.white),
-                  onPressed: () async {
-                    consultasModel.entityBeingEdited = Consulta();
-                    DateTime now = DateTime.now();
-                    consultasModel.entityBeingEdited.apptDate =
-                        "${now.year},${now.month},${now.day}";
-                    consultasModel.setChosenDate(
-                        DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                    consultasModel.setApptTime(null);
-                    consultasModel.setStackIndex(1);
-                  }),
+                child: Icon(Icons.add, color: Colors.white),
+                onPressed: () async {
+                  TelaConsulta();
+                },
+              ),
               body: Column(children: [
                 Expanded(
                     child: Container(
@@ -260,3 +256,18 @@ class ConsultasList extends StatelessWidget {
   } /* End _deleteConsulta,). */
 
 } /* End class. */
+
+/**
+ * FloatingActionButton(
+                  child: Icon(Icons.add, color: Colors.white),
+                  onPressed: () async {
+                    consultasModel.entityBeingEdited = Consulta();
+                    DateTime now = DateTime.now();
+                    consultasModel.entityBeingEdited.apptDate =
+                        "${now.year},${now.month},${now.day}";
+                    consultasModel.setChosenDate(
+                        DateFormat.yMMMMd("en_US").format(now.toLocal()));
+                    consultasModel.setApptTime(null);
+                    consultasModel.setStackIndex(1);
+                  }),
+ */
