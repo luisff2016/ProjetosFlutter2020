@@ -37,13 +37,14 @@ class ConsultasList extends StatelessWidget {
     // Return widget.
     return ScopedModel<ConsultasModel>(
         model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(
-            builder: (inContext, inChild, inModel) {
+        child: ScopedModelDescendant<ConsultasModel>(builder:
+                (BuildContext inContext, Widget inChild,
+                    ConsultasModel inModel) {
           return Scaffold(
               // Add Consulta,
               floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.add, color: Colors.white),
-                onPressed: () {
+                onPressed: () async {
                   TelaConsulta();
                 },
               ),
