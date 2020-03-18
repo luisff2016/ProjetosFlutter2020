@@ -21,7 +21,6 @@ class BaseModel extends Model {
   /// @param inDate The date in MM/DD/YYYY form.
   void setChosenDate(String inDate) {
     print("##9 BaseModel.setChosenDate(): inDate = $inDate");
-
     chosenDate = inDate;
     notifyListeners();
   } /* End setChosenDate(). */
@@ -31,26 +30,18 @@ class BaseModel extends Model {
   /// @param inEntityType The type of entity being loaded ("appointments", "contacts", "notes" or "tasks").
   /// @param inDatabase   The DBProvider.db instance for the entity.
   void loadData(String inEntityType, dynamic inDatabase) async {
-    try {
-      print("##10 ${inEntityType}Model.loadData()");
-
-      // Load entities from database.
-      
-      //entityList = await inDatabase.etAll();
-
-      // Notify listeners that the data is available so they can paint themselves.
-      notifyListeners();
-    } catch (e) {
-      print("##ERRO: $e !");
-    }
+    print("##10 ${inEntityType}Model.loadData()");
+    // Load entities from database.
+    entityList = await inDatabase.getAll();
+    // Notify listeners that the data is available so they can paint themselves.
+    notifyListeners();
   } /* End loadData(). */
 
   /// For navigating between entry and list views.
   ///
   /// @param inStackIndex The stack index to make current.
   void setStackIndex(int inStackIndex) {
-    print("##11 BaseModel.setStackIndex(): inStackIndex = $inStackIndex");
-
+    print("## BaseModel.setStackIndex(): inStackIndex = $inStackIndex");
     stackIndex = inStackIndex;
     notifyListeners();
   } /* End setStackIndex(). */

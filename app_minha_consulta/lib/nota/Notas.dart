@@ -15,7 +15,7 @@ class Notas extends StatelessWidget {
   /// Constructor.
   Notas() {
 
-    print("##62 Notes.constructor");
+    print("## Notas Notas.constructor");
 
     // Initial load of data.
     notasModel.loadData("notas", NotasDB.db);
@@ -30,7 +30,7 @@ class Notas extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##63 Notes.build()");
+    print("## Notas Notes.build()");
 
     return ScopedModel<NotasModel>(
       model : notasModel,

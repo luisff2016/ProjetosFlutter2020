@@ -20,10 +20,10 @@ class NotasDB {
   /// @return The one and only Database instance.
   Future get database async {
     if (_db == null) {
-      print("##120 ERRO _db: null");
+      print("## Notas Classe NotasDB: ERRO _db: null");
       _db = await init();
     }
-    print("##45 Notas NotasDB.get-database(): _db = $_db");
+    print("## Notas NotasDB.get-database(): _db = $_db");
     return _db;
   } /* End database getter. */
 
@@ -31,9 +31,9 @@ class NotasDB {
   ///
   /// @return A Database instance.
   Future<Database> init() async {
-    print("NotasDB: init()");
+    print("## Notas NotasDB.init()");
     String path = join(utils.docsDir.path, "notas.db");
-    print("##47 NotasDB.init(): path = $path");
+    print("## Notas NotasDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
       await inDB.execute("CREATE TABLE IF NOT EXISTS notas ("
@@ -48,25 +48,25 @@ class NotasDB {
 
   /// Create a Nota from a Map.
   Nota notaFromMap(Map inMap) {
-    print("##48 Notas NotasDB.notaFromMap(): inMap = $inMap");
+    print("## Notas NotasDB.notaFromMap(): inMap = $inMap");
     Nota nota = Nota();
     nota.id = inMap["id"];
     nota.title = inMap["title"];
     nota.content = inMap["content"];
     nota.color = inMap["color"];
-    print("##49 Notas NotasDB.notaFromMap(): nota = $nota");
+    print("## Notas NotasDB.notaFromMap(): nota = $nota");
     return nota;
   } /* End notaFromMap(); */
 
   /// Create a Map from a Nota.
   Map<String, dynamic> notaToMap(Nota inNota) {
-    print("##50 Notas NotasDB.notaToMap(): inNota = $inNota");
+    print("## Notas NotasDB.notaToMap(): inNota = $inNota");
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inNota.id;
     map["title"] = inNota.title;
     map["content"] = inNota.content;
     map["color"] = inNota.color;
-    print("##51 notas NotasDB.notaToMap(): map = $map");
+    print("## Notas NotasDB.notaToMap(): map = $map");
     return map;
   } /* End notaToMap(). */
 
@@ -75,7 +75,7 @@ class NotasDB {
   /// @param  inNota The Nota object to create.
   /// @return        Future.
   Future create(Nota inNota) async {
-    print("##52 Notas NotasDB.create(): inNota = $inNota");
+    print("## Notas NotasDB.create(): inNota = $inNota");
     Database db = await database;
     // Get largest current id in the table, plus one, to be the new ID.
     var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM notas");
@@ -83,6 +83,7 @@ class NotasDB {
     if (id == null) {
       id = 1;
     }
+    print("## Notas NotasDB.create(): id = $id");
     // Insert into table.
     return await db.rawInsert(
         "INSERT INTO notas (id, title, content, color) VALUES (?, ?, ?, ?)",
@@ -94,10 +95,10 @@ class NotasDB {
   /// @param  inID The ID of the nota to get.
   /// @return      The corresponding Nota object.
   Future<Nota> get(int inID) async {
-    print("##53 Notas NotasDB.get(): inID = $inID");
+    print("## Notas NotasDB.get(): inID = $inID");
     Database db = await database;
     var rec = await db.query("notas", where: "id = ?", whereArgs: [inID]);
-    print("##54 Notas NotasDB.get(): rec.first = $rec.first");
+    print("## Notas NotasDB.get(): rec.first = $rec.first");
     return notaFromMap(rec.first);
   } /* End get(). */
 
@@ -105,11 +106,11 @@ class NotasDB {
   ///
   /// @return A List of Nota objects.
   Future<List> get getAll async {
-    print("##55 Notas NotasDB.getAll()");
+    print("## Notas NotasDB.getAll()");
     Database db = await database;
     var recs = await db.query("notas");
     var list = recs.isNotEmpty ? recs.map((m) => notaFromMap(m)).toList() : [];
-    print("##56 Notas NotasDB.getAll(): list = $list");
+    print("## Notas NotasDB.getAll(): list = $list");
     return list;
   } /* End getAll(). */
 
@@ -118,7 +119,7 @@ class NotasDB {
   /// @param inNota The nota to update.
   /// @return       Future.
   Future update(Nota inNota) async {
-    print("##58 Notas NotasDB.update(): inNota = $inNota");
+    print("## Notas NotasDB.update(): inNota = $inNota");
     Database db = await database;
     return await db.update("notas", notaToMap(inNota),
         where: "id = ?", whereArgs: [inNota.id]);

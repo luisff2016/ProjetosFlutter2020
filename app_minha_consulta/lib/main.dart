@@ -1,4 +1,3 @@
-//import 'package:app_minha_consulta/teste.dart';
 import 'package:app_minha_consulta/view/tela_login.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';

@@ -27,36 +27,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     print("## HomePage: Menu da aplicacao");
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Minha Consulta - home"),
           backgroundColor: Colors.blueAccent,
-          bottom: TabBar(tabs: [
-            Tab(
-              icon: Icon(Icons.home),
-              text: "INÍCIO",
-            ),
-            Tab(
-              icon: Icon(Icons.message),
-              text: "MENSAGENS",
-            ),
-            Tab(
-              icon: Icon(Icons.account_circle),
-              text: "CONTA",
-            ),
-          ]),
         ),
-        body: TabBarView(
-          children: [
-            TelaMenu(),
-            Notas(),
-            TelaCadastro(),
-          ],
-        ),
-      ),
+        body: TelaMenu(),
     );
   }
 }

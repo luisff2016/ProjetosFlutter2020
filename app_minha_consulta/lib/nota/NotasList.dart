@@ -17,7 +17,7 @@ class NotasList extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##38 NotasList.build()");
+    print("## Notas NotasList.build()");
 
     // Return widget.
     return ScopedModel<NotasModel>(
@@ -28,9 +28,9 @@ class NotasList extends StatelessWidget {
             // Add nota.
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),
-              onPressed : () async {
+              onPressed : () {
                 notasModel.entityBeingEdited = Nota();
-                notasModel.setColor(null);
+                notasModel.setColor("red");
                 notasModel.setStackIndex(1);
               }
             ),
@@ -51,7 +51,7 @@ class NotasList extends StatelessWidget {
                 return Container(
                   padding : EdgeInsets.fromLTRB(20, 20, 20, 0),
                   child : Slidable(
-                    actionPane : SlidableBehindActionPane(),//SlidableDrawerDelegate(),
+                   //SlidableDrawerDelegate(),
                     actionExtentRatio : .25,
                     secondaryActions : [
                       IconSlideAction(
@@ -61,6 +61,7 @@ class NotasList extends StatelessWidget {
                         onTap : () => _deleteNota(inContext, nota)
                       )
                     ],
+                    actionPane: null,
                     child : Card(
                       elevation : 8,
                       color : color,
