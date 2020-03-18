@@ -8,6 +8,8 @@ import 'package:app_minha_consulta/contato/ContatosList.dart';
 import 'package:app_minha_consulta/medicamento/MedicamentosList.dart';
 import 'package:app_minha_consulta/nota/NotasList.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import "../nota/NotasModel.dart" show NotasModel, notasModel;
 
 class TelaMenu extends StatefulWidget {
   @override
@@ -49,7 +51,11 @@ class _TelaMenuState extends State<TelaMenu> {
   @override
   Widget build(BuildContext context) {
     print("## TelaMenu: ");
-    return Column(
+    return ScopedModel<NotasModel>(
+      model : notasModel,
+      child : ScopedModelDescendant<NotasModel>(
+        builder : (BuildContext inContext, Widget inChild, NotasModel inModel) {
+          return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -174,6 +180,9 @@ class _TelaMenuState extends State<TelaMenu> {
         )),
         // menu antigo
       ],
+    );
+        }
+      )
     );
   }
 }

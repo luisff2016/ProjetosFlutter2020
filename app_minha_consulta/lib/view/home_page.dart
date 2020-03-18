@@ -1,30 +1,9 @@
-/*import 'dart:math';
-
-import 'package:app_minha_consulta/view/tela_alergia.dart';
-import 'package:app_minha_consulta/view/tela_arquivo.dart';
-import 'package:app_minha_consulta/view/tela_cadastro.dart';
-import 'package:app_minha_consulta/view/tela_consulta.dart';
-import 'package:app_minha_consulta/view/tela_contato.dart';
-import 'package:app_minha_consulta/view/tela_horario.dart';
-import 'package:app_minha_consulta/view/tela_lembrete.dart';*/
-import 'package:app_minha_consulta/nota/Notas.dart';
-//import 'package:app_minha_consulta/nota/NotasList.dart';
-import 'package:app_minha_consulta/view/tela_cadastro.dart';
 import 'package:app_minha_consulta/view/tela_menu.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  
+class HomePage extends StatelessWidget {
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
-  
-  
-  @override
+ @override
   Widget build(BuildContext context) {
     print("## HomePage: Menu da aplicacao");
     return Scaffold(
@@ -36,6 +15,7 @@ class _HomePageState extends State<HomePage> {
         body: TelaMenu(),
     );
   }
+  
 }
 
 /**
