@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "NotasDB.dart";
-import "NotasModel.dart" show NotasModel, notasModel;
+import "UsuariosDB.dart";
+import "UsuariosModel.dart" show UsuariosModel, usuariosModel;
 
 /// ****************************************************************************
 /// Subtela para entradas da entidade.
 /// ****************************************************************************
-class NotasForm extends StatelessWidget {
+class UsuariosForm extends StatelessWidget {
   /// Controladores para campos de texto.
   final TextEditingController _titleEditingController = TextEditingController();
   final TextEditingController _contentEditingController =
@@ -16,15 +16,15 @@ class NotasForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   /// Constructor.
-  NotasForm() {
-    print("## nota NotasForm.constructor");
+  UsuariosForm() {
+    print("## usuario UsuariosForm.constructor");
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      notasModel.entityBeingEdited.title = _titleEditingController.text;
+      usuariosModel.entityBeingEdited.title = _titleEditingController.text;
     });
     _contentEditingController.addListener(() {
-      notasModel.entityBeingEdited.content = _contentEditingController.text;
+      usuariosModel.entityBeingEdited.content = _contentEditingController.text;
     });
   } /* End constructor. */
 
@@ -33,17 +33,18 @@ class NotasForm extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## nota NotasForm.build()");
+    print("## usuario UsuariosForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = notasModel.entityBeingEdited.title;
-    _contentEditingController.text = notasModel.entityBeingEdited.content;
+    _titleEditingController.text = usuariosModel.entityBeingEdited.title;
+    _contentEditingController.text = usuariosModel.entityBeingEdited.content;
 
     // Return widget.
     return ScopedModel(
-        model: notasModel,
-        child: ScopedModelDescendant<NotasModel>(builder:
-                (BuildContext inContext, Widget inChild, NotasModel inModel) {
+        model: usuariosModel,
+        child: ScopedModelDescendant<UsuariosModel>(builder:
+                (BuildContext inContext, Widget inChild,
+                    UsuariosModel inModel) {
           return Scaffold(
               bottomNavigationBar: Padding(
                   padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
@@ -60,7 +61,7 @@ class NotasForm extends StatelessWidget {
                     FlatButton(
                         child: Text("Save"),
                         onPressed: () {
-                          _save(inContext, notasModel);
+                          _save(inContext, usuariosModel);
                         })
                   ])),
               body: Form(
@@ -103,13 +104,14 @@ class NotasForm extends StatelessWidget {
                                               color: Colors.red, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color: notasModel.color == "red"
-                                                  ? Colors.red
-                                                  : Theme.of(inContext)
-                                                      .canvasColor))),
+                                              color:
+                                                  usuariosModel.color == "red"
+                                                      ? Colors.red
+                                                      : Theme.of(inContext)
+                                                          .canvasColor))),
                               onTap: () {
-                                notasModel.entityBeingEdited.color = "red";
-                                notasModel.setColor("red");
+                                usuariosModel.entityBeingEdited.color = "red";
+                                usuariosModel.setColor("red");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -119,13 +121,14 @@ class NotasForm extends StatelessWidget {
                                               color: Colors.green, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color: notasModel.color == "green"
-                                                  ? Colors.green
-                                                  : Theme.of(inContext)
-                                                      .canvasColor))),
+                                              color:
+                                                  usuariosModel.color == "green"
+                                                      ? Colors.green
+                                                      : Theme.of(inContext)
+                                                          .canvasColor))),
                               onTap: () {
-                                notasModel.entityBeingEdited.color = "green";
-                                notasModel.setColor("green");
+                                usuariosModel.entityBeingEdited.color = "green";
+                                usuariosModel.setColor("green");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -135,13 +138,14 @@ class NotasForm extends StatelessWidget {
                                               color: Colors.blue, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color: notasModel.color == "blue"
-                                                  ? Colors.blue
-                                                  : Theme.of(inContext)
-                                                      .canvasColor))),
+                                              color:
+                                                  usuariosModel.color == "blue"
+                                                      ? Colors.blue
+                                                      : Theme.of(inContext)
+                                                          .canvasColor))),
                               onTap: () {
-                                notasModel.entityBeingEdited.color = "blue";
-                                notasModel.setColor("blue");
+                                usuariosModel.entityBeingEdited.color = "blue";
+                                usuariosModel.setColor("blue");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -151,14 +155,15 @@ class NotasForm extends StatelessWidget {
                                               color: Colors.yellow, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color:
-                                                  notasModel.color == "yellow"
-                                                      ? Colors.yellow
-                                                      : Theme.of(inContext)
-                                                          .canvasColor))),
+                                              color: usuariosModel.color ==
+                                                      "yellow"
+                                                  ? Colors.yellow
+                                                  : Theme.of(inContext)
+                                                      .canvasColor))),
                               onTap: () {
-                                notasModel.entityBeingEdited.color = "yellow";
-                                notasModel.setColor("yellow");
+                                usuariosModel.entityBeingEdited.color =
+                                    "yellow";
+                                usuariosModel.setColor("yellow");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -168,13 +173,14 @@ class NotasForm extends StatelessWidget {
                                               color: Colors.grey, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color: notasModel.color == "grey"
-                                                  ? Colors.grey
-                                                  : Theme.of(inContext)
-                                                      .canvasColor))),
+                                              color:
+                                                  usuariosModel.color == "grey"
+                                                      ? Colors.grey
+                                                      : Theme.of(inContext)
+                                                          .canvasColor))),
                               onTap: () {
-                                notasModel.entityBeingEdited.color = "grey";
-                                notasModel.setColor("grey");
+                                usuariosModel.entityBeingEdited.color = "grey";
+                                usuariosModel.setColor("grey");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -184,14 +190,15 @@ class NotasForm extends StatelessWidget {
                                               color: Colors.purple, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color:
-                                                  notasModel.color == "purple"
-                                                      ? Colors.purple
-                                                      : Theme.of(inContext)
-                                                          .canvasColor))),
+                                              color: usuariosModel.color ==
+                                                      "purple"
+                                                  ? Colors.purple
+                                                  : Theme.of(inContext)
+                                                      .canvasColor))),
                               onTap: () {
-                                notasModel.entityBeingEdited.color = "purple";
-                                notasModel.setColor("purple");
+                                usuariosModel.entityBeingEdited.color =
+                                    "purple";
+                                usuariosModel.setColor("purple");
                               })
                         ]))
                   ] /* End Column children. */
@@ -206,9 +213,9 @@ class NotasForm extends StatelessWidget {
   /// Save this contact to the database.
   ///
   /// @param inContext The BuildContext of the parent widget.
-  /// @param inModel   The NotasModel.
-  void _save(BuildContext inContext, NotasModel inModel) async {
-    print("## nota NotasForm._save()");
+  /// @param inModel   The UsuariosModel.
+  void _save(BuildContext inContext, UsuariosModel inModel) async {
+    print("## usuario UsuariosForm._save()");
 
     // Abort if form isn't valid.
     if (!_formKey.currentState.validate()) {
@@ -217,17 +224,19 @@ class NotasForm extends StatelessWidget {
 
     // Creating a new note.
     if (inModel.entityBeingEdited.id == null) {
-      print("## nota NotasForm._save(): Creating: ${inModel.entityBeingEdited}");
-      await NotasDB.db.create(notasModel.entityBeingEdited);
+      print(
+          "## usuario UsuariosForm._save(): Creating: ${inModel.entityBeingEdited}");
+      await UsuariosDB.db.create(usuariosModel.entityBeingEdited);
 
       // Updating an existing note.
     } else {
-      print("## nota NotasForm._save(): Updating: ${inModel.entityBeingEdited}");
-      await NotasDB.db.update(notasModel.entityBeingEdited);
+      print(
+          "## usuario UsuariosForm._save(): Updating: ${inModel.entityBeingEdited}");
+      await UsuariosDB.db.update(usuariosModel.entityBeingEdited);
     }
 
     // Reload data from database to update list.
-    notasModel.loadData("notes", NotasDB.db);
+    usuariosModel.loadData("usuarios", UsuariosDB.db);
 
     // Go back to the list view.
     inModel.setStackIndex(0);
@@ -236,7 +245,7 @@ class NotasForm extends StatelessWidget {
     Scaffold.of(inContext).showSnackBar(SnackBar(
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
-        content: Text("Nota salva!")));
+        content: Text("Usuario salvo!")));
   } /* End _save(). */
 
 } /* End class. */

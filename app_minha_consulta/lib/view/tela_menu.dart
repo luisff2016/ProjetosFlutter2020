@@ -2,7 +2,7 @@
 
 import 'package:app_minha_consulta/alergia/AlergiasList.dart';
 import 'package:app_minha_consulta/arquivo/ArquivosList.dart';
-import 'package:app_minha_consulta/consulta/ConsultasList.dart';
+import 'package:app_minha_consulta/consulta/tela_consulta.dart';
 
 import 'package:app_minha_consulta/contato/ContatosList.dart';
 import 'package:app_minha_consulta/medicamento/MedicamentosList.dart';
@@ -20,7 +20,7 @@ class _TelaMenuState extends State<TelaMenu> {
 
   void _abrirConsulta() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ConsultasList()));
+        context, MaterialPageRoute(builder: (context) => TelaConsulta()));
   }
 
   void _abrirArquivo() {

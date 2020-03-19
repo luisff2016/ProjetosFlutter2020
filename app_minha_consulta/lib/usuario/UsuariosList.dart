@@ -1,42 +1,42 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
-import "NotasDB.dart";
-import "NotasModel.dart" show Nota, NotasModel, notasModel;
+import "UsuariosDB.dart";
+import "UsuariosModel.dart" show Usuario, UsuariosModel, usuariosModel;
 
 /// ****************************************************************************
-/// Lista de Notas - tela secundaria.
+/// Lista de Usuarios - tela secundaria.
 /// ****************************************************************************
-class NotasList extends StatelessWidget {
+class UsuariosList extends StatelessWidget {
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## nota NotasList.build()");
+    print("## usuario UsuariosList.build()");
 
     // Return widget.
-    return ScopedModel<NotasModel>(
-        model: notasModel,
-        child: ScopedModelDescendant<NotasModel>(builder:
-                (BuildContext inContext, Widget inChild, NotasModel inModel) {
+    return ScopedModel<UsuariosModel>(
+        model: usuariosModel,
+        child: ScopedModelDescendant<UsuariosModel>(builder:
+                (BuildContext inContext, Widget inChild,
+                    UsuariosModel inModel) {
           return Scaffold(
-              // Add nota.
+              // Add Usuario.
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () {
-                    notasModel.entityBeingEdited = Nota();
-                    notasModel.setColor(null);
-                    notasModel.setStackIndex(1);
-                  }
-                  ),
+                    usuariosModel.entityBeingEdited = Usuario();
+                    usuariosModel.setColor(null);
+                    usuariosModel.setStackIndex(1);
+                  }),
               body: ListView.builder(
-                  itemCount: notasModel.entityList.length,
+                  itemCount: usuariosModel.entityList.length,
                   itemBuilder: (BuildContext inBuildContext, int inIndex) {
-                    Nota nota = notasModel.entityList[inIndex];
-                    // Determine nota background color (default to white if none was selected).
+                    Usuario usuario = usuariosModel.entityList[inIndex];
+                    // Determine Usuario.ckground color (default to white if none was selected).
                     Color color = Colors.white;
-                    switch (nota.color) {
+                    switch (usuario.color) {
                       case "red":
                         color = Colors.red;
                         break;
@@ -66,23 +66,24 @@ class NotasList extends StatelessWidget {
                                   caption: "Delete",
                                   color: Colors.red,
                                   icon: Icons.delete,
-                                  onTap: () => _deleteNota(inContext, nota))
+                                  onTap: () =>
+                                      _deleteUsuario(inContext, usuario))
                             ],
                             actionPane: null,
                             child: Card(
                                 elevation: 8,
                                 color: color,
                                 child: ListTile(
-                                    title: Text("${nota.titulo}"),
-                                    subtitle: Text("${nota.conteudo}"),
-                                    // Edit existing nota.
+                                    title: Text("${usuario.protocolo}"),
+                                    subtitle: Text("${usuario.cpf}"),
+                                    // Edit existing Usuario.
                                     onTap: () async {
                                       // Get the data from the database and send to the edit view.
-                                      notasModel.entityBeingEdited =
-                                          await NotasDB.db.get(nota.id);
-                                      notasModel.setColor(
-                                          notasModel.entityBeingEdited.color);
-                                      notasModel.setStackIndex(1);
+                                      usuariosModel.entityBeingEdited =
+                                          await UsuariosDB.db.get(usuario.id);
+                                      usuariosModel.setColor(usuariosModel
+                                          .entityBeingEdited.color);
+                                      usuariosModel.setStackIndex(1);
                                     })) /* End Card. */
                             ) /* End Slidable. */
                         ); /* End Container. */
@@ -97,18 +98,19 @@ class NotasList extends StatelessWidget {
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext The BuildContext of the parent Widget.
-  /// @param  inNota    The nota (potentially) being deleted.
+  /// @param  inUsuario. The Usuario.otentially) being deleted.
   /// @return           Future.
-  Future _deleteNota(BuildContext inContext, Nota inNota) async {
-    print("## nota NotasList._deleteNota(): inNota = $inNota");
+  Future _deleteUsuario(BuildContext inContext, Usuario inUsuario) async {
+    print("## usuario UsuariosList._deleteUsuario. inUsuario.$inUsuario");
 
     return showDialog(
         context: inContext,
         barrierDismissible: false,
         builder: (BuildContext inAlertContext) {
           return AlertDialog(
-              title: Text("Deletar Nota"),
-              content: Text("Are you sure you want to delete ${inNota.titulo}?"),
+              title: Text("Deletar Usuario"),
+              content: Text(
+                  "Are you sure you want to delete ${inUsuario.protocolo}?"),
               actions: [
                 FlatButton(
                     child: Text("Cancelar"),
@@ -120,17 +122,17 @@ class NotasList extends StatelessWidget {
                     child: Text("Deletar"),
                     onPressed: () async {
                       // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                      await NotasDB.db.delete(inNota.id);
+                      await UsuariosDB.db.delete(inUsuario.id);
                       Navigator.of(inAlertContext).pop();
                       Scaffold.of(inContext).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
-                          content: Text("Nota deletada")));
+                          content: Text("Usuario deletada")));
                       // Reload data from database to update list.
-                      notasModel.loadData("notas", NotasDB.db);
+                      usuariosModel.loadData("usuarios", UsuariosDB.db);
                     })
               ]);
         });
-  } /* End _deleteNota(). */
+  } /* End _deleteUsuario. */
 
 } /* End class. */

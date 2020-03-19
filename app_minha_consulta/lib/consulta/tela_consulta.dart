@@ -1,39 +1,41 @@
 import 'package:app_minha_consulta/consulta/ConsultasForm.dart';
 import 'package:app_minha_consulta/consulta/ConsultasList.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import "ConsultasModel.dart" show ConsultasModel, consultasModel;
 
-class TelaConsulta extends StatefulWidget {
-  @override
-  _TelaConsultaState createState() => _TelaConsultaState();
-}
-
-class _TelaConsultaState extends State<TelaConsulta> {
+class TelaConsulta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("## TelaConsulta: inicio");
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Consultas"),
-          backgroundColor: Colors.blueAccent,
-          bottom: TabBar(tabs: [
-            Tab(
-              text: "AGENDADAS",
+    return ScopedModel<ConsultasModel>(
+        model: consultasModel,
+        child: ScopedModelDescendant<ConsultasModel>(builder:
+            (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
+          return DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text("Consultas"),
+                backgroundColor: Colors.blueAccent,
+                bottom: TabBar(tabs: [
+                  Tab(
+                    text: "AGENDADAS",
+                  ),
+                  Tab(
+                    text: "HISTORICO",
+                  ),
+                ]),
+              ),
+              body: TabBarView(
+                children: [
+                  ConsultasList(),
+                  ConsultasForm(),
+                ],
+              ),
             ),
-            Tab(
-              text: "HISTORICO",
-            ),
-          ]),
-        ),
-        body: TabBarView(
-          children: [
-            ConsultasList(),
-            ConsultasForm(),
-          ],
-        ),
-      ),
-    );
+          );
+        }));
   }
 }
 

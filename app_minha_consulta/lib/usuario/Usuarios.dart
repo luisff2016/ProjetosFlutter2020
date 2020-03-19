@@ -1,22 +1,22 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import 'NotasForm.dart';
-import 'NotasDB.dart';
-import 'NotasList.dart';
-import "NotasModel.dart" show NotasModel, notasModel;
+import 'UsuariosForm.dart';
+import 'UsuariosDB.dart';
+import 'UsuariosList.dart';
+import "UsuariosModel.dart" show UsuariosModel, usuariosModel;
 
 
 /// ********************************************************************************************************************
-/// Tela de Notas.
+/// Tela de Usuarios.
 /// ********************************************************************************************************************
-class Notas extends StatelessWidget {
+class Usuarios extends StatelessWidget {
   /// Constructor.
-  Notas() {
+  Usuarios() {
 
-    print("## nota Notas.constructor");
+    print("## usuario Usuarios.constructor");
 
     // Carregamento inicial dos dados.
-    notasModel.loadData("notas", NotasDB.db);
+    usuariosModel.loadData("usuarios", UsuariosDB.db);
 
   } /* End constructor. */
 
@@ -27,17 +27,17 @@ class Notas extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("## nota Notes.build()");
+    print("## usuario Usuarios.build()");
 
-    return ScopedModel<NotasModel>(
-      model : notasModel,
-      child : ScopedModelDescendant<NotasModel>(
-        builder : (BuildContext inContext, Widget inChild, NotasModel inModel) {
+    return ScopedModel<UsuariosModel>(
+      model : usuariosModel,
+      child : ScopedModelDescendant<UsuariosModel>(
+        builder : (BuildContext inContext, Widget inChild, UsuariosModel inModel) {
           return IndexedStack(
             index : inModel.stackIndex,
             children : [
-              NotasList(),
-              NotasForm()
+              UsuariosList(),
+              UsuariosForm()
             ] /* End IndexedStack children. */
           ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */
