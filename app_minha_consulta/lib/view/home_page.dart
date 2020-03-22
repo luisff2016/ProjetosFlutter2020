@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Minha Consulta - home"),
+          title: Text("Minha Consulta - HOME"),
           backgroundColor: Colors.blueAccent,
         ),
         body: TelaMenu(),

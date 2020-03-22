@@ -28,10 +28,10 @@ class ConsultasForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      consultasModel.entityBeingEdited.title = _titleEditingController.text;
+      consultasModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      consultasModel.entityBeingEdited.description = _descriptionEditingController.text;
+      consultasModel.entidadeSendoEditada.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -46,8 +46,8 @@ class ConsultasForm extends StatelessWidget {
     print("## ConsultasForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = consultasModel.entityBeingEdited.title;
-    _descriptionEditingController.text = consultasModel.entityBeingEdited.description;
+    _titleEditingController.text = consultasModel.entidadeSendoEditada.title;
+    _descriptionEditingController.text = consultasModel.entidadeSendoEditada.description;
 
     // Return widget.
     return ScopedModel(
@@ -65,7 +65,7 @@ class ConsultasForm extends StatelessWidget {
                       // Hide soft keyboard.
                       FocusScope.of(inContext).requestFocus(FocusNode());
                       // Go back to the list view.
-                      inModel.setStackIndex(0);
+                      inModel.definirIndicePilha(0);
                     }
                   ),
                   Spacer(),
@@ -106,17 +106,17 @@ class ConsultasForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(consultasModel.chosenDate == null ? "" : consultasModel.chosenDate),
+                    subtitle : Text(consultasModel.dataEscolhida == null ? "" : consultasModel.dataEscolhida),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
-                        String chosenDate = await utils.selectDate(
-                          inContext, consultasModel, consultasModel.entityBeingEdited.apptDate
+                        String dataEscolhida = await utils.selectDate(
+                          inContext, consultasModel, consultasModel.entidadeSendoEditada.apptDate
                         );
-                        if (chosenDate != null) {
-                          consultasModel.entityBeingEdited.apptDate = chosenDate;
+                        if (dataEscolhida != null) {
+                          consultasModel.entidadeSendoEditada.apptDate = dataEscolhida;
                         }
                       }
                     )
@@ -153,8 +153,8 @@ class ConsultasForm extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (consultasModel.entityBeingEdited.apptTime != null) {
-      List timeParts = consultasModel.entityBeingEdited.apptTime.split(",");
+    if (consultasModel.entidadeSendoEditada.apptTime != null) {
+      List timeParts = consultasModel.entidadeSendoEditada.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,7 +165,7 @@ class ConsultasForm extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      consultasModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
+      consultasModel.entidadeSendoEditada.apptTime = "${picked.hour},${picked.minute}";
       consultasModel.setApptTime(picked.format(inContext));
     }
 
@@ -184,16 +184,16 @@ class ConsultasForm extends StatelessWidget {
       if (!_formKey.currentState.validate()) { return; }
 
       // Creating a new appointment.
-      if (inModel.entityBeingEdited.id == null) {
+      if (inModel.entidadeSendoEditada.id == null) {
 
-        print("##108 ConsultasForm._save(): Creating: ${inModel.entityBeingEdited}");
-        await ConsultasDB.db.create(consultasModel.entityBeingEdited);
+        print("##108 ConsultasForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+        await ConsultasDB.db.create(consultasModel.entidadeSendoEditada);
 
       // Updating an existing appointment.
       } else {
 
-        print("##109 ConsultasForm._save(): Updating: ${inModel.entityBeingEdited}");
-        await ConsultasDB.db.update(consultasModel.entityBeingEdited);
+        print("##109 ConsultasForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+        await ConsultasDB.db.update(consultasModel.entidadeSendoEditada);
 
       }
 
@@ -201,7 +201,7 @@ class ConsultasForm extends StatelessWidget {
       consultasModel.loadData("Consultas", ConsultasDB.db);
 
       // Go back to the list view.
-      inModel.setStackIndex(0);
+      inModel.definirIndicePilha(0);
 
       // Show SnackBar.
       Scaffold.of(inContext).showSnackBar(

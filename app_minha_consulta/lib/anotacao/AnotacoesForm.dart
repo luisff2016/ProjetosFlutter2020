@@ -28,10 +28,10 @@ class AnotacoesForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      anotacoesModel.entityBeingEdited.title = _titleEditingController.text;
+      anotacoesModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      anotacoesModel.entityBeingEdited.description = _descriptionEditingController.text;
+      anotacoesModel.entidadeSendoEditada.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -46,8 +46,8 @@ class AnotacoesForm extends StatelessWidget {
     print("##106 AnotacoesForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = anotacoesModel.entityBeingEdited.title;
-    _descriptionEditingController.text = anotacoesModel.entityBeingEdited.description;
+    _titleEditingController.text = anotacoesModel.entidadeSendoEditada.title;
+    _descriptionEditingController.text = anotacoesModel.entidadeSendoEditada.description;
 
     // Return widget.
     return ScopedModel(
@@ -65,7 +65,7 @@ class AnotacoesForm extends StatelessWidget {
                       // Hide soft keyboard.
                       FocusScope.of(inContext).requestFocus(FocusNode());
                       // Go back to the list view.
-                      inModel.setStackIndex(0);
+                      inModel.definirIndicePilha(0);
                     }
                   ),
                   Spacer(),
@@ -106,17 +106,17 @@ class AnotacoesForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(anotacoesModel.chosenDate == null ? "" : anotacoesModel.chosenDate),
+                    subtitle : Text(anotacoesModel.dataEscolhida == null ? "" : anotacoesModel.dataEscolhida),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
-                        String chosenDate = await utils.selectDate(
-                          inContext, anotacoesModel, anotacoesModel.entityBeingEdited.apptDate
+                        String dataEscolhida = await utils.selectDate(
+                          inContext, anotacoesModel, anotacoesModel.entidadeSendoEditada.apptDate
                         );
-                        if (chosenDate != null) {
-                          anotacoesModel.entityBeingEdited.apptDate = chosenDate;
+                        if (dataEscolhida != null) {
+                          anotacoesModel.entidadeSendoEditada.apptDate = dataEscolhida;
                         }
                       }
                     )
@@ -153,8 +153,8 @@ class AnotacoesForm extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (anotacoesModel.entityBeingEdited.apptTime != null) {
-      List timeParts = anotacoesModel.entityBeingEdited.apptTime.split(",");
+    if (anotacoesModel.entidadeSendoEditada.apptTime != null) {
+      List timeParts = anotacoesModel.entidadeSendoEditada.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,7 +165,7 @@ class AnotacoesForm extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      anotacoesModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
+      anotacoesModel.entidadeSendoEditada.apptTime = "${picked.hour},${picked.minute}";
       anotacoesModel.setApptTime(picked.format(inContext));
     }
 
@@ -184,16 +184,16 @@ class AnotacoesForm extends StatelessWidget {
       if (!_formKey.currentState.validate()) { return; }
 
       // Creating a new appointment.
-      if (inModel.entityBeingEdited.id == null) {
+      if (inModel.entidadeSendoEditada.id == null) {
 
-        print("##108 AnotacoesForm._save(): Creating: ${inModel.entityBeingEdited}");
-        await AnotacoesDB.db.create(anotacoesModel.entityBeingEdited);
+        print("##108 AnotacoesForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+        await AnotacoesDB.db.create(anotacoesModel.entidadeSendoEditada);
 
       // Updating an existing appointment.
       } else {
 
-        print("##109 AnotacoesForm._save(): Updating: ${inModel.entityBeingEdited}");
-        await AnotacoesDB.db.update(anotacoesModel.entityBeingEdited);
+        print("##109 AnotacoesForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+        await AnotacoesDB.db.update(anotacoesModel.entidadeSendoEditada);
 
       }
 
@@ -201,7 +201,7 @@ class AnotacoesForm extends StatelessWidget {
       anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
 
       // Go back to the list view.
-      inModel.setStackIndex(0);
+      inModel.definirIndicePilha(0);
 
       // Show SnackBar.
       Scaffold.of(inContext).showSnackBar(

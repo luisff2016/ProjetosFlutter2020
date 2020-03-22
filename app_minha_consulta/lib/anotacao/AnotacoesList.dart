@@ -23,8 +23,8 @@ class AnotacoesList extends StatelessWidget {
 
     // The list of dates with anotacoess.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < anotacoesModel.entityList.length; i++) {
-      Anotacao anotacao = anotacoesModel.entityList[i];
+    for (int i = 0; i < anotacoesModel.listaEntidades.length; i++) {
+      Anotacao anotacao = anotacoesModel.listaEntidades[i];
       List dateParts = anotacao.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
@@ -45,14 +45,14 @@ class AnotacoesList extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () async {
-                    anotacoesModel.entityBeingEdited = Anotacoes();
+                    anotacoesModel.entidadeSendoEditada = Anotacoes();
                     DateTime now = DateTime.now();
-                    anotacoesModel.entityBeingEdited.apptDate =
+                    anotacoesModel.entidadeSendoEditada.apptDate =
                         "${now.year},${now.month},${now.day}";
-                    anotacoesModel.setChosenDate(
+                    anotacoesModel.definirDataEscolhida(
                         DateFormat.yMMMMd("en_US").format(now.toLocal()));
                     anotacoesModel.setApptTime(null);
-                    anotacoesModel.setStackIndex(1);
+                    anotacoesModel.definirIndicePilha(1);
                   }),
               body: Column(children: [
                 Expanded(
@@ -85,9 +85,9 @@ class AnotacoesList extends StatelessWidget {
         "##98 AnotacoessList._showAnotacoess(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
 
     print("##99 AnotacoessList._showAnotacoess(): "
-        "anotacoesModel.entityList.length = ${anotacoesModel.entityList.length}");
+        "anotacoesModel.listaEntidades.length = ${anotacoesModel.listaEntidades.length}");
     print("##100 AnotacoessList._showAnotacoess(): "
-        "anotacoesModel.entityList = ${anotacoesModel.entityList}");
+        "anotacoesModel.listaEntidades = ${anotacoesModel.listaEntidades}");
 
     showModalBottomSheet(
         context: inContext,
@@ -114,11 +114,11 @@ class AnotacoesList extends StatelessWidget {
                               Expanded(
                                   child: ListView.builder(
                                       itemCount:
-                                          anotacoesModel.entityList.length,
+                                          anotacoesModel.listaEntidades.length,
                                       itemBuilder: (BuildContext inBuildContext,
                                           int inIndex) {
                                         Anotacao anotacao =
-                                            anotacoesModel.entityList[inIndex];
+                                            anotacoesModel.listaEntidades[inIndex];
                                         print(
                                             "##101 AnotacoessList._showAnotacao().ListView.builder(): "
                                             "anotacao = $anotacao");
@@ -196,27 +196,27 @@ class AnotacoesList extends StatelessWidget {
     print("##103 AnotacoessList._editAnotacao(): inAnotacao = $inAnotacao");
 
     // Get the data from the database and send to the edit view.
-    anotacoesModel.entityBeingEdited = await AnotacoesDB.db.get(inAnotacao.id);
+    anotacoesModel.entidadeSendoEditada = await AnotacoesDB.db.get(inAnotacao.id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (anotacoesModel.entityBeingEdited.apptDate == null) {
-      anotacoesModel.setChosenDate(null);
+    if (anotacoesModel.entidadeSendoEditada.apptDate == null) {
+      anotacoesModel.definirDataEscolhida(null);
     } else {
-      List dateParts = anotacoesModel.entityBeingEdited.apptDate.split(",");
+      List dateParts = anotacoesModel.entidadeSendoEditada.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
       anotacoesModel
-          .setChosenDate(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
+          .definirDataEscolhida(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
-    if (anotacoesModel.entityBeingEdited.apptTime == null) {
+    if (anotacoesModel.entidadeSendoEditada.apptTime == null) {
       anotacoesModel.setApptTime(null);
     } else {
-      List timeParts = anotacoesModel.entityBeingEdited.apptTime.split(",");
+      List timeParts = anotacoesModel.entidadeSendoEditada.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
           hour: int.parse(timeParts[0]), minute: int.parse(timeParts[1]));
       anotacoesModel.setApptTime(apptTime.format(inContext));
     }
-    anotacoesModel.setStackIndex(1);
+    anotacoesModel.definirIndicePilha(1);
     Navigator.pop(inContext);
   } /* End _editAnotacao. */
 

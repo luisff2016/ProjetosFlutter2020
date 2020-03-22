@@ -21,10 +21,10 @@ class UsuariosForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      usuariosModel.entityBeingEdited.title = _titleEditingController.text;
+      usuariosModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _contentEditingController.addListener(() {
-      usuariosModel.entityBeingEdited.content = _contentEditingController.text;
+      usuariosModel.entidadeSendoEditada.content = _contentEditingController.text;
     });
   } /* End constructor. */
 
@@ -36,8 +36,8 @@ class UsuariosForm extends StatelessWidget {
     print("## usuario UsuariosForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = usuariosModel.entityBeingEdited.title;
-    _contentEditingController.text = usuariosModel.entityBeingEdited.content;
+    _titleEditingController.text = usuariosModel.entidadeSendoEditada.title;
+    _contentEditingController.text = usuariosModel.entidadeSendoEditada.content;
 
     // Return widget.
     return ScopedModel(
@@ -55,7 +55,7 @@ class UsuariosForm extends StatelessWidget {
                           // Hide soft keyboard.
                           FocusScope.of(inContext).requestFocus(FocusNode());
                           // Go back to the list view.
-                          inModel.setStackIndex(0);
+                          inModel.definirIndicePilha(0);
                         }),
                     Spacer(),
                     FlatButton(
@@ -110,7 +110,7 @@ class UsuariosForm extends StatelessWidget {
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entityBeingEdited.color = "red";
+                                usuariosModel.entidadeSendoEditada.color = "red";
                                 usuariosModel.setColor("red");
                               }),
                           Spacer(),
@@ -127,7 +127,7 @@ class UsuariosForm extends StatelessWidget {
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entityBeingEdited.color = "green";
+                                usuariosModel.entidadeSendoEditada.color = "green";
                                 usuariosModel.setColor("green");
                               }),
                           Spacer(),
@@ -144,7 +144,7 @@ class UsuariosForm extends StatelessWidget {
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entityBeingEdited.color = "blue";
+                                usuariosModel.entidadeSendoEditada.color = "blue";
                                 usuariosModel.setColor("blue");
                               }),
                           Spacer(),
@@ -161,7 +161,7 @@ class UsuariosForm extends StatelessWidget {
                                                   : Theme.of(inContext)
                                                       .canvasColor))),
                               onTap: () {
-                                usuariosModel.entityBeingEdited.color =
+                                usuariosModel.entidadeSendoEditada.color =
                                     "yellow";
                                 usuariosModel.setColor("yellow");
                               }),
@@ -179,7 +179,7 @@ class UsuariosForm extends StatelessWidget {
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entityBeingEdited.color = "grey";
+                                usuariosModel.entidadeSendoEditada.color = "grey";
                                 usuariosModel.setColor("grey");
                               }),
                           Spacer(),
@@ -196,7 +196,7 @@ class UsuariosForm extends StatelessWidget {
                                                   : Theme.of(inContext)
                                                       .canvasColor))),
                               onTap: () {
-                                usuariosModel.entityBeingEdited.color =
+                                usuariosModel.entidadeSendoEditada.color =
                                     "purple";
                                 usuariosModel.setColor("purple");
                               })
@@ -223,23 +223,23 @@ class UsuariosForm extends StatelessWidget {
     }
 
     // Creating a new note.
-    if (inModel.entityBeingEdited.id == null) {
+    if (inModel.entidadeSendoEditada.id == null) {
       print(
-          "## usuario UsuariosForm._save(): Creating: ${inModel.entityBeingEdited}");
-      await UsuariosDB.db.create(usuariosModel.entityBeingEdited);
+          "## usuario UsuariosForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+      await UsuariosDB.db.create(usuariosModel.entidadeSendoEditada);
 
       // Updating an existing note.
     } else {
       print(
-          "## usuario UsuariosForm._save(): Updating: ${inModel.entityBeingEdited}");
-      await UsuariosDB.db.update(usuariosModel.entityBeingEdited);
+          "## usuario UsuariosForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+      await UsuariosDB.db.update(usuariosModel.entidadeSendoEditada);
     }
 
     // Reload data from database to update list.
     usuariosModel.loadData("usuarios", UsuariosDB.db);
 
     // Go back to the list view.
-    inModel.setStackIndex(0);
+    inModel.definirIndicePilha(0);
 
     // Show SnackBar.
     Scaffold.of(inContext).showSnackBar(SnackBar(

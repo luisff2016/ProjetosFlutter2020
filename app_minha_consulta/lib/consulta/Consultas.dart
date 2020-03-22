@@ -29,7 +29,7 @@ class Consultas extends StatelessWidget {
         child: ScopedModelDescendant<ConsultasModel>(builder:
                 (BuildContext inContext, Widget inChild,
                     ConsultasModel inModel) {
-          return IndexedStack(index: inModel.stackIndex, children: [
+          return IndexedStack(index: inModel.indicePilha, children: [
             ConsultasList(),
             ConsultasForm()
           ] /* End IndexedStack children. */

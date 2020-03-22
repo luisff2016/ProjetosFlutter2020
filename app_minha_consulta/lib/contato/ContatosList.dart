@@ -39,15 +39,15 @@ class ContatosList extends StatelessWidget {
                 if (avatarFile.existsSync()) {
                   avatarFile.deleteSync();
                 }
-                contatosModel.entityBeingEdited = Contato();
-                contatosModel.setChosenDate(null);
-                contatosModel.setStackIndex(1);
+                contatosModel.entidadeSendoEditada = Contato();
+                contatosModel.definirDataEscolhida(null);
+                contatosModel.definirIndicePilha(1);
               }
             ),
             body : ListView.builder(
-              itemCount : contatosModel.entityList.length,
+              itemCount : contatosModel.listaEntidades.length,
               itemBuilder : (BuildContext inBuildContext, int inIndex) {
-                Contato contato = contatosModel.entityList[inIndex];
+                Contato contato = contatosModel.listaEntidades[inIndex];
                 // Get reference to avatar file and see if it exists.
                 File avatarFile = File(join(utils.docsDir.path, contato.id.toString()));
                 bool avatarFileExists = avatarFile.existsSync();
@@ -74,18 +74,18 @@ class ContatosList extends StatelessWidget {
                             avatarFile.deleteSync();
                           }
                           // Get the data from the database and send to the edit view.
-                          contatosModel.entityBeingEdited = await ContatosDB.db.get(contato.id);
+                          contatosModel.entidadeSendoEditada = await ContatosDB.db.get(contato.id);
                           // Parse out the  birthday, if any, and set it in the model for display.
-                          if (contatosModel.entityBeingEdited.birthday == null) {
-                            contatosModel.setChosenDate(null);
+                          if (contatosModel.entidadeSendoEditada.birthday == null) {
+                            contatosModel.definirDataEscolhida(null);
                           } else {
-                            List dateParts = contatosModel.entityBeingEdited.birthday.split(",");
+                            List dateParts = contatosModel.entidadeSendoEditada.birthday.split(",");
                             DateTime birthday = DateTime(
                               int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2])
                             );
-                            contatosModel.setChosenDate(DateFormat.yMMMMd("en_US").format(birthday.toLocal()));
+                            contatosModel.definirDataEscolhida(DateFormat.yMMMMd("en_US").format(birthday.toLocal()));
                           }
-                          contatosModel.setStackIndex(1);
+                          contatosModel.definirIndicePilha(1);
                         }
                       ),
                       secondaryActions : [

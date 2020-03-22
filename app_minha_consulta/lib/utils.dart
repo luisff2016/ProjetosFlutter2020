@@ -41,7 +41,7 @@ Future selectDate(BuildContext inContext, BaseModel inModel, String inDateString
 
   // If they didn't cancel, update it in the model so it shows on the screen and return the string form.
   if (picked != null) {
-    inModel.setChosenDate(DateFormat.yMMMMd("en_US").format(picked.toLocal()));
+    inModel.definirDataEscolhida(DateFormat.yMMMMd("en_US").format(picked.toLocal()));
     return "${picked.year},${picked.month},${picked.day}";
   }
 

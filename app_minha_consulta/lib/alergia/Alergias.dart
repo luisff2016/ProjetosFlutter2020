@@ -37,7 +37,7 @@ class Alergia extends StatelessWidget {
       child : ScopedModelDescendant<AlergiasModel>(
         builder : (BuildContext inContext, Widget inChild, AlergiasModel inModel) {
           return IndexedStack(
-            index : inModel.stackIndex,
+            index : inModel.indicePilha,
             children : [
               AlergiasList(),
               AlergiasForm()

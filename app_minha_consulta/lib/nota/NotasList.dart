@@ -25,15 +25,15 @@ class NotasList extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () {
-                    notasModel.entityBeingEdited = Nota();
+                    notasModel.entidadeSendoEditada = Nota();
                     notasModel.setColor(null);
-                    notasModel.setStackIndex(1);
+                    notasModel.definirIndicePilha(1);
                   }
                   ),
               body: ListView.builder(
-                  itemCount: notasModel.entityList.length,
+                  itemCount: notasModel.listaEntidades.length,
                   itemBuilder: (BuildContext inBuildContext, int inIndex) {
-                    Nota nota = notasModel.entityList[inIndex];
+                    Nota nota = notasModel.listaEntidades[inIndex];
                     // Determine nota background color (default to white if none was selected).
                     Color color = Colors.white;
                     switch (nota.color) {
@@ -78,11 +78,11 @@ class NotasList extends StatelessWidget {
                                     // Edit existing nota.
                                     onTap: () async {
                                       // Get the data from the database and send to the edit view.
-                                      notasModel.entityBeingEdited =
+                                      notasModel.entidadeSendoEditada =
                                           await NotasDB.db.get(nota.id);
                                       notasModel.setColor(
-                                          notasModel.entityBeingEdited.color);
-                                      notasModel.setStackIndex(1);
+                                          notasModel.entidadeSendoEditada.color);
+                                      notasModel.definirIndicePilha(1);
                                     })) /* End Card. */
                             ) /* End Slidable. */
                         ); /* End Container. */

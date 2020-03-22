@@ -16,7 +16,7 @@ class Notas extends StatelessWidget {
     print("## nota Notas.constructor");
 
     // Carregamento inicial dos dados.
-    notasModel.loadData("notas", NotasDB.db);
+    notasModel.loadData("notas", NotasDB);
 
   } /* End constructor. */
 
@@ -34,7 +34,7 @@ class Notas extends StatelessWidget {
       child : ScopedModelDescendant<NotasModel>(
         builder : (BuildContext inContext, Widget inChild, NotasModel inModel) {
           return IndexedStack(
-            index : inModel.stackIndex,
+            index : inModel.indicePilha,
             children : [
               NotasList(),
               NotasForm()

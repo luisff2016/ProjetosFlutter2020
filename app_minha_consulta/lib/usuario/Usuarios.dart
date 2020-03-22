@@ -34,7 +34,7 @@ class Usuarios extends StatelessWidget {
       child : ScopedModelDescendant<UsuariosModel>(
         builder : (BuildContext inContext, Widget inChild, UsuariosModel inModel) {
           return IndexedStack(
-            index : inModel.stackIndex,
+            index : inModel.indicePilha,
             children : [
               UsuariosList(),
               UsuariosForm()

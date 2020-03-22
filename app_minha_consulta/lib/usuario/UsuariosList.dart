@@ -26,14 +26,14 @@ class UsuariosList extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () {
-                    usuariosModel.entityBeingEdited = Usuario();
+                    usuariosModel.entidadeSendoEditada = Usuario();
                     usuariosModel.setColor(null);
-                    usuariosModel.setStackIndex(1);
+                    usuariosModel.definirIndicePilha(1);
                   }),
               body: ListView.builder(
-                  itemCount: usuariosModel.entityList.length,
+                  itemCount: usuariosModel.listaEntidades.length,
                   itemBuilder: (BuildContext inBuildContext, int inIndex) {
-                    Usuario usuario = usuariosModel.entityList[inIndex];
+                    Usuario usuario = usuariosModel.listaEntidades[inIndex];
                     // Determine Usuario.ckground color (default to white if none was selected).
                     Color color = Colors.white;
                     switch (usuario.color) {
@@ -79,11 +79,11 @@ class UsuariosList extends StatelessWidget {
                                     // Edit existing Usuario.
                                     onTap: () async {
                                       // Get the data from the database and send to the edit view.
-                                      usuariosModel.entityBeingEdited =
+                                      usuariosModel.entidadeSendoEditada =
                                           await UsuariosDB.db.get(usuario.id);
                                       usuariosModel.setColor(usuariosModel
-                                          .entityBeingEdited.color);
-                                      usuariosModel.setStackIndex(1);
+                                          .entidadeSendoEditada.color);
+                                      usuariosModel.definirIndicePilha(1);
                                     })) /* End Card. */
                             ) /* End Slidable. */
                         ); /* End Container. */

@@ -12,6 +12,8 @@ class NotasDB {
   NotasDB._();
   static final NotasDB db = NotasDB._();
 
+  factory NotasDB() => db;
+
   /// The one and only database instance.
   Database _db;
 
@@ -19,32 +21,37 @@ class NotasDB {
   ///
   /// @return The one and only Database instance.
   Future get database async {
-    if (_db == null) {
+    if (_db != null) {
+      print("## nota NotasDB.get-database(): _db = $_db");
+      return _db;
+    } else {
       print("## nota Classe NotasDB: ERRO _db: null");
-      _db = await init();
+      _db = await inicializarDB();
+      return _db;
     }
-    print("## nota NotasDB.get-database(): _db = $_db");
-    return _db;
   } /* End database getter. */
 
   /// Initialize database.
   ///
   /// @return A Database instance.
-  Future<Database> init() async {
-    print("## nota NotasDB.init()");
+  Future<Database> inicializarDB() async {
+    print("## nota NotasDB.inicializarDB()");
     String path = join(utils.docsDir.path, "notas.db");
-    print("## nota NotasDB.init(): path = $path");
-    Database db = await openDatabase(path, version: 1, onOpen: (db) {},
-        onCreate: (Database inDB, int inVersion) async {
-      await inDB.execute("CREATE TABLE IF NOT EXISTS notas ("
-          "id INTEGER PRIMARY KEY,"
-          "titulo TEXT,"
-          "conteudo TEXT,"
-          "color TEXT"
-          ")");
-    });
+    print("## nota NotasDB.inicializarDB(): path = $path");
+
+    var db = await openDatabase(path, version: 1, onOpen : (db) { }, onCreate: _onCreate);
     return db;
-  } /* End init(). */
+  } /* End inicializarDB(). */
+
+  _onCreate(Database inDB, int inVersion) async {
+    String sql = "CREATE TABLE IF NOT EXISTS notas ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "titulo VARCHAR,"
+        "conteudo TEXT,"
+        "data DATETIME,"
+        "color TEXT);";
+    await inDB.execute(sql);
+  }
 
   /// Create a Nota from a Map.
   Nota notaFromMap(Map inMap) {

@@ -4,46 +4,46 @@ import "package:scoped_model/scoped_model.dart";
 /// Base class that the model for all entities extend.
 /// ********************************************************************************************************************
 class BaseModel extends Model {
-  /// Which page of the stack is currently showing.
-  int stackIndex = 0;
+  /// Qual página da pilha está sendo exibida no momento.
+  int indicePilha = 0;
 
-  /// The list of entities.
-  List entityList = [];
+  /// A lista de entidades.
+  List listaEntidades = [];
 
-  /// The entity being edited.
-  var entityBeingEdited;
+  /// A entidade que está sendo editada.
+  var entidadeSendoEditada;
 
-  /// The date chosen by the user.  Needed to be able to display what the user picks on the entry screen.
-  String chosenDate;
+  /// A data escolhida pelo usuário. Precisava ser capaz de exibir o que o usuário seleciona na tela de entrada.
+  String dataEscolhida;
 
-  /// For display of the date chosen by the user.
+  /// Para exibição da data escolhida pelo usuário.
   ///
   /// @param inDate The date in MM/DD/YYYY form.
-  void setChosenDate(String inDate) {
-    print("##9 BaseModel.setChosenDate(): inDate = $inDate");
-    chosenDate = inDate;
+  void definirDataEscolhida(String inDate) {
+    print("##9 BaseModel.definirDataEscolhida(): inDate = $inDate");
+    dataEscolhida = inDate;
     notifyListeners();
-  } /* End setChosenDate(). */
+  } /* End definirDataEscolhida(). */
 
   /// Load data from database.
   ///
-  /// @param inEntityType The type of entity being loaded ("appointments", "contacts", "notes" or "tasks").
+  /// @param tipoEntidade The type of entity being loaded ("appointments", "contacts", "notes" or "tasks").
   /// @param inDatabase   The DBProvider.db instance for the entity.
-  void loadData(String inEntityType, dynamic inDatabase) async {
-    print("##10 ${inEntityType}Model.loadData()");
+  void loadData(String tipoEntidade, dynamic inDatabase) async {
+    print("##10 ${tipoEntidade}Model.loadData()");
     // Load entities from database.
-    entityList = await inDatabase.getAll();
+    listaEntidades = await inDatabase.getAll();
     // Notify listeners that the data is available so they can paint themselves.
     notifyListeners();
   } /* End loadData(). */
 
   /// For navigating between entry and list views.
   ///
-  /// @param inStackIndex The stack index to make current.
-  void setStackIndex(int inStackIndex) {
-    print("## BaseModel.setStackIndex(): inStackIndex = $inStackIndex");
-    stackIndex = inStackIndex;
+  /// @param inindicePilha The stack index to make current.
+  void definirIndicePilha(int inindicePilha) {
+    print("## BaseModel.definirIndicePilha(): inindicePilha = $inindicePilha");
+    indicePilha = inindicePilha;
     notifyListeners();
-  } /* End setStackIndex(). */
+  } /* End definirIndicePilha(). */
 
 } /* End class. */

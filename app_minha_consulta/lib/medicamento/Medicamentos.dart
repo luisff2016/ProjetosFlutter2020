@@ -30,7 +30,7 @@ class Medicamentos extends StatelessWidget {
         child: ScopedModelDescendant<MedicamentosModel>(builder:
                 (BuildContext inContext, Widget inChild,
                     MedicamentosModel inModel) {
-          return IndexedStack(index: inModel.stackIndex, children: [
+          return IndexedStack(index: inModel.indicePilha, children: [
             MedicamentosList(),
             MedicamentosForm()
           ] /* End IndexedStack children. */

@@ -29,15 +29,15 @@ class AlergiasList extends StatelessWidget {
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),
               onPressed : () async {
-                alergiasModel.entityBeingEdited = Alergia();
+                alergiasModel.entidadeSendoEditada = Alergia();
                 alergiasModel.setColor(null);
-                alergiasModel.setStackIndex(1);
+                alergiasModel.definirIndicePilha(1);
               }
             ),
             body : ListView.builder(
-              itemCount : alergiasModel.entityList.length,
+              itemCount : alergiasModel.listaEntidades.length,
               itemBuilder : (BuildContext inBuildContext, int inIndex) {
-                Alergia alergia = alergiasModel.entityList[inIndex];
+                Alergia alergia = alergiasModel.listaEntidades[inIndex];
                 // Determine Alergia background color (default to white if none was selected).
                 Color color = Colors.white;
                 switch (alergia.color) {
@@ -70,9 +70,9 @@ class AlergiasList extends StatelessWidget {
                         // Edit existing Alergia.
                         onTap : () async {
                           // Get the data from the database and send to the edit view.
-                          alergiasModel.entityBeingEdited = await AlergiasDB.db.get(alergia.id);
-                          alergiasModel.setColor(alergiasModel.entityBeingEdited.color);
-                          alergiasModel.setStackIndex(1);
+                          alergiasModel.entidadeSendoEditada = await AlergiasDB.db.get(alergia.id);
+                          alergiasModel.setColor(alergiasModel.entidadeSendoEditada.color);
+                          alergiasModel.definirIndicePilha(1);
                         }
                       )
                     ) /* End Card. */

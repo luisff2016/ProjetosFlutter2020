@@ -25,8 +25,8 @@ class ArquivosList extends StatelessWidget {
 
     // The list of dates with arquivos.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < arquivosModel.entityList.length; i++) {
-      Arquivo arquivo = arquivosModel.entityList[i];
+    for (int i = 0; i < arquivosModel.listaEntidades.length; i++) {
+      Arquivo arquivo = arquivosModel.listaEntidades[i];
       List dateParts = arquivo.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2]));
       _markedDateMap.add(
@@ -44,12 +44,12 @@ class ArquivosList extends StatelessWidget {
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),
               onPressed : () async {
-                arquivosModel.entityBeingEdited = Arquivo();
+                arquivosModel.entidadeSendoEditada = Arquivo();
                 DateTime now = DateTime.now();
-                arquivosModel.entityBeingEdited.apptDate = "${now.year},${now.month},${now.day}";
-                arquivosModel.setChosenDate(DateFormat.yMMMMd("en_US").format(now.toLocal()));
+                arquivosModel.entidadeSendoEditada.apptDate = "${now.year},${now.month},${now.day}";
+                arquivosModel.definirDataEscolhida(DateFormat.yMMMMd("en_US").format(now.toLocal()));
                 arquivosModel.setApptTime(null);
-                arquivosModel.setStackIndex(1);
+                arquivosModel.definirIndicePilha(1);
               }
             ),
               body : Column(
@@ -87,10 +87,10 @@ class ArquivosList extends StatelessWidget {
       "##98 ArquivosList._showArquivos(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})"
     );
 
-    print("##99 ArquivosList._showArquivos(): arquivosModel.entityList.length = "
-      "${arquivosModel.entityList.length}");
-    print("##100 ArquivosList._showArquivos(): arquivosModel.entityList = "
-      "${arquivosModel.entityList}");
+    print("##99 ArquivosList._showArquivos(): arquivosModel.listaEntidades.length = "
+      "${arquivosModel.listaEntidades.length}");
+    print("##100 ArquivosList._showArquivos(): arquivosModel.listaEntidades = "
+      "${arquivosModel.listaEntidades}");
 
     showModalBottomSheet(
       context : inContext,
@@ -114,9 +114,9 @@ class ArquivosList extends StatelessWidget {
                           Divider(),
                           Expanded(
                             child : ListView.builder(
-                              itemCount : arquivosModel.entityList.length,
+                              itemCount : arquivosModel.listaEntidades.length,
                               itemBuilder : (BuildContext inBuildContext, int inIndex) {
-                                Arquivo arquivo = arquivosModel.entityList[inIndex];
+                                Arquivo arquivo = arquivosModel.listaEntidades[inIndex];
                                 print("##101 ArquivosList._showArquivos().ListView.builder(): "
                                   "arquivo = $arquivo");
                                 // Filter out any arquivo that isn't for the specified date.
@@ -185,30 +185,30 @@ class ArquivosList extends StatelessWidget {
     print("##103 ArquivosList._editArquivo(): inArquivo = $inArquivo");
 
     // Get the data from the database and send to the edit view.
-    arquivosModel.entityBeingEdited = await ArquivosDB.db.get(inArquivo.id);
+    arquivosModel.entidadeSendoEditada = await ArquivosDB.db.get(inArquivo.id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (arquivosModel.entityBeingEdited.apptDate == null) {
-      arquivosModel.setChosenDate(null);
+    if (arquivosModel.entidadeSendoEditada.apptDate == null) {
+      arquivosModel.definirDataEscolhida(null);
     } else {
-      List dateParts = arquivosModel.entityBeingEdited.apptDate.split(",");
+      List dateParts = arquivosModel.entidadeSendoEditada.apptDate.split(",");
       DateTime apptDate = DateTime(
         int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2])
       );
-      arquivosModel.setChosenDate(
+      arquivosModel.definirDataEscolhida(
         DateFormat.yMMMMd("en_US").format(apptDate.toLocal())
       );
     }
-    if (arquivosModel.entityBeingEdited.apptTime == null) {
+    if (arquivosModel.entidadeSendoEditada.apptTime == null) {
       arquivosModel.setApptTime(null);
     } else {
-      List timeParts = arquivosModel.entityBeingEdited.apptTime.split(",");
+      List timeParts = arquivosModel.entidadeSendoEditada.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
         hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1])
       );
       arquivosModel.setApptTime(apptTime.format(inContext));
     }
-    arquivosModel.setStackIndex(1);
+    arquivosModel.definirIndicePilha(1);
     Navigator.pop(inContext);
 
   } /* End _editArquivo. */
