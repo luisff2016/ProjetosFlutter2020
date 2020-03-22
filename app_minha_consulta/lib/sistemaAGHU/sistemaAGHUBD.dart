@@ -55,14 +55,14 @@ class SistemaAGHUBD {
         "$colunaCpf VARCHAR,"
         "$colunaNome VARCHAR)");
 
-    await db.execute("CREATE  TABLE $tabelaConsulta"
+    await db.execute("CREATE TABLE $tabelaConsulta"
         "($colunaIdConsulta INTEGER PRIMARY KEY AUTOINCREMENT, "
         "$colunaMedico VARCHAR,"
         "$colunaEspecialidade VARCHAR,"
         "$colunaConsultorio VARCHAR,"
         "$colunaFkConsulta INTEGER,"
         " CONSTRAINT $colunaFkRegConsulta"
-        " FOREIGN KEY ($colunaFkConsulta) REFERENCES $tabelaRegistro ($colunaIdRegistro);");
+        " FOREIGN KEY ($colunaFkConsulta) REFERENCES $tabelaRegistro ($colunaIdRegistro))");
   }
 
   Future<int> inserirConsulta(Consulta consulta) async {

@@ -25,14 +25,14 @@ class _LoginPageState extends State<TelaLogin> {
 
         List _todosRegistros;
 
-        Registro regTeste = (await dbTeste.pegarRegistro(1));
+        Registro regTeste = (await dbTeste.pegarRegistro(0));
         print(regTeste.toString());
 
         _todosRegistros = await dbTeste.pegarTodos(dbTeste.tabelaRegistro);
         for (int i = 0; i < _todosRegistros.length; i++) {
           Registro registro = Registro.map(_todosRegistros[i]);
           print(
-              "Registro: prontuario= ${registro.prontuario}, cpf= ${registro.cpf}");
+              "Registro: prontuario= ${registro.idRegistro}, ${registro.prontuario}, cpf= ${registro.cpf}");
         }
 
         print("Banco tem $contagem recuperados");

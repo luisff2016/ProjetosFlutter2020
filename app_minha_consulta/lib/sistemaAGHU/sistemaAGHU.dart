@@ -66,8 +66,8 @@ class SistemaAGHU extends StatelessWidget {
 
     int nRegistros = await dbSistemaAGHU.pegarContagem(dbSistemaAGHU.tabelaRegistro);
     // Registro (prontuario,cpf,nome);
-    for (int i = 0; i < nRegistros; i++) {
-      for (int j = 0; j < 10; j++) {
+    for (int i = 1; i < nRegistros; i++) {
+      for (int j = 1; j < 10; j++) {
         var consulta =
             new Consulta("Dr. Hider", "geral", "Consultorio" + j.toString(), i);
 
