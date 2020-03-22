@@ -1,8 +1,8 @@
-import 'package:app_minha_consulta/teste/registro.dart';
 import 'package:app_minha_consulta/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Brightness, TextInputType;
-import '../teste/BD.dart';
+import 'package:app_minha_consulta/sistemaAGHU/registro.dart';
+import 'package:app_minha_consulta/sistemaAGHU/sistemaAGHUBD.dart';
 
 class TelaLogin extends StatefulWidget {
   @override
@@ -16,19 +16,19 @@ class _LoginPageState extends State<TelaLogin> {
   @override
   Widget build(BuildContext context) {
     print("## TelaLogin: Iniciando a aplicacao");
-    var dbTeste = new BD();
+    var dbTeste = new SistemaAGHUBD();
 
     Future<void> _recuperarDadosExemplo() async {
       WidgetsFlutterBinding.ensureInitialized();
       try {
-        int contagem = await dbTeste.pegarContagemRegistros();
+        int contagem = await dbTeste.pegarContagem(dbTeste.tabelaRegistro);
 
         List _todosRegistros;
 
         Registro regTeste = (await dbTeste.pegarRegistro(1));
         print(regTeste.toString());
 
-        _todosRegistros = await dbTeste.pegarTodosRegistros();
+        _todosRegistros = await dbTeste.pegarTodos(dbTeste.tabelaRegistro);
         for (int i = 0; i < _todosRegistros.length; i++) {
           Registro registro = Registro.map(_todosRegistros[i]);
           print(
@@ -37,7 +37,7 @@ class _LoginPageState extends State<TelaLogin> {
 
         print("Banco tem $contagem recuperados");
       } catch (e) {
-        print("Erro ao criar o banco BD(): $e");
+        print("Erro ao criar o banco SistemaAGHUBD(): $e");
       }
     }
 
