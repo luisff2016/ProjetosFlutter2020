@@ -1,8 +1,7 @@
-import 'package:app_minha_consulta/consulta/ConsultasForm.dart';
 import 'package:app_minha_consulta/consulta/ConsultasList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import "ConsultasModel.dart" show ConsultasModel, consultasModel;
+import "../consulta/ConsultasModel.dart" show ConsultasModel, consultasModel;
 
 class TelaConsulta extends StatelessWidget {
   @override
@@ -30,7 +29,7 @@ class TelaConsulta extends StatelessWidget {
               body: TabBarView(
                 children: [
                   ConsultasList(),
-                  ConsultasForm(),
+                  ConsultasList(),
                 ],
               ),
             ),

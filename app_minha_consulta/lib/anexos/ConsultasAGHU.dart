@@ -1,6 +1,6 @@
+import 'package:app_minha_consulta/consulta/ConsultasModel.dart';
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
-import "ConsultasModel.dart";
 
 
 /// ********************************************************************************************************************

@@ -1,7 +1,13 @@
 class Consulta {
   String _medico;
   String _especialidade;
-  String _consultorio;
+  String _consultorio; 
+  // dataConsulta
+  // horaConsulta
+  // predio
+  // sala
+  // tipoConsulta
+  // status
   int _fkconsulta;
   int _idConsulta;
 

@@ -1,7 +1,6 @@
+import 'package:app_minha_consulta/view/tela_login.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
-import 'tela_login.dart';
 
 class TelaCadastro extends StatefulWidget {
   @override
@@ -95,7 +94,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => null));
                           },
                         ),
                       ),
@@ -112,7 +111,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => null));
                           },
                         ),
                       ),
