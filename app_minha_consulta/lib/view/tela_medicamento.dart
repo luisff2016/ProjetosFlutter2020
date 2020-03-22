@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TelaLembrete extends StatefulWidget {
+class TelaMedicamento extends StatefulWidget {
   @override
-  _TelaLembreteState createState() => _TelaLembreteState();
+  _TelaMedicamentoState createState() => _TelaMedicamentoState();
 }
 
-class _TelaLembreteState extends State<TelaLembrete> {
+class _TelaMedicamentoState extends State<TelaMedicamento> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lembrete"),
+        title: Text("Medicação"),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -1,14 +1,10 @@
-//import 'dart:math';
-
-import 'package:app_minha_consulta/alergia/AlergiasList.dart';
-import 'package:app_minha_consulta/arquivo/ArquivosList.dart';
-import 'package:app_minha_consulta/consulta/ConsultasList.dart';
-import 'package:app_minha_consulta/contato/ContatosList.dart';
-import 'package:app_minha_consulta/medicamento/MedicamentosList.dart';
-import 'package:app_minha_consulta/nota/NotasList.dart';
+import 'package:app_minha_consulta/view/tela_alergia.dart';
+import 'package:app_minha_consulta/view/tela_anotacao.dart';
+import 'package:app_minha_consulta/view/tela_arquivo.dart';
+import 'package:app_minha_consulta/view/tela_consulta.dart';
+import 'package:app_minha_consulta/view/tela_contato.dart';
+import 'package:app_minha_consulta/view/tela_medicamento.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-import "../nota/NotasModel.dart" show NotasModel, notasModel;
 
 class TelaMenu extends StatefulWidget {
   @override
@@ -16,45 +12,40 @@ class TelaMenu extends StatefulWidget {
 }
 
 class _TelaMenuState extends State<TelaMenu> {
-
   void _abrirConsulta() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ConsultasList()));
+        context, MaterialPageRoute(builder: (context) => TelaConsulta()));
   }
 
   void _abrirArquivo() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ArquivosList()));
+        context, MaterialPageRoute(builder: (context) => TelaArquivo()));
   }
 
   void _abrirContato() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ContatosList()));
+        context, MaterialPageRoute(builder: (context) => TelaContato()));
   }
 
   void _abrirMedicamento() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MedicamentosList()));
+        context, MaterialPageRoute(builder: (context) => TelaMedicamento()));
   }
 
   void _abrirNota() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotasList()));
+        context, MaterialPageRoute(builder: (context) => TelaAnotacao()));
   }
 
   void _abrirAlergia() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AlergiasList()));
+        context, MaterialPageRoute(builder: (context) => TelaAlergia()));
   }
 
   @override
   Widget build(BuildContext context) {
     print("## TelaMenu: ");
-    return ScopedModel<NotasModel>(
-      model : notasModel,
-      child : ScopedModelDescendant<NotasModel>(
-        builder : (BuildContext inContext, Widget inChild, NotasModel inModel) {
-          return Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -179,9 +170,6 @@ class _TelaMenuState extends State<TelaMenu> {
         )),
         // menu antigo
       ],
-    );
-        }
-      )
     );
   }
 }

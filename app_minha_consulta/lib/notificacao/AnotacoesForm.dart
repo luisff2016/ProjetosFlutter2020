@@ -2,14 +2,14 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "../utils.dart" as utils;
-import "../consulta/ConsultasDB.dart";
-import "../consulta/ConsultasModel.dart" show ConsultasModel, consultasModel;
+import "AnotacoesDB.dart";
+import "AnotacoesModel.dart" show AnotacoesModel, anotacoesModel;
 
 
 /// ********************************************************************************************************************
-/// The Consultas Entry sub-screen.
+/// The Appointments Entry sub-screen.
 /// ********************************************************************************************************************
-class ConsultasForm extends StatelessWidget {
+class AnotacoesForm extends StatelessWidget {
 
 
   /// Controllers for TextFields.
@@ -22,16 +22,16 @@ class ConsultasForm extends StatelessWidget {
 
 
   /// Constructor.
-  ConsultasForm() {
+  AnotacoesForm() {
 
-    print("##105 ConsultasForm.constructor");
+    print("##105 AnotacoesForm.constructor");
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      consultasModel.entidadeSendoEditada.title = _titleEditingController.text;
+      anotacoesModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      consultasModel.entidadeSendoEditada.description = _descriptionEditingController.text;
+      anotacoesModel.entidadeSendoEditada.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -43,17 +43,17 @@ class ConsultasForm extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("## ConsultasForm.build()");
+    print("##106 AnotacoesForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = consultasModel.entidadeSendoEditada.title;
-    _descriptionEditingController.text = consultasModel.entidadeSendoEditada.description;
+    _titleEditingController.text = anotacoesModel.entidadeSendoEditada.title;
+    _descriptionEditingController.text = anotacoesModel.entidadeSendoEditada.description;
 
     // Return widget.
     return ScopedModel(
-      model : consultasModel,
-      child : ScopedModelDescendant<ConsultasModel>(
-        builder : (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
+      model : anotacoesModel,
+      child : ScopedModelDescendant<AnotacoesModel>(
+        builder : (BuildContext inContext, Widget inChild, AnotacoesModel inModel) {
           return Scaffold(
             bottomNavigationBar : Padding(
               padding : EdgeInsets.symmetric(vertical : 0, horizontal : 10),
@@ -71,7 +71,7 @@ class ConsultasForm extends StatelessWidget {
                   Spacer(),
                   FlatButton(
                     child : Text("Save"),
-                    onPressed : () { _save(inContext, consultasModel); }
+                    onPressed : () { _save(inContext, anotacoesModel); }
                   )
                 ]
               )
@@ -106,17 +106,17 @@ class ConsultasForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(consultasModel.dataEscolhida == null ? "" : consultasModel.dataEscolhida),
+                    subtitle : Text(anotacoesModel.dataEscolhida == null ? "" : anotacoesModel.dataEscolhida),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
                         String dataEscolhida = await utils.selectDate(
-                          inContext, consultasModel, consultasModel.entidadeSendoEditada.apptDate
+                          inContext, anotacoesModel, anotacoesModel.entidadeSendoEditada.apptDate
                         );
                         if (dataEscolhida != null) {
-                          consultasModel.entidadeSendoEditada.apptDate = dataEscolhida;
+                          anotacoesModel.entidadeSendoEditada.apptDate = dataEscolhida;
                         }
                       }
                     )
@@ -125,7 +125,7 @@ class ConsultasForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.alarm),
                     title : Text("Time"),
-                    subtitle : Text(consultasModel.apptTime == null ? "" : consultasModel.apptTime),
+                    subtitle : Text(anotacoesModel.apptTime == null ? "" : anotacoesModel.apptTime),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
@@ -153,8 +153,8 @@ class ConsultasForm extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (consultasModel.entidadeSendoEditada.apptTime != null) {
-      List timeParts = consultasModel.entidadeSendoEditada.apptTime.split(",");
+    if (anotacoesModel.entidadeSendoEditada.apptTime != null) {
+      List timeParts = anotacoesModel.entidadeSendoEditada.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,8 +165,8 @@ class ConsultasForm extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      consultasModel.entidadeSendoEditada.apptTime = "${picked.hour},${picked.minute}";
-      consultasModel.setApptTime(picked.format(inContext));
+      anotacoesModel.entidadeSendoEditada.apptTime = "${picked.hour},${picked.minute}";
+      anotacoesModel.setApptTime(picked.format(inContext));
     }
 
   } /* End _selectTime(). */
@@ -175,10 +175,10 @@ class ConsultasForm extends StatelessWidget {
   /// Save this contact to the database.
   ///
   /// @param inContext The BuildContext of the parent widget.
-  /// @param inModel   The ConsultasModel.
-  void _save(BuildContext inContext, ConsultasModel inModel) async {
+  /// @param inModel   The AnotacoesModel.
+  void _save(BuildContext inContext, AnotacoesModel inModel) async {
 
-      print("##107 ConsultasForm._save()");
+      print("##107 AnotacoesForm._save()");
 
       // Abort if form isn't valid.
       if (!_formKey.currentState.validate()) { return; }
@@ -186,19 +186,19 @@ class ConsultasForm extends StatelessWidget {
       // Creating a new appointment.
       if (inModel.entidadeSendoEditada.id == null) {
 
-        print("##108 ConsultasForm._save(): Creating: ${inModel.entidadeSendoEditada}");
-        await ConsultasDB.db.create(consultasModel.entidadeSendoEditada);
+        print("##108 AnotacoesForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+        await AnotacoesDB.db.create(anotacoesModel.entidadeSendoEditada);
 
       // Updating an existing appointment.
       } else {
 
-        print("##109 ConsultasForm._save(): Updating: ${inModel.entidadeSendoEditada}");
-        await ConsultasDB.db.update(consultasModel.entidadeSendoEditada);
+        print("##109 AnotacoesForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+        await AnotacoesDB.db.update(anotacoesModel.entidadeSendoEditada);
 
       }
 
       // Reload data from database to update list.
-      consultasModel.loadData("Consultas", ConsultasDB.db);
+      anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
 
       // Go back to the list view.
       inModel.definirIndicePilha(0);
@@ -208,7 +208,7 @@ class ConsultasForm extends StatelessWidget {
         SnackBar(
           backgroundColor : Colors.green,
           duration : Duration(seconds : 2),
-          content : Text("Appointment saved")
+          content : Text("Anotacoes salvas")
         )
       );
 
