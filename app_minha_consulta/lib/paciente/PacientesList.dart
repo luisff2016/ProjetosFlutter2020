@@ -1,39 +1,39 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
-import "UsuariosDB.dart";
-import "UsuariosModel.dart" show Usuario, UsuariosModel, usuariosModel;
+import "PacientesDB.dart";
+import "PacientesModel.dart" show Usuario, PacientesModel, pacientesModel;
 
 /// ****************************************************************************
-/// Lista de Usuarios - tela secundaria.
+/// Lista de pacientes - tela secundaria.
 /// ****************************************************************************
-class UsuariosList extends StatelessWidget {
+class PacientesList extends StatelessWidget {
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## usuario UsuariosList.build()");
+    print("## paciente PacientesList.build()");
 
     // Return widget.
-    return ScopedModel<UsuariosModel>(
-        model: usuariosModel,
-        child: ScopedModelDescendant<UsuariosModel>(builder:
+    return ScopedModel<PacientesModel>(
+        model: pacientesModel,
+        child: ScopedModelDescendant<PacientesModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    UsuariosModel inModel) {
+                    PacientesModel inModel) {
           return Scaffold(
               // Add Usuario.
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () {
-                    usuariosModel.entidadeSendoEditada = Usuario();
-                    usuariosModel.setColor(null);
-                    usuariosModel.definirIndicePilha(1);
+                    pacientesModel.entidadeSendoEditada = Usuario();
+                    pacientesModel.setColor(null);
+                    pacientesModel.definirIndicePilha(1);
                   }),
               body: ListView.builder(
-                  itemCount: usuariosModel.listaEntidades.length,
+                  itemCount: pacientesModel.listaEntidades.length,
                   itemBuilder: (BuildContext inBuildContext, int inIndex) {
-                    Usuario usuario = usuariosModel.listaEntidades[inIndex];
+                    Usuario usuario = pacientesModel.listaEntidades[inIndex];
                     // Determine Usuario.ckground color (default to white if none was selected).
                     Color color = Colors.white;
                     switch (usuario.color) {
@@ -79,11 +79,11 @@ class UsuariosList extends StatelessWidget {
                                     // Edit existing Usuario.
                                     onTap: () async {
                                       // Get the data from the database and send to the edit view.
-                                      usuariosModel.entidadeSendoEditada =
-                                          await UsuariosDB.db.get(usuario.id);
-                                      usuariosModel.setColor(usuariosModel
+                                      pacientesModel.entidadeSendoEditada =
+                                          await pacientesDB.db.get(usuario.id);
+                                      pacientesModel.setColor(pacientesModel
                                           .entidadeSendoEditada.color);
-                                      usuariosModel.definirIndicePilha(1);
+                                      pacientesModel.definirIndicePilha(1);
                                     })) /* End Card. */
                             ) /* End Slidable. */
                         ); /* End Container. */
@@ -101,7 +101,7 @@ class UsuariosList extends StatelessWidget {
   /// @param  inUsuario. The Usuario.otentially) being deleted.
   /// @return           Future.
   Future _deleteUsuario(BuildContext inContext, Usuario inUsuario) async {
-    print("## usuario UsuariosList._deleteUsuario. inUsuario.$inUsuario");
+    print("## usuario pacientesList._deleteUsuario. inUsuario.$inUsuario");
 
     return showDialog(
         context: inContext,
@@ -122,14 +122,14 @@ class UsuariosList extends StatelessWidget {
                     child: Text("Deletar"),
                     onPressed: () async {
                       // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                      await UsuariosDB.db.delete(inUsuario.id);
+                      await pacientesDB.db.delete(inUsuario.id);
                       Navigator.of(inAlertContext).pop();
                       Scaffold.of(inContext).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
                           content: Text("Usuario deletada")));
                       // Reload data from database to update list.
-                      usuariosModel.loadData("usuarios", UsuariosDB.db);
+                      pacientesModel.loadData("pacientes", pacientesDB.db);
                     })
               ]);
         });
