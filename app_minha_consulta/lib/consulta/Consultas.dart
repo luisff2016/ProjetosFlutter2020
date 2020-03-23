@@ -13,7 +13,7 @@ class Consultas extends StatelessWidget {
     print("##140 Consultas.constructor");
 
     // Initial load of data.
-    consultasModel.loadData("Consultas", ConsultasDB.db);
+    consultasModel.loadData("consulta", ConsultasDB.db);
   } /* End constructor. */
 
   /// The build() method.

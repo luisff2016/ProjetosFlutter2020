@@ -2,7 +2,7 @@ import "../BaseModel.dart";
 
 
 /// A class representing this PIM entity type.
-class Anotacao {
+class Notificacao {
 
 
   /// The fields this entity type contains.
@@ -25,7 +25,7 @@ class Anotacao {
 /// ********************************************************************************************************************
 /// The model backing this entity type's views.
 /// ********************************************************************************************************************
-class AnotacoesModel extends BaseModel {
+class NotificacoesModel extends BaseModel {
 
 
   /// The Anotacao time.  Needed to be able to display what the user picks in the Text widget on the entry screen.
@@ -46,5 +46,5 @@ class AnotacoesModel extends BaseModel {
 } /* End class. */
 
 
-// The one and only instance of this model.
-AnotacoesModel anotacoesModel = AnotacoesModel();
+// Padrao Singleton, usando apenas uma instancia para acessar os dados.
+NotificacoesModel notificacoesModel = NotificacoesModel();

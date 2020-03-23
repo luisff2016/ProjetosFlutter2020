@@ -1,7 +1,7 @@
 import "../BaseModel.dart";
 
 /// Esta classe representa um tipo de entidade existente no aplicativo.
-class Usuario {
+class Paciente {
   /// Os campos que esse tipo de entidade contém.
   int id;
   int protocolo;
@@ -18,7 +18,7 @@ class Usuario {
 /// ****************************************************************************
 /// O modelo que suporta as visualizações deste tipo de entidade.
 /// ****************************************************************************
-class UsuariosModel extends BaseModel {
+class PacientesModel extends BaseModel {
   /// The color.  Needed to be able to display what the user picks in the Text widget on the entry screen.
   String color;
 
@@ -26,7 +26,7 @@ class UsuariosModel extends BaseModel {
   ///
   /// @param inColor The color.
   void setColor(String inColor) {
-    print("## usuario UsuariosModel.setColor(): inColor = $inColor");
+    print("## Paciente PacientesModel.setColor(): inColor = $inColor");
     color = inColor;
     notifyListeners();
   } /* End setColor(). */
@@ -34,4 +34,4 @@ class UsuariosModel extends BaseModel {
 } /* End class. */
 
 // Instancia unica segundo o padrao Singleton.
-UsuariosModel usuariosModel = UsuariosModel();
+PacientesModel pacientesModel = PacientesModel();

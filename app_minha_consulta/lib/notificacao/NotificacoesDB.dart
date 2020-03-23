@@ -1,15 +1,15 @@
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
 import "../utils.dart" as utils;
-import "AnotacoesModel.dart";
+import "NotificacoesModel.dart";
 
 /// ********************************************************************************************************************
-/// Database provider class for anotacoess.
+/// Database provider class for aNotificacoess.
 /// ********************************************************************************************************************
-class AnotacoesDB {
+class NotificacoesDB {
   /// Static instance and private constructor, since this is a singleton.
-  AnotacoesDB._();
-  static final AnotacoesDB db = AnotacoesDB._();
+  NotificacoesDB._();
+  static final NotificacoesDB db = NotificacoesDB._();
 
   /// The one and only database instance.
   Database _db;
@@ -20,13 +20,13 @@ class AnotacoesDB {
   Future get database async {
     try {
       if (_db == null) {
-        print("##120 ERRO _db: null");
+        print("## ERRO _db: null");
         _db = await init();
       }
-      print("##121 anotacoes AnotacoesDB.get-database(): _db = $_db");
+      print("## notificacao NotificacoesDB.get-database(): _db = $_db");
       return _db;
     } catch (e) {
-      print("##122 ERRO _db: try_catch($e)");
+      print("## ERRO _db: try_catch($e)");
     }
   } /* End database getter. */
 
@@ -34,11 +34,11 @@ class AnotacoesDB {
   ///
   /// @return A Database instance.
   Future<Database> init() async {
-    String path = join(utils.docsDir.path, "anotacoes.db");
-    print("##123 anotacoes AnotacoesDB.init(): path = $path");
+    String path = join(utils.docsDir.path, "notificacoes.db");
+    print("## notificacao NotificacoesDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
-      await inDB.execute("CREATE TABLE IF NOT EXISTS anotacoes ("
+      await inDB.execute("CREATE TABLE IF NOT EXISTS notificacoes ("
           "id INTEGER PRIMARY KEY,"
           "title TEXT,"
           "description TEXT,"
@@ -49,45 +49,45 @@ class AnotacoesDB {
     return db;
   } /* End init(). */
 
-  /// Create a anotacoes from a Map.
-  Anotacao anotacaoFromMap(Map inMap) {
-    print("##124 anotacoess AnotacoesDB.anotacoesFromMap(): inMap = $inMap");
-    Anotacao anotacao = Anotacao();
-    anotacao.id = inMap["id"];
-    anotacao.title = inMap["title"];
-    anotacao.description = inMap["description"];
-    anotacao.apptDate = inMap["apptDate"];
-    anotacao.apptTime = inMap["apptTime"];
+  /// Create a aNotificacoes from a Map.
+  Notificacao notificacaoFromMap(Map inMap) {
+    print("## notificacao NotificacoesDB.notificacoesFromMap(): inMap = $inMap");
+    Notificacao notificacao = Notificacao();
+    notificacao.id = inMap["id"];
+    notificacao.title = inMap["title"];
+    notificacao.description = inMap["description"];
+    notificacao.apptDate = inMap["apptDate"];
+    notificacao.apptTime = inMap["apptTime"];
     print(
-        "##125 anotacoes AnotacoesDB.anotacaoFromMap(): anotacao = $anotacao");
+        "## notificacao NotificacoesDB.notificacaoFromMap(): notificacao = $notificacao");
 
-    return anotacao;
-  } /* End anotacoesFromMap(); */
+    return notificacao;
+  } /* End aNotificacoesFromMap(); */
 
-  /// Create a Map from a anotacoes.
-  Map<String, dynamic> anotacaoToMap(Anotacao inAnotacao) {
+  /// Create a Map from a aNotificacoes.
+  Map<String, dynamic> notificacaoToMap(Notificacao inNotificacao) {
     print(
-        "##126 anotacoess AnotacoesDB.anotacoesToMap(): inAnotacao = $inAnotacao");
+        "## notificacao NotificacoesDB.notificacoesToMap(): inNotificacao = $inNotificacao");
     Map<String, dynamic> map = Map<String, dynamic>();
-    map["id"] = inAnotacao.id;
-    map["title"] = inAnotacao.title;
-    map["description"] = inAnotacao.description;
-    map["apptDate"] = inAnotacao.apptDate;
-    map["apptTime"] = inAnotacao.apptTime;
-    print("##127 anotacoess AnotacoesDB.anotacaoToMap(): map = $map");
+    map["id"] = inNotificacao.id;
+    map["title"] = inNotificacao.title;
+    map["description"] = inNotificacao.description;
+    map["apptDate"] = inNotificacao.apptDate;
+    map["apptTime"] = inNotificacao.apptTime;
+    print("## notificacao NotificacoesDB.notificacaoToMap(): map = $map");
     return map;
-  } /* End anotacoesToMap(). */
+  } /* End aNotificacoesToMap(). */
 
-  /// Create a anotacoes.
+  /// Create a aNotificacoes.
   ///
-  /// @param inAnotacao the anotacoes object to create.
-  Future create(Anotacao inAnotacao) async {
-    print("##128 anotacoess AnotacoesDB.create(): inAnotacao = $inAnotacao");
+  /// @param inANotificacao the aNotificacoes object to create.
+  Future create(Notificacao inNotificacao) async {
+    print("## notificacao NotificacoesDB.create(): inNotificacao = $inNotificacao");
 
     Database db = await database;
 
     // Get largest current id in the table, plus one, to be the new ID.
-    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM anotacoess");
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM notificacoes");
     int id = val.first["id"];
     if (id == null) {
       id = 1;
@@ -95,65 +95,65 @@ class AnotacoesDB {
 
     // Insert into table.
     return await db.rawInsert(
-        "INSERT INTO anotacoess (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO notificacoes (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
         [
           id,
-          inAnotacao.title,
-          inAnotacao.description,
-          inAnotacao.apptDate,
-          inAnotacao.apptTime
+          inNotificacao.title,
+          inNotificacao.description,
+          inNotificacao.apptDate,
+          inNotificacao.apptTime
         ]);
   } /* End create(). */
 
-  /// Get a specific anotacoes.
+  /// Get a specific aNotificacoes.
   ///
-  /// @param  inID The ID of the anotacoes to get.
-  /// @return      The corresponding anotacoes object.
-  Future<Anotacao> get(int inID) async {
-    print("##129 anotacoes AnotacoesDB.get(): inID = $inID");
+  /// @param  inID The ID of the aNotificacoes to get.
+  /// @return      The corresponding aNotificacoes object.
+  Future<Notificacao> get(int inID) async {
+    print("## notificacao NotificacoesDB.get(): inID = $inID");
 
     Database db = await database;
-    var rec = await db.query("anotacoes", where: "id = ?", whereArgs: [inID]);
-    print("##130 anotacoess AnotacoesDB.get(): rec.first = $rec.first");
-    return anotacaoFromMap(rec.first);
+    var rec = await db.query("notificacoes", where: "id = ?", whereArgs: [inID]);
+    print("## notificacoes NotificacoesDB.get(): rec.first = $rec.first");
+    return notificacaoFromMap(rec.first);
   } /* End get(). */
 
-  /// Get all anotacoess.
+  /// Get all aNotificacoess.
   ///
-  /// @return A List of anotacoes objects.
+  /// @return A List of aNotificacoes objects.
   Future<List> getAll() async {
     try {
       Database db = await database;
-      var recs = await db.query("anotacoes");
+      var recs = await db.query("notificacoes");
       var list =
-          recs.isNotEmpty ? recs.map((m) => anotacaoFromMap(m)).toList() : [];
-      print("##131 anotacoes AnotacoesDB.getAll(): list = $list");
+          recs.isNotEmpty ? recs.map((m) => notificacaoFromMap(m)).toList() : [];
+      print("## notificacao NotificacoesDB.getAll(): list = $list");
       return list;
     } catch (e) {
-      print("##132 ERRO getAll(): $e ");
+      print("## ERRO getAll(): $e ");
       return null;
     }
   } /* End getAll(). */
 
-  /// Update a anotacoes.
+  /// Update a aNotificacoes.
   ///
-  /// @param inAnotacao The anotacoes to update.
-  Future update(Anotacao inAnotacao) async {
-    print("##133 anotacoess AnotacoesDB.update(): inAnotacao = $inAnotacao");
+  /// @param inANotificacao The aNotificacoes to update.
+  Future update(Notificacao inNotificacao) async {
+    print("## notificacao NotificacoesDB.update(): inNotificacao = $inNotificacao");
 
     Database db = await database;
-    return await db.update("anotacoes", anotacaoToMap(inAnotacao),
-        where: "id = ?", whereArgs: [inAnotacao.id]);
+    return await db.update("notificacoes", notificacaoToMap(inNotificacao),
+        where: "id = ?", whereArgs: [inNotificacao.id]);
   } /* End update(). */
 
-  /// Delete a anotacoes.
+  /// Delete a aNotificacoes.
   ///
-  /// @param inID The ID of the anotacoes to delete.
+  /// @param inID The ID of the aNotificacoes to delete.
   Future delete(int inID) async {
-    print("##134 anotacoess AnotacoesDB.delete(): inID = $inID");
+    print("## notificacao NotificacoesDB.delete(): inID = $inID");
 
     Database db = await database;
-    return await db.delete("anotacoes", where: "id = ?", whereArgs: [inID]);
+    return await db.delete("notificacoes", where: "id = ?", whereArgs: [inID]);
   } /* End delete(). */
 
 } /* End class. */

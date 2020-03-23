@@ -14,7 +14,7 @@ class Arquivos extends StatelessWidget {
     print("##140 Arquivos.constructor");
 
     // Initial load of data.
-    arquivosModel.loadData("arquivos", ArquivosDB.db);
+    arquivosModel.loadData("arquivo", ArquivosDB.db);
   } /* End constructor. */
 
   /// The build() method.

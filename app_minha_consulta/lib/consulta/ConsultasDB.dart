@@ -34,7 +34,7 @@ class ConsultasDB {
   ///
   /// @return A Database instance.
   Future<Database> init() async {
-    String path = join(utils.docsDir.path, "Consultas.db");
+    String path = join(utils.docsDir.path, "consultas.db");
     print("##123 Consultas ConsultasDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {

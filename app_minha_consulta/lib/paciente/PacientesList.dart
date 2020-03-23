@@ -22,21 +22,21 @@ class PacientesList extends StatelessWidget {
                 (BuildContext inContext, Widget inChild,
                     PacientesModel inModel) {
           return Scaffold(
-              // Add Usuario.
+              // Add Paciente.
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () {
-                    pacientesModel.entidadeSendoEditada = Usuario();
+                    pacientesModel.entidadeSendoEditada = Paciente();
                     pacientesModel.setColor(null);
                     pacientesModel.definirIndicePilha(1);
                   }),
               body: ListView.builder(
                   itemCount: pacientesModel.listaEntidades.length,
                   itemBuilder: (BuildContext inBuildContext, int inIndex) {
-                    Usuario usuario = pacientesModel.listaEntidades[inIndex];
-                    // Determine Usuario.ckground color (default to white if none was selected).
+                    Paciente paciente = pacientesModel.listaEntidades[inIndex];
+                    // Determine Paciente.ckground color (default to white if none was selected).
                     Color color = Colors.white;
-                    switch (usuario.color) {
+                    switch (paciente.color) {
                       case "red":
                         color = Colors.red;
                         break;
@@ -67,20 +67,20 @@ class PacientesList extends StatelessWidget {
                                   color: Colors.red,
                                   icon: Icons.delete,
                                   onTap: () =>
-                                      _deleteUsuario(inContext, usuario))
+                                      _deletePaciente(inContext, paciente))
                             ],
                             actionPane: null,
                             child: Card(
                                 elevation: 8,
                                 color: color,
                                 child: ListTile(
-                                    title: Text("${usuario.protocolo}"),
-                                    subtitle: Text("${usuario.cpf}"),
-                                    // Edit existing Usuario.
+                                    title: Text("${paciente.protocolo}"),
+                                    subtitle: Text("${paciente.cpf}"),
+                                    // Edit existing Paciente.
                                     onTap: () async {
                                       // Get the data from the database and send to the edit view.
                                       pacientesModel.entidadeSendoEditada =
-                                          await PacientesDB.db.get(usuario.id);
+                                          await PacientesDB.db.get(paciente.id);
                                       pacientesModel.setColor(pacientesModel
                                           .entidadeSendoEditada.color);
                                       pacientesModel.definirIndicePilha(1);
@@ -98,19 +98,19 @@ class PacientesList extends StatelessWidget {
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext The BuildContext of the parent Widget.
-  /// @param  inUsuario. The Usuario.otentially) being deleted.
+  /// @param  inPaciente. The Paciente.otentially) being deleted.
   /// @return           Future.
-  Future _deleteUsuario(BuildContext inContext, Usuario inUsuario) async {
-    print("## usuario pacientesList._deleteUsuario. inUsuario.$inUsuario");
+  Future _deletePaciente(BuildContext inContext, Paciente inPaciente) async {
+    print("## Paciente pacientesList._deletePaciente. inPaciente.$inPaciente");
 
     return showDialog(
         context: inContext,
         barrierDismissible: false,
         builder: (BuildContext inAlertContext) {
           return AlertDialog(
-              title: Text("Deletar Usuario"),
+              title: Text("Deletar Paciente"),
               content: Text(
-                  "Are you sure you want to delete ${inUsuario.protocolo}?"),
+                  "Are you sure you want to delete ${inPaciente.protocolo}?"),
               actions: [
                 FlatButton(
                     child: Text("Cancelar"),
@@ -122,17 +122,17 @@ class PacientesList extends StatelessWidget {
                     child: Text("Deletar"),
                     onPressed: () async {
                       // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                      await pacientesDB.db.delete(inUsuario.id);
+                      await PacientesDB.db.delete(inPaciente.id);
                       Navigator.of(inAlertContext).pop();
                       Scaffold.of(inContext).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
-                          content: Text("Usuario deletada")));
+                          content: Text("Paciente deletada")));
                       // Reload data from database to update list.
                       pacientesModel.loadData("pacientes", PacientesDB.db);
                     })
               ]);
         });
-  } /* End _deleteUsuario. */
+  } /* End _deletePaciente. */
 
 } /* End class. */

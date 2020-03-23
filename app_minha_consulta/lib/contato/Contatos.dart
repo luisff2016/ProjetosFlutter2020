@@ -18,7 +18,7 @@ class Contatos extends StatelessWidget {
     print("##95 Contacts.constructor");
 
     // Initial load of data.
-    contatosModel.loadData("contacts", ContatosDB.db);
+    contatosModel.loadData("contato", ContatosDB.db);
 
   } /* End constructor. */
 

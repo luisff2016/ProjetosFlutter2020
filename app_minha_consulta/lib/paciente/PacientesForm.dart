@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
-import "package:scoped_model/scoped_model.dart";
-import "UsuariosDB.dart";
-import "UsuariosModel.dart" show UsuariosModel, usuariosModel;
+import 'package:scoped_model/scoped_model.dart';
+import "PacientesDB.dart";
+import "PacientesModel.dart" show PacientesModel, pacientesModel;
 
 /// ****************************************************************************
 /// Subtela para entradas da entidade.
 /// ****************************************************************************
-class UsuariosForm extends StatelessWidget {
+class PacientesForm extends StatelessWidget {
   /// Controladores para campos de texto.
   final TextEditingController _titleEditingController = TextEditingController();
   final TextEditingController _contentEditingController =
@@ -16,15 +16,15 @@ class UsuariosForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   /// Constructor.
-  UsuariosForm() {
-    print("## usuario UsuariosForm.constructor");
+  PacientesForm() {
+    print("## paciente PacientesForm.constructor");
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      usuariosModel.entidadeSendoEditada.title = _titleEditingController.text;
+      pacientesModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _contentEditingController.addListener(() {
-      usuariosModel.entidadeSendoEditada.content = _contentEditingController.text;
+      pacientesModel.entidadeSendoEditada.content = _contentEditingController.text;
     });
   } /* End constructor. */
 
@@ -33,18 +33,18 @@ class UsuariosForm extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## usuario UsuariosForm.build()");
+    print("## paciente PacientesForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = usuariosModel.entidadeSendoEditada.title;
-    _contentEditingController.text = usuariosModel.entidadeSendoEditada.content;
+    _titleEditingController.text = pacientesModel.entidadeSendoEditada.title;
+    _contentEditingController.text = pacientesModel.entidadeSendoEditada.content;
 
     // Return widget.
     return ScopedModel(
-        model: usuariosModel,
-        child: ScopedModelDescendant<UsuariosModel>(builder:
+        model: pacientesModel,
+        child: ScopedModelDescendant<PacientesModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    UsuariosModel inModel) {
+                    PacientesModel inModel) {
           return Scaffold(
               bottomNavigationBar: Padding(
                   padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
@@ -61,7 +61,7 @@ class UsuariosForm extends StatelessWidget {
                     FlatButton(
                         child: Text("Save"),
                         onPressed: () {
-                          _save(inContext, usuariosModel);
+                          _save(inContext, pacientesModel);
                         })
                   ])),
               body: Form(
@@ -105,13 +105,13 @@ class UsuariosForm extends StatelessWidget {
                                           Border.all(
                                               width: 5,
                                               color:
-                                                  usuariosModel.color == "red"
+                                                  pacientesModel.color == "red"
                                                       ? Colors.red
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entidadeSendoEditada.color = "red";
-                                usuariosModel.setColor("red");
+                                pacientesModel.entidadeSendoEditada.color = "red";
+                                pacientesModel.setColor("red");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -122,13 +122,13 @@ class UsuariosForm extends StatelessWidget {
                                           Border.all(
                                               width: 5,
                                               color:
-                                                  usuariosModel.color == "green"
+                                                  pacientesModel.color == "green"
                                                       ? Colors.green
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entidadeSendoEditada.color = "green";
-                                usuariosModel.setColor("green");
+                                pacientesModel.entidadeSendoEditada.color = "green";
+                                pacientesModel.setColor("green");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -139,13 +139,13 @@ class UsuariosForm extends StatelessWidget {
                                           Border.all(
                                               width: 5,
                                               color:
-                                                  usuariosModel.color == "blue"
+                                                  pacientesModel.color == "blue"
                                                       ? Colors.blue
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entidadeSendoEditada.color = "blue";
-                                usuariosModel.setColor("blue");
+                                pacientesModel.entidadeSendoEditada.color = "blue";
+                                pacientesModel.setColor("blue");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -155,15 +155,15 @@ class UsuariosForm extends StatelessWidget {
                                               color: Colors.yellow, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color: usuariosModel.color ==
+                                              color: pacientesModel.color ==
                                                       "yellow"
                                                   ? Colors.yellow
                                                   : Theme.of(inContext)
                                                       .canvasColor))),
                               onTap: () {
-                                usuariosModel.entidadeSendoEditada.color =
+                                pacientesModel.entidadeSendoEditada.color =
                                     "yellow";
-                                usuariosModel.setColor("yellow");
+                                pacientesModel.setColor("yellow");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -174,13 +174,13 @@ class UsuariosForm extends StatelessWidget {
                                           Border.all(
                                               width: 5,
                                               color:
-                                                  usuariosModel.color == "grey"
+                                                  pacientesModel.color == "grey"
                                                       ? Colors.grey
                                                       : Theme.of(inContext)
                                                           .canvasColor))),
                               onTap: () {
-                                usuariosModel.entidadeSendoEditada.color = "grey";
-                                usuariosModel.setColor("grey");
+                                pacientesModel.entidadeSendoEditada.color = "grey";
+                                pacientesModel.setColor("grey");
                               }),
                           Spacer(),
                           GestureDetector(
@@ -190,15 +190,15 @@ class UsuariosForm extends StatelessWidget {
                                               color: Colors.purple, width: 15) +
                                           Border.all(
                                               width: 5,
-                                              color: usuariosModel.color ==
+                                              color: pacientesModel.color ==
                                                       "purple"
                                                   ? Colors.purple
                                                   : Theme.of(inContext)
                                                       .canvasColor))),
                               onTap: () {
-                                usuariosModel.entidadeSendoEditada.color =
+                                pacientesModel.entidadeSendoEditada.color =
                                     "purple";
-                                usuariosModel.setColor("purple");
+                                pacientesModel.setColor("purple");
                               })
                         ]))
                   ] /* End Column children. */
@@ -213,9 +213,9 @@ class UsuariosForm extends StatelessWidget {
   /// Save this contact to the database.
   ///
   /// @param inContext The BuildContext of the parent widget.
-  /// @param inModel   The UsuariosModel.
-  void _save(BuildContext inContext, UsuariosModel inModel) async {
-    print("## usuario UsuariosForm._save()");
+  /// @param inModel   The PacientesModel.
+  void _save(BuildContext inContext, PacientesModel inModel) async {
+    print("## paciente PacientesForm._save()");
 
     // Abort if form isn't valid.
     if (!_formKey.currentState.validate()) {
@@ -225,18 +225,18 @@ class UsuariosForm extends StatelessWidget {
     // Creating a new note.
     if (inModel.entidadeSendoEditada.id == null) {
       print(
-          "## usuario UsuariosForm._save(): Creating: ${inModel.entidadeSendoEditada}");
-      await UsuariosDB.db.create(usuariosModel.entidadeSendoEditada);
+          "## paciente PacientesForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+      await PacientesDB.db.create(pacientesModel.entidadeSendoEditada);
 
       // Updating an existing note.
     } else {
       print(
-          "## usuario UsuariosForm._save(): Updating: ${inModel.entidadeSendoEditada}");
-      await UsuariosDB.db.update(usuariosModel.entidadeSendoEditada);
+          "## paciente PacientesForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+      await PacientesDB.db.update(pacientesModel.entidadeSendoEditada);
     }
 
     // Reload data from database to update list.
-    usuariosModel.loadData("usuarios", UsuariosDB.db);
+    pacientesModel.loadData("pacientes", PacientesDB.db);
 
     // Go back to the list view.
     inModel.definirIndicePilha(0);
@@ -245,7 +245,7 @@ class UsuariosForm extends StatelessWidget {
     Scaffold.of(inContext).showSnackBar(SnackBar(
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
-        content: Text("Usuario salvo!")));
+        content: Text("paciente salvo!")));
   } /* End _save(). */
 
 } /* End class. */

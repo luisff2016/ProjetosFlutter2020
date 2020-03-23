@@ -1,7 +1,9 @@
+import 'package:app_minha_consulta/paciente/Pacientes.dart';
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
 import "../utils.dart" as utils;
 import "PacientesModel.dart";
+
 
 /// ********************************************************************************************************************
 /// Classe do provedor de banco de dados
@@ -20,10 +22,10 @@ class PacientesDB {
   /// @return The one and only Database instance.
   Future get database async {
     if (_db == null) {
-      print("## pacientes Classe PacientesDB: ERRO _db: null");
+      print("## paciente Classe PacientesDB: ERRO _db: null");
       _db = await init();
     }
-    print("## pacientes PacientesDB.get-database(): _db = $_db");
+    print("## paciente PacientesDB.get-database(): _db = $_db");
     return _db;
   } /* End database getter. */
 
@@ -31,9 +33,9 @@ class PacientesDB {
   ///
   /// @return A Database instance.
   Future<Database> init() async {
-    print("## pacientes PacientesDB.init()");
+    print("## paciente PacientesDB.init()");
     String path = join(utils.docsDir.path, "pacientes.db");
-    print("## pacientes PacientesDB.init(): path = $path");
+    print("## paciente PacientesDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
       await inDB.execute("CREATE TABLE IF NOT EXISTS pacientes ("
@@ -47,102 +49,102 @@ class PacientesDB {
     return db;
   } /* End init(). */
 
-  /// Create a uPacientessuario from a Map.
-  Pacientes pacientesFromMap(Map inMap) {
-    print("## uPacientessuario UPacientessuariosDB.uPacientessuarioFromMap(): inMap = $inMap");
-    UPacientessuario uPacientessuario = UPacientessuario();
-    uPacientessuario.id = inMap["id"];
-    uPacientessuario.protocolo = inMap["protocolo"];
-    uPacientessuario.cpf = inMap["cpf"];
-    uPacientessuario.nome = inMap["nome"];
-    uPacientessuario.color = inMap["color"];
-    print("## uPacientessuario UPacientessuariosDB.uPacientessuarioFromMap(): uPacientessuario = $uPacientessuario");
-    return uPacientessuario;
-  } /* End uPacientessuarioFromMap(); */
+  /// Create a pacientes from a Map.
+  Paciente pacienteFromMap(Map inMap) {
+    print("## pacientes pacientessDB.pacientesFromMap(): inMap = $inMap");
+    Paciente paciente = Paciente();
+    paciente.id = inMap["id"];
+    paciente.protocolo = inMap["protocolo"];
+    paciente.cpf = inMap["cpf"];
+    paciente.nome = inMap["nome"];
+    paciente.color = inMap["color"];
+    print("## paciente PacientesDB.pacientesFromMap(): pacientes = $paciente");
+    return paciente;
+  } /* End pacientesFromMap(); */
 
-  /// Create a Map from a uPacientessuario.
-  Map<String, dynamic> uPacientessuarioToMap(UPacientessuario inUPacientessuario) {
-    print("## uPacientessuario UPacientessuariosDB.uPacientessuarioToMap(): inUPacientessuario = $inUPacientessuario");
+  /// Create a Map from a pacientes.
+  Map<String, dynamic> pacienteToMap(Paciente inPacientes) {
+    print("## paciente PacientessDB.pacientesToMap(): inPacientes = $inPacientes");
     Map<String, dynamic> map = Map<String, dynamic>();
-    map["id"] = inUPacientessuario.id;
-    map["protocolo"] = inUPacientessuario.protocolo;
-    map["cpf"] = inUPacientessuario.cpf;
-    map["nome"] = inUPacientessuario.nome;
-    map["color"] = inUPacientessuario.color;
-    print("## uPacientessuario UPacientessuariosDB.uPacientessuarioToMap(): map = $map");
+    map["id"] = inPacientes.id;
+    map["protocolo"] = inPacientes.protocolo;
+    map["cpf"] = inPacientes.cpf;
+    map["nome"] = inPacientes.nome;
+    map["color"] = inPacientes.color;
+    print("## pacientes pacientessDB.pacientesToMap(): map = $map");
     return map;
-  } /* End uPacientessuarioToMap(). */
+  } /* End pacientesToMap(). */
 
-  /// Create a uPacientessuario.
+  /// Create a pacientes.
   ///
-  /// @param  inUPacientessuario The uPacientessuario object to create.
+  /// @param  inPacientes The pacientes object to create.
   /// @return        Future.
-  Future create(UPacientessuario inUPacientessuario) async {
-    print("## uPacientessuario UPacientessuariosDB.create(): inUPacientessuario = $inUPacientessuario");
+  Future create(Paciente inPacientes) async {
+    print("## paciente PacientesDB.create(): inPacientes = $inPacientes");
     Database db = await database;
     // Get largest current id in the table, plus one, to be the new ID.
-    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM uPacientessuarios");
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM pacientes");
     int id = val.first["id"];
     if (id == null) {
       id = 1;
     }
-    print("## uPacientessuarios UPacientessuariosDB.create(): id = $id");
+    print("## paciente PacientesDB.create(): id = $id");
     // Insert into table.
     return await db.rawInsert(
-        "INSERT INTO UPacientessuarios (id, protocolo, cpf, color) VALUES (?, ?, ?, ?)",
+        "INSERT INTO pacientes (id, protocolo, cpf, color) VALUES (?, ?, ?, ?)",
         [
           id,
-          inUPacientessuario.protocolo,
-          inUPacientessuario.cpf,
-          inUPacientessuario.nome,
-          inUPacientessuario.color
+          inPacientes.protocolo,
+          inPacientes.cpf,
+          inPacientes.nome,
+          inPacientes.color
         ]);
   } /* End create(). */
 
-  /// Get a specific uPacientessuario.
+  /// Get a specific pacientes.
   ///
-  /// @param  inID The ID of the uPacientessuario to get.
-  /// @return      The corresponding uPacientessuario object.
-  Future<UPacientessuario> get(int inID) async {
-    print("## uPacientessuario UPacientessuariosDB.get(): inID = $inID");
+  /// @param  inID The ID of the pacientes to get.
+  /// @return      The corresponding pacientes object.
+  Future<Paciente> get(int inID) async {
+    print("## paciente PacientesDB.get(): inID = $inID");
     Database db = await database;
-    var rec = await db.query("uPacientessuarios", where: "id = ?", whereArgs: [inID]);
-    print("## uPacientessuario UPacientessuariosDB.get(): rec.first = $rec.first");
-    return uPacientessuarioFromMap(rec.first);
+    var rec = await db.query("pacientes", where: "id = ?", whereArgs: [inID]);
+    print("## paciente PacientesDB.get(): rec.first = $rec.first");
+    return pacienteFromMap(rec.first);
   } /* End get(). */
 
-  /// Get all UPacientessuarios.
+  /// Get all pacientess.
   ///
-  /// @return A List of uPacientessuario objects.
+  /// @return A List of pacientes objects.
   Future<List> get getAll async {
-    print("## suario UPacientessuariosDB.getAll()");
+    print("## paciente PacientesDB.getAll()");
     Database db = await database;
-    var recs = await db.query("uPacientessuarios");
+    var recs = await db.query("pacientess");
     var list =
-        recs.isNotEmpty ? recs.map((m) => uPacientessuarioFromMap(m)).toList() : [];
-    print("## uPacientessuario UPacientessuariosDB.getAll(): list = $list");
+        recs.isNotEmpty ? recs.map((m) => pacienteFromMap(m)).toList() : [];
+    print("## pacientes pacientessDB.getAll(): list = $list");
     return list;
   } /* End getAll(). */
 
-  /// Update a uPacientessuario.
+  /// Update a pacientes.
   ///
-  /// @param inUPacientessuario The uPacientessuario to update.
+  /// @param inPacientes The pacientes to update.
   /// @return       Future.
-  Future update(UPacientessuario inUPacientessuario) async {
-    print("## uPacientessuario UPacientessuariosDB.update(): inUPacientessuario = $inUPacientessuario");
+  Future update(Paciente inPacientes) async {
+    print("## pacientes pacientessDB.update(): inPacientes = $inPacientes");
     Database db = await database;
-    return await db.update("uPacientessuarios", uPacientessuarioToMap(inUPacientessuario),
-        where: "id = ?", whereArgs: [inUPacientessuario.id]);
+    return await db.update("pacientess", pacienteToMap(inPacientes),
+        where: "id = ?", whereArgs: [inPacientes.id]);
   } /* End update(). */
 
-  /// Delete a uPacientessuario.
+  /// Delete a pacientes.
   ///
-  /// @param inID The ID of the uPacientessuario to delete.
+  /// @param inID The ID of the pacientes to delete.
   /// @return     Future.
   Future delete(int inID) async {
-    print("## uPacientessuario UPacientessuariosDB.delete(): inID = $inID");
+    print("## paciente PacientesDB.delete(): inID = $inID");
     Database db = await database;
-    return await db.delete("uPacientessuarios", where: "id = ?", whereArgs: [inID]);
+    return await db.delete("pacientes", where: "id = ?", whereArgs: [inID]);
   } /* End delete(). */
 
 } /* End class. */

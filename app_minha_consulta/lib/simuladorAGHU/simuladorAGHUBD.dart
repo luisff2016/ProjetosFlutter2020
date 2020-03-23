@@ -40,7 +40,7 @@ class SimuladorAGHUBD {
   initSimuladorAGHUBD() async {
     Directory documentoDiretorio = await getApplicationDocumentsDirectory();
 
-    String caminho = join(documentoDiretorio.path, "SimuladorAGHUbd_teste.db");
+    String caminho = join(documentoDiretorio.path, "Simulador.db");
 
     var nossoSimuladorAGHUBD =
         await openDatabase(caminho, version: 1, onCreate: _onCreate);

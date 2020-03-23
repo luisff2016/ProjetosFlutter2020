@@ -14,7 +14,7 @@ class Anotacoes extends StatelessWidget {
     print("##140 Anotacoes.constructor");
 
     // Initial load of data.
-    anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
+    anotacoesModel.loadData("anotacao", AnotacoesDB.db);
   } /* End constructor. */
 
   /// The build() method.
