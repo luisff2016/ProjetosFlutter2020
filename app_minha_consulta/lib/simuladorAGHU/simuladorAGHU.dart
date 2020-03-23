@@ -1,58 +1,58 @@
 import 'package:app_minha_consulta/view/tela_login.dart';
 import "package:flutter/material.dart";
-import 'sistemaAGHUBD.dart';
+import 'simuladorAGHUBD.dart';
 import 'registro.dart';
 import 'consulta.dart';
 import 'dart:async';
 
 /// ********************************************************************************************************************
-/// Inserir dados no banco de dados para SistemaAGHU do aplicativo
+/// Inserir dados no banco de dados para SimuladorAGHU do aplicativo
 /// ********************************************************************************************************************
-class SistemaAGHU extends StatelessWidget {
+class SimuladorAGHU extends StatelessWidget {
   /// Constructor.
-  SistemaAGHU() {
-    print("##200 SistemaAGHU ok ");
+  SimuladorAGHU() {
+    print("##200 SimuladorAGHU ok ");
   } /* End constructor. */
 
   Future<void> _inserirDadosExemplo() async {
     WidgetsFlutterBinding.ensureInitialized();
     try {
-      var dbSistemaAGHU = new SistemaAGHUBD();
-      int contagem = await dbSistemaAGHU.pegarContagem(dbSistemaAGHU.tabelaRegistro);
+      var dbSimuladorAGHU = new SimuladorAGHUBD();
+      int contagem = await dbSimuladorAGHU.pegarContagem(dbSimuladorAGHU.tabelaRegistro);
       if (contagem <= 0) {
-        _inserirRegistros(dbSistemaAGHU);
-        _listarRegistros(dbSistemaAGHU);
+        _inserirRegistros(dbSimuladorAGHU);
+        _listarRegistros(dbSimuladorAGHU);
         print("existem $contagem Registros cadastrados");
-        _inserirConsultas(dbSistemaAGHU);
-        _listarConsultas(dbSistemaAGHU);
+        _inserirConsultas(dbSimuladorAGHU);
+        _listarConsultas(dbSimuladorAGHU);
       } else {
         print("Banco tem $contagem itens");
       }
     } catch (e) {
-      print("Erro ao criar o banco SistemaAGHUBD(): $e");
+      print("Erro ao criar o banco SimuladorAGHUBD(): $e");
     }
   }
 
-  _inserirRegistros(SistemaAGHUBD dbSistemaAGHU) async {
+  _inserirRegistros(SimuladorAGHUBD dbSimuladorAGHU) async {
     int registroSalvo;
     // Registro (prontuario,cpf,nome);
     var registro3 = new Registro("000001", "10101010101", "Luis Fernando");
-    registroSalvo = await dbSistemaAGHU.inserirRegistro(registro3);
+    registroSalvo = await dbSimuladorAGHU.inserirRegistro(registro3);
     print("Registro inserido: $registroSalvo");
 
     var registro2 = new Registro("000002", "20202020202", "Anderson Garcia");
-    registroSalvo = await dbSistemaAGHU.inserirRegistro(registro2);
+    registroSalvo = await dbSimuladorAGHU.inserirRegistro(registro2);
     print("Registro inserido: $registroSalvo");
 
-    Registro regSistemaAGHU = (await dbSistemaAGHU.pegarRegistro(1));
-    print(regSistemaAGHU.toString());
+    Registro regSimuladorAGHU = (await dbSimuladorAGHU.pegarRegistro(1));
+    print(regSimuladorAGHU.toString());
   }
 
-  _listarRegistros(SistemaAGHUBD dbSistemaAGHU) async {
+  _listarRegistros(SimuladorAGHUBD dbSimuladorAGHU) async {
     List _todosRegistros;
 
     _todosRegistros =
-        await dbSistemaAGHU.pegarTodos(dbSistemaAGHU.tabelaRegistro);
+        await dbSimuladorAGHU.pegarTodos(dbSimuladorAGHU.tabelaRegistro);
 
     for (int i = 0; i < _todosRegistros.length; i++) {
       Registro registro = Registro.map(_todosRegistros[i]);
@@ -61,28 +61,28 @@ class SistemaAGHU extends StatelessWidget {
     }
   }
 
-  Future<void> _inserirConsultas(SistemaAGHUBD dbSistemaAGHU) async {
+  Future<void> _inserirConsultas(SimuladorAGHUBD dbSimuladorAGHU) async {
     int consultaSalva;
 
-    int nRegistros = await dbSistemaAGHU.pegarContagem(dbSistemaAGHU.tabelaRegistro);
+    int nRegistros = await dbSimuladorAGHU.pegarContagem(dbSimuladorAGHU.tabelaRegistro);
     // Registro (prontuario,cpf,nome);
     for (int i = 1; i < nRegistros; i++) {
       for (int j = 1; j < 10; j++) {
         var consulta =
             new Consulta("Dr. Hider", "geral", "Consultorio" + j.toString(), i);
 
-        consultaSalva = await dbSistemaAGHU.inserirConsulta(consulta);
+        consultaSalva = await dbSimuladorAGHU.inserirConsulta(consulta);
 
         print("Consulta inserida: $consultaSalva");
       }
     }
   }
 
-  _listarConsultas(SistemaAGHUBD dbSistemaAGHU) async {
+  _listarConsultas(SimuladorAGHUBD dbSimuladorAGHU) async {
     List _todasConsultas;
 
     _todasConsultas =
-        await dbSistemaAGHU.pegarTodos(dbSistemaAGHU.tabelaConsulta);
+        await dbSimuladorAGHU.pegarTodos(dbSimuladorAGHU.tabelaConsulta);
 
     for (int i = 0; i < _todasConsultas.length; i++) {
       Consulta consulta = Consulta.map(_todasConsultas[i]);
@@ -97,9 +97,9 @@ class SistemaAGHU extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## SistemaAGHU SistemaAGHU.build()");
+    print("## SimuladorAGHU SimuladorAGHU.build()");
     _inserirDadosExemplo();
-    print("## SistemaAGHU SistemaAGHU: dados incluidos com sucesso");
+    print("## SimuladorAGHU SimuladorAGHU: dados incluidos com sucesso");
     return TelaLogin();
   } /* End build(). */
 

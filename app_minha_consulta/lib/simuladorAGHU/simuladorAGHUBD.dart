@@ -6,11 +6,11 @@ import 'package:sqflite/sqflite.dart';
 import 'registro.dart';
 import 'consulta.dart';
 
-class SistemaAGHUBD {
-  SistemaAGHUBD._internal();
-  static final SistemaAGHUBD _instance = new SistemaAGHUBD._internal();
+class SimuladorAGHUBD {
+  SimuladorAGHUBD._internal();
+  static final SimuladorAGHUBD _instance = new SimuladorAGHUBD._internal();
 
-  factory SistemaAGHUBD() => _instance;
+  factory SimuladorAGHUBD() => _instance;
   // Tabela de registro simulando os dados do Sistema AGHU
   final String tabelaRegistro = "tabelaRegistro";
   final String colunaIdRegistro = "idRegistro";
@@ -33,19 +33,19 @@ class SistemaAGHUBD {
     if (_db != null) {
       return _db;
     }
-    _db = await initSistemaAGHUBD();
+    _db = await initSimuladorAGHUBD();
     return _db;
   }
 
-  initSistemaAGHUBD() async {
+  initSimuladorAGHUBD() async {
     Directory documentoDiretorio = await getApplicationDocumentsDirectory();
 
-    String caminho = join(documentoDiretorio.path, "SistemaAGHUbd_teste.db");
+    String caminho = join(documentoDiretorio.path, "SimuladorAGHUbd_teste.db");
 
-    var nossoSistemaAGHUBD =
+    var nossoSimuladorAGHUBD =
         await openDatabase(caminho, version: 1, onCreate: _onCreate);
 
-    return nossoSistemaAGHUBD;
+    return nossoSimuladorAGHUBD;
   }
 
   void _onCreate(Database db, int version) async {
@@ -66,41 +66,41 @@ class SistemaAGHUBD {
   }
 
   Future<int> inserirConsulta(Consulta consulta) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    int res = await sistemaAGHUBDteste.insert(tabelaConsulta, consulta.toMap());
+    int res = await simuladorAGHUBDteste.insert(tabelaConsulta, consulta.toMap());
 
     return res;
   }
 
   Future<int> inserirRegistro(Registro registro) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    int res = await sistemaAGHUBDteste.insert(tabelaRegistro, registro.toMap());
+    int res = await simuladorAGHUBDteste.insert(tabelaRegistro, registro.toMap());
 
     return res;
   }
 
   Future<List> pegarTodos(String tabela) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
     var res =
-        await sistemaAGHUBDteste.rawQuery("SELECT * FROM $tabela");
+        await simuladorAGHUBDteste.rawQuery("SELECT * FROM $tabela");
 
     return res.toList();
   }
 
   Future<int> pegarContagem(String tabela) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    return Sqflite.firstIntValue(await sistemaAGHUBDteste
+    return Sqflite.firstIntValue(await simuladorAGHUBDteste
         .rawQuery("SELECT COUNT(*) FROM $tabela"));
   }
 
   Future<Registro> pegarRegistro(int id) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    var res = await sistemaAGHUBDteste.rawQuery("SELECT * FROM $tabelaRegistro"
+    var res = await simuladorAGHUBDteste.rawQuery("SELECT * FROM $tabelaRegistro"
         " WHERE $colunaIdRegistro = $id");
 
     if (res.length == 0) return null;
@@ -109,9 +109,9 @@ class SistemaAGHUBD {
   }
 
   Future<Consulta> pegarConsulta(int id) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    var res = await sistemaAGHUBDteste.rawQuery("SELECT * FROM $tabelaConsulta"
+    var res = await simuladorAGHUBDteste.rawQuery("SELECT * FROM $tabelaConsulta"
         " WHERE $colunaIdConsulta = $id");
 
     if (res.length == 0) return null;
@@ -120,9 +120,9 @@ class SistemaAGHUBD {
   }
 
   Future<Registro> validarRegistro(String prontuario, String cpf) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    var res = await sistemaAGHUBDteste.query(tabelaRegistro,
+    var res = await simuladorAGHUBDteste.query(tabelaRegistro,
         where: " $colunaProntuario = ? AND $colunaCpf = ?",
         whereArgs: [prontuario, cpf]);
 
@@ -132,22 +132,22 @@ class SistemaAGHUBD {
   }
 
   Future<int> apagarRegistro(int id) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    return await sistemaAGHUBDteste.delete(tabelaRegistro,
+    return await simuladorAGHUBDteste.delete(tabelaRegistro,
         where: "$colunaIdRegistro = ?", whereArgs: [id]);
   }
 
   Future<int> editarRegistro(Registro registro) async {
-    var sistemaAGHUBDteste = await db;
+    var simuladorAGHUBDteste = await db;
 
-    return await sistemaAGHUBDteste.update(tabelaRegistro, registro.toMap(),
+    return await simuladorAGHUBDteste.update(tabelaRegistro, registro.toMap(),
         where: "$colunaIdRegistro = ?", whereArgs: [registro.idRegistro]);
   }
 
-  Future fecharSistemaAGHUBD() async {
-    var sistemaAGHUBDteste = await db;
+  Future fecharSimuladorAGHUBD() async {
+    var simuladorAGHUBDteste = await db;
 
-    return await sistemaAGHUBDteste.close();
+    return await simuladorAGHUBDteste.close();
   }
 }

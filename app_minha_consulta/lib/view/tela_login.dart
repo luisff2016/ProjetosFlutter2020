@@ -1,8 +1,8 @@
 import 'package:app_minha_consulta/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Brightness, TextInputType;
-import 'package:app_minha_consulta/sistemaAGHU/registro.dart';
-import 'package:app_minha_consulta/sistemaAGHU/sistemaAGHUBD.dart';
+import 'package:app_minha_consulta/simuladorAGHU/registro.dart';
+import 'package:app_minha_consulta/simuladorAGHU/simuladorAGHUBD.dart';
 
 class TelaLogin extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _LoginPageState extends State<TelaLogin> {
   @override
   Widget build(BuildContext context) {
     print("## TelaLogin: Iniciando a aplicacao");
-    var dbTeste = new SistemaAGHUBD();
+    var dbTeste = new SimuladorAGHUBD();
 
     Future<void> _recuperarDadosExemplo() async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class _LoginPageState extends State<TelaLogin> {
 
         print("Banco tem $contagem recuperados");
       } catch (e) {
-        print("Erro ao criar o banco SistemaAGHUBD(): $e");
+        print("Erro ao criar o banco SimuladorAGHUBD(): $e");
       }
     }
 
