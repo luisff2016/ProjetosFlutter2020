@@ -11,7 +11,7 @@ import "AnotacoesModel.dart" show Anotacao, AnotacoesModel, anotacoesModel;
 import 'Anotacoes.dart';
 
 /// ********************************************************************************************************************
-/// The Anotacoess List sub-screen.
+/// The Anotacoes List sub-screen.
 /// ********************************************************************************************************************
 class AnotacoesList extends StatelessWidget {
   /// The build() method.
@@ -21,7 +21,7 @@ class AnotacoesList extends StatelessWidget {
   Widget build(BuildContext inContext) {
     print("##97 AnotacoesList.build()");
 
-    // The list of dates with anotacoess.
+    // The list of dates with anotacoes.
     EventList<Event> _markedDateMap = EventList();
     for (int i = 0; i < anotacoesModel.listaEntidades.length; i++) {
       Anotacao anotacao = anotacoesModel.listaEntidades[i];
@@ -64,7 +64,7 @@ class AnotacoesList extends StatelessWidget {
                             markedDatesMap: _markedDateMap,
                             onDayPressed:
                                 (DateTime inDate, List<Event> inEvents) {
-                              _showAnotacoess(inDate, inContext);
+                              _showAnotacoes(inDate, inContext);
                             }) /* End CalendarCarousel. */
                         ) /* End Container. */
                     ) /* End Expanded. */
@@ -76,17 +76,17 @@ class AnotacoesList extends StatelessWidget {
         ); /* End ScopedModel. */
   } /* End build(). */
 
-  /// Show a bottom sheet to see the anotacoess for the selected day.
+  /// Show a bottom sheet to see the anotacoes for the selected day.
   ///
   /// @param inDate    The date selected.
   /// @param inContext The build context of the parent widget.
-  void _showAnotacoess(DateTime inDate, BuildContext inContext) async {
+  void _showAnotacoes(DateTime inDate, BuildContext inContext) async {
     print(
-        "##98 AnotacoessList._showAnotacoess(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
+        "##98 AnotacoesList._showAnotacoes(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
 
-    print("##99 AnotacoessList._showAnotacoess(): "
+    print("##99 AnotacoesList._showAnotacoes(): "
         "anotacoesModel.listaEntidades.length = ${anotacoesModel.listaEntidades.length}");
-    print("##100 AnotacoessList._showAnotacoess(): "
+    print("##100 AnotacoesList._showAnotacoes(): "
         "anotacoesModel.listaEntidades = ${anotacoesModel.listaEntidades}");
 
     showModalBottomSheet(
@@ -120,7 +120,7 @@ class AnotacoesList extends StatelessWidget {
                                         Anotacao anotacao =
                                             anotacoesModel.listaEntidades[inIndex];
                                         print(
-                                            "##101 AnotacoessList._showAnotacao().ListView.builder(): "
+                                            "##101 AnotacoesList._showAnotacao().ListView.builder(): "
                                             "anotacao = $anotacao");
                                         // Filter out any anotacoes that isn't for the specified date.
                                         if (anotacao.apptDate !=
@@ -128,7 +128,7 @@ class AnotacoesList extends StatelessWidget {
                                           return Container(height: 0);
                                         }
                                         print(
-                                            "##102 AnotacoessList._showAnotacoess().ListView.builder(): "
+                                            "##102 AnotacoesList._showAnotacoes().ListView.builder(): "
                                             "INCLUDING Anotacao = $Anotacao");
                                         // If the anotacoes has a time, format it for display.
                                         String apptTime = "";
@@ -186,14 +186,14 @@ class AnotacoesList extends StatelessWidget {
               ); /* End ScopedModel(). */
         } /* End dialog.builder. */
         ); /* End showModalBottomSheet(). */
-  } /* End _showAnotacoess(). */
+  } /* End _showAnotacoes(). */
 
   /// Handle taps on an anotacoes to trigger editing.
   ///
   /// @param inContext     The BuildContext of the parent widget.
   /// @param inAnotacao The Anotacoes being edited.
   void _editAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
-    print("##103 AnotacoessList._editAnotacao(): inAnotacao = $inAnotacao");
+    print("##103 AnotacoesList._editAnotacao(): inAnotacao = $inAnotacao");
 
     // Get the data from the database and send to the edit view.
     anotacoesModel.entidadeSendoEditada = await AnotacoesDB.db.get(inAnotacao.id);
@@ -226,7 +226,7 @@ class AnotacoesList extends StatelessWidget {
   /// @param  inAnotacao The anotacoes (potentially) being deleted.
   /// @return               Future.
   Future _deleteAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
-    print("##104 AnotacoessList._deleteAnotacao(): inAnotacao = $inAnotacao");
+    print("##104 AnotacoesList._deleteAnotacao(): inAnotacao = $inAnotacao");
 
     return showDialog(
         context: inContext,
@@ -254,7 +254,7 @@ class AnotacoesList extends StatelessWidget {
                           duration: Duration(seconds: 2),
                           content: Text("Anotacoes deleted")));
                       // Reload data from database to update list.
-                      anotacoesModel.loadData("anotacoess", AnotacoesDB.db);
+                      anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
                     })
               ]);
         });

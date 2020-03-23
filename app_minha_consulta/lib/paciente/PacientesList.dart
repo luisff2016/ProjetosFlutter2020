@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
 import "PacientesDB.dart";
-import "PacientesModel.dart" show Usuario, PacientesModel, pacientesModel;
+import "PacientesModel.dart" show Paciente, PacientesModel, pacientesModel;
 
 /// ****************************************************************************
 /// Lista de pacientes - tela secundaria.
@@ -80,7 +80,7 @@ class PacientesList extends StatelessWidget {
                                     onTap: () async {
                                       // Get the data from the database and send to the edit view.
                                       pacientesModel.entidadeSendoEditada =
-                                          await pacientesDB.db.get(usuario.id);
+                                          await PacientesDB.db.get(usuario.id);
                                       pacientesModel.setColor(pacientesModel
                                           .entidadeSendoEditada.color);
                                       pacientesModel.definirIndicePilha(1);
@@ -129,7 +129,7 @@ class PacientesList extends StatelessWidget {
                           duration: Duration(seconds: 2),
                           content: Text("Usuario deletada")));
                       // Reload data from database to update list.
-                      pacientesModel.loadData("pacientes", pacientesDB.db);
+                      pacientesModel.loadData("pacientes", PacientesDB.db);
                     })
               ]);
         });

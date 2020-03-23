@@ -1,20 +1,20 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "AnotacoesDB.dart";
-import "AnotacoesList.dart";
-import "AnotacoesForm.dart";
-import "AnotacoesModel.dart" show AnotacoesModel, anotacoesModel;
+import "NotificacoesDB.dart";
+import "NotificacoesList.dart";
+import "NotificacoesForm.dart";
+import "NotificacoesModel.dart" show NotificacoesModel, notificacoesModel;
 
 /// ********************************************************************************************************************
-/// The Anotacoes screen.
+/// The Notificacoes screen.
 /// ********************************************************************************************************************
-class Anotacoes extends StatelessWidget {
+class Notificacoes extends StatelessWidget {
   /// Constructor.
-  Anotacoes() {
-    print("##140 Anotacoes.constructor");
+  Notificacoes() {
+    print("##  notificacao Notificacoes.constructor");
 
     // Initial load of data.
-    anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
+    notificacoesModel.loadData("notificacoes", NotificacoesDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -22,16 +22,16 @@ class Anotacoes extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##141 Anotacoes.build()");
+    print("## notificacao Notificacoes.build()");
 
-    return ScopedModel<AnotacoesModel>(
-        model: anotacoesModel,
-        child: ScopedModelDescendant<AnotacoesModel>(builder:
+    return ScopedModel<NotificacoesModel>(
+        model: notificacoesModel,
+        child: ScopedModelDescendant<NotificacoesModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    AnotacoesModel inModel) {
+                    NotificacoesModel inModel) {
           return IndexedStack(index: inModel.indicePilha, children: [
-            AnotacoesList(),
-            AnotacoesForm()
+            NotificacoesList(),
+            NotificacoesForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */

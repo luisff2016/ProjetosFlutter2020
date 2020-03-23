@@ -11,7 +11,7 @@ import "MedicamentosModel.dart" show MedicamentosModel, medicamentosModel;
 class Medicamentos extends StatelessWidget {
   /// Constructor.
   Medicamentos() {
-    print("##35 Medicamentos.constructor");
+    print("## medicamento Medicamentos.constructor");
 
     // Initial load of data.
     medicamentosModel.loadData("Medicamentos", MedicamentosDB.db);
