@@ -32,13 +32,13 @@ class ContatosForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _nameEditingController.addListener(() {
-      contatosModel.entityBeingEdited.name = _nameEditingController.text;
+      contatosModel.entidadeSendoEditada.name = _nameEditingController.text;
     });
     _phoneEditingController.addListener(() {
-      contatosModel.entityBeingEdited.phone = _phoneEditingController.text;
+      contatosModel.entidadeSendoEditada.phone = _phoneEditingController.text;
     });
     _emailEditingController.addListener(() {
-      contatosModel.entityBeingEdited.email = _emailEditingController.text;
+      contatosModel.entidadeSendoEditada.email = _emailEditingController.text;
     });
 
   } /* End constructor. */
@@ -53,21 +53,21 @@ class ContatosForm extends StatelessWidget {
     print("##69 ContatosForm.build()");
 
     // Set value of controllers.
-    _nameEditingController.text = contatosModel.entityBeingEdited.name;
-    _phoneEditingController.text = contatosModel.entityBeingEdited.phone;
-    _emailEditingController.text = contatosModel.entityBeingEdited.email;
+    _nameEditingController.text = contatosModel.entidadeSendoEditada.name;
+    _phoneEditingController.text = contatosModel.entidadeSendoEditada.phone;
+    _emailEditingController.text = contatosModel.entidadeSendoEditada.email;
 
     // Return widget.
     return ScopedModel(
       model : contatosModel,
       child : ScopedModelDescendant<ContatosModel>(
         builder : (BuildContext inContext, Widget inChild, ContatosModel inModel) {
-          // Get reference to avatar file, if any.  If it doesn't exist and the entityBeingEdited has an id then
+          // Get reference to avatar file, if any.  If it doesn't exist and the entidadeSendoEditada has an id then
           // look for an avatar file for the existing contact.
           File avatarFile = File(join(utils.docsDir.path, "avatar"));
           if (avatarFile.existsSync() == false) {
-            if (inModel.entityBeingEdited != null && inModel.entityBeingEdited.id != null) {
-              avatarFile = File(join(utils.docsDir.path, inModel.entityBeingEdited.id.toString()));
+            if (inModel.entidadeSendoEditada != null && inModel.entidadeSendoEditada.id != null) {
+              avatarFile = File(join(utils.docsDir.path, inModel.entidadeSendoEditada.id.toString()));
             }
           }
           return Scaffold(
@@ -86,7 +86,7 @@ class ContatosForm extends StatelessWidget {
                     // Hide soft keyboard.
                     FocusScope.of(inContext).requestFocus(FocusNode());
                     // Go back to the list view.
-                    inModel.setStackIndex(0);
+                    inModel.definirIndicePilha(0);
                   }
                 ),
                 Spacer(),
@@ -142,17 +142,17 @@ class ContatosForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Birthday"),
-                    subtitle : Text(contatosModel.chosenDate == null ? "" : contatosModel.chosenDate),
+                    subtitle : Text(contatosModel.dataEscolhida == null ? "" : contatosModel.dataEscolhida),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
-                        String chosenDate = await utils.selectDate(
-                          inContext, contatosModel, contatosModel.entityBeingEdited.birthday
+                        String dataEscolhida = await utils.selectDate(
+                          inContext, contatosModel, contatosModel.entidadeSendoEditada.birthday
                         );
-                        if (chosenDate != null) {
-                          contatosModel.entityBeingEdited.birthday = chosenDate;
+                        if (dataEscolhida != null) {
+                          contatosModel.entidadeSendoEditada.birthday = dataEscolhida;
                         }
                       }
                     )
@@ -236,17 +236,17 @@ class ContatosForm extends StatelessWidget {
     var id;
 
     // Creating a new contact.
-    if (inModel.entityBeingEdited.id == null) {
+    if (inModel.entidadeSendoEditada.id == null) {
 
-      print("##71 ContatosForm._save(): Creating: ${inModel.entityBeingEdited}");
-      id = await ContatosDB.db.create(contatosModel.entityBeingEdited);
+      print("##71 ContatosForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+      id = await ContatosDB.db.create(contatosModel.entidadeSendoEditada);
 
     // Updating an existing contact.
     } else {
 
-      print("##72 ContatosForm._save(): Updating: ${inModel.entityBeingEdited}");
-      id = contatosModel.entityBeingEdited.id;
-      await ContatosDB.db.update(contatosModel.entityBeingEdited);
+      print("##72 ContatosForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+      id = contatosModel.entidadeSendoEditada.id;
+      await ContatosDB.db.update(contatosModel.entidadeSendoEditada);
 
     }
 
@@ -261,7 +261,7 @@ class ContatosForm extends StatelessWidget {
     contatosModel.loadData("contacts", ContatosDB.db);
 
     // Go back to the list view.
-    inModel.setStackIndex(0);
+    inModel.definirIndicePilha(0);
 
     // Show SnackBar.
     Scaffold.of(inContext).showSnackBar(

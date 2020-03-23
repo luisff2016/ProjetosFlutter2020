@@ -11,10 +11,10 @@ import "MedicamentosModel.dart" show MedicamentosModel, medicamentosModel;
 class Medicamentos extends StatelessWidget {
   /// Constructor.
   Medicamentos() {
-    print("##35 Medicamentos.constructor");
+    print("## medicamento Medicamentos.constructor");
 
     // Initial load of data.
-    medicamentosModel.loadData("Medicamentos", MedicamentosDB.db);
+    medicamentosModel.loadData("medicamento", MedicamentosDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -22,15 +22,14 @@ class Medicamentos extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    
-    print("##36 Medicamentos.build()");
+    print("## medicamento Medicamentos.build()");
 
     return ScopedModel<MedicamentosModel>(
         model: medicamentosModel,
         child: ScopedModelDescendant<MedicamentosModel>(builder:
                 (BuildContext inContext, Widget inChild,
                     MedicamentosModel inModel) {
-          return IndexedStack(index: inModel.stackIndex, children: [
+          return IndexedStack(index: inModel.indicePilha, children: [
             MedicamentosList(),
             MedicamentosForm()
           ] /* End IndexedStack children. */

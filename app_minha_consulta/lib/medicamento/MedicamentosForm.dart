@@ -26,7 +26,7 @@ class MedicamentosForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _descriptionEditingController.addListener(() {
-      medicamentosModel.entityBeingEdited.description = _descriptionEditingController.text;
+      medicamentosModel.entidadeSendoEditada.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -41,7 +41,7 @@ class MedicamentosForm extends StatelessWidget {
     print("##15 MedicamentosForm.build()");
 
     // Set value of controllers.
-    _descriptionEditingController.text = medicamentosModel.entityBeingEdited.description;
+    _descriptionEditingController.text = medicamentosModel.entidadeSendoEditada.description;
 
     // Return widget.
     return ScopedModel(
@@ -58,7 +58,7 @@ class MedicamentosForm extends StatelessWidget {
                       // Hide soft keyboard.
                       FocusScope.of(inContext).requestFocus(FocusNode());
                       // Go back to the list view.
-                      inModel.setStackIndex(0);
+                      inModel.definirIndicePilha(0);
                     }
                   ),
                   Spacer(),
@@ -90,16 +90,16 @@ class MedicamentosForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Due Date"),
-                    subtitle : Text(medicamentosModel.chosenDate == null ? "" : medicamentosModel.chosenDate),
+                    subtitle : Text(medicamentosModel.dataEscolhida == null ? "" : medicamentosModel.dataEscolhida),
                     trailing : IconButton(
                       icon : Icon(Icons.edit), color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
-                        String chosenDate = await utils.selectDate(
-                          inContext, medicamentosModel, medicamentosModel.entityBeingEdited.dueDate
+                        String dataEscolhida = await utils.selectDate(
+                          inContext, medicamentosModel, medicamentosModel.entidadeSendoEditada.dueDate
                         );
-                        if (chosenDate != null) {
-                          medicamentosModel.entityBeingEdited.dueDate = chosenDate;
+                        if (dataEscolhida != null) {
+                          medicamentosModel.entidadeSendoEditada.dueDate = dataEscolhida;
                         }
                       }
                     )
@@ -127,16 +127,16 @@ class MedicamentosForm extends StatelessWidget {
     if (!_formKey.currentState.validate()) { return; }
 
     // Creating a new task.
-    if (inModel.entityBeingEdited.id == null) {
+    if (inModel.entidadeSendoEditada.id == null) {
 
-      print("##17 MedicamentosForm._save(): Creating: ${inModel.entityBeingEdited}");
-      await MedicamentosDB.db.create(medicamentosModel.entityBeingEdited);
+      print("##17 MedicamentosForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+      await MedicamentosDB.db.create(medicamentosModel.entidadeSendoEditada);
 
     // Updating an existing task.
     } else {
 
-      print("##18 MedicamentosForm._save(): Updating: ${inModel.entityBeingEdited}");
-      await MedicamentosDB.db.update(medicamentosModel.entityBeingEdited);
+      print("##18 MedicamentosForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+      await MedicamentosDB.db.update(medicamentosModel.entidadeSendoEditada);
 
     }
 
@@ -144,7 +144,7 @@ class MedicamentosForm extends StatelessWidget {
     medicamentosModel.loadData("tasks", MedicamentosDB.db);
 
     // Go back to the list view.
-    inModel.setStackIndex(0);
+    inModel.definirIndicePilha(0);
 
     // Show SnackBar.
     Scaffold.of(inContext).showSnackBar(

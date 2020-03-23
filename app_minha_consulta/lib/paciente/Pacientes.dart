@@ -1,19 +1,20 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "ConsultasDB.dart";
-import "ConsultasList.dart";
-import "ConsultasModel.dart" show ConsultasModel, consultasModel;
+import 'PacientesForm.dart';
+import 'PacientesDB.dart';
+import 'PacientesList.dart';
+import "PacientesModel.dart" show PacientesModel, pacientesModel;
 
+/// ***********************************************************************************************************
+/// Tela de UPacientes.
 /// ********************************************************************************************************************
-/// The Consultas screen.
-/// ********************************************************************************************************************
-class Consultas extends StatelessWidget {
+class Pacientes extends StatelessWidget {
   /// Constructor.
-  Consultas() {
-    print("##140 Consultas.constructor");
+  Pacientes() {
+    print("## paciente Pacientes.constructor");
 
-    // Initial load of data.
-    consultasModel.loadData("consulta", ConsultasDB.db);
+    // Carregamento inicial dos dados.
+    pacientesModel.loadData("pacientes", PacientesDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -21,16 +22,16 @@ class Consultas extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## Consultas.build()");
+    print("## paciente Pacientes.build()");
 
-    return ScopedModel<ConsultasModel>(
-        model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(builder:
+    return ScopedModel<PacientesModel>(
+        model: pacientesModel,
+        child: ScopedModelDescendant<PacientesModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    ConsultasModel inModel) {
+                    PacientesModel inModel) {
           return IndexedStack(index: inModel.indicePilha, children: [
-            ConsultasList(),
-            ConsultasList(),
+            PacientesList(),
+            PacientesForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */

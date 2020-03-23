@@ -28,10 +28,10 @@ class ArquivosForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      arquivosModel.entityBeingEdited.title = _titleEditingController.text;
+      arquivosModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _descriptionEditingController.addListener(() {
-      arquivosModel.entityBeingEdited.description = _descriptionEditingController.text;
+      arquivosModel.entidadeSendoEditada.description = _descriptionEditingController.text;
     });
 
   } /* End constructor. */
@@ -46,8 +46,8 @@ class ArquivosForm extends StatelessWidget {
     print("##106 ArquivosForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = arquivosModel.entityBeingEdited.title;
-    _descriptionEditingController.text = arquivosModel.entityBeingEdited.description;
+    _titleEditingController.text = arquivosModel.entidadeSendoEditada.title;
+    _descriptionEditingController.text = arquivosModel.entidadeSendoEditada.description;
 
     // Return widget.
     return ScopedModel(
@@ -65,7 +65,7 @@ class ArquivosForm extends StatelessWidget {
                       // Hide soft keyboard.
                       FocusScope.of(inContext).requestFocus(FocusNode());
                       // Go back to the list view.
-                      inModel.setStackIndex(0);
+                      inModel.definirIndicePilha(0);
                     }
                   ),
                   Spacer(),
@@ -106,17 +106,17 @@ class ArquivosForm extends StatelessWidget {
                   ListTile(
                     leading : Icon(Icons.today),
                     title : Text("Date"),
-                    subtitle : Text(arquivosModel.chosenDate == null ? "" : arquivosModel.chosenDate),
+                    subtitle : Text(arquivosModel.dataEscolhida == null ? "" : arquivosModel.dataEscolhida),
                     trailing : IconButton(
                       icon : Icon(Icons.edit),
                       color : Colors.blue,
                       onPressed : () async {
                         // Request a date from the user.  If one is returned, store it.
-                        String chosenDate = await utils.selectDate(
-                          inContext, arquivosModel, arquivosModel.entityBeingEdited.apptDate
+                        String dataEscolhida = await utils.selectDate(
+                          inContext, arquivosModel, arquivosModel.entidadeSendoEditada.apptDate
                         );
-                        if (chosenDate != null) {
-                          arquivosModel.entityBeingEdited.apptDate = chosenDate;
+                        if (dataEscolhida != null) {
+                          arquivosModel.entidadeSendoEditada.apptDate = dataEscolhida;
                         }
                       }
                     )
@@ -153,8 +153,8 @@ class ArquivosForm extends StatelessWidget {
     TimeOfDay initialTime = TimeOfDay.now();
 
     // If editing an appointment, set the initialTime to the current apptTime, if any.
-    if (arquivosModel.entityBeingEdited.apptTime != null) {
-      List timeParts = arquivosModel.entityBeingEdited.apptTime.split(",");
+    if (arquivosModel.entidadeSendoEditada.apptTime != null) {
+      List timeParts = arquivosModel.entidadeSendoEditada.apptTime.split(",");
       // Create a DateTime using the hours, minutes and a/p from the apptTime.
       initialTime = TimeOfDay(hour : int.parse(timeParts[0]), minute : int.parse(timeParts[1]));
     }
@@ -165,7 +165,7 @@ class ArquivosForm extends StatelessWidget {
     // If they didn't cancel, update it on the appointment being edited as well as the apptTime field in the model so
     // it shows on the screen.
     if (picked != null) {
-      arquivosModel.entityBeingEdited.apptTime = "${picked.hour},${picked.minute}";
+      arquivosModel.entidadeSendoEditada.apptTime = "${picked.hour},${picked.minute}";
       arquivosModel.setApptTime(picked.format(inContext));
     }
 
@@ -184,16 +184,16 @@ class ArquivosForm extends StatelessWidget {
       if (!_formKey.currentState.validate()) { return; }
 
       // Creating a new appointment.
-      if (inModel.entityBeingEdited.id == null) {
+      if (inModel.entidadeSendoEditada.id == null) {
 
-        print("##108 ArquivosForm._save(): Creating: ${inModel.entityBeingEdited}");
-        await ArquivosDB.db.create(arquivosModel.entityBeingEdited);
+        print("##108 ArquivosForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+        await ArquivosDB.db.create(arquivosModel.entidadeSendoEditada);
 
       // Updating an existing appointment.
       } else {
 
-        print("##109 ArquivosForm._save(): Updating: ${inModel.entityBeingEdited}");
-        await ArquivosDB.db.update(arquivosModel.entityBeingEdited);
+        print("##109 ArquivosForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+        await ArquivosDB.db.update(arquivosModel.entidadeSendoEditada);
 
       }
 
@@ -201,7 +201,7 @@ class ArquivosForm extends StatelessWidget {
       arquivosModel.loadData("arquivos", ArquivosDB.db);
 
       // Go back to the list view.
-      inModel.setStackIndex(0);
+      inModel.definirIndicePilha(0);
 
       // Show SnackBar.
       Scaffold.of(inContext).showSnackBar(
