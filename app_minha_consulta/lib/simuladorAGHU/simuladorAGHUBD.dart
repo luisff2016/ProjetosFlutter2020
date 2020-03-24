@@ -126,7 +126,7 @@ class SimuladorAGHUBD {
         where: " $colunaProntuario = ? AND $colunaCpf = ?",
         whereArgs: [prontuario, cpf]);
 
-    if (res == null) return null;
+    if (res.length == 0) return null;
 
     return new Registro.fromMap(res.first);
   }
