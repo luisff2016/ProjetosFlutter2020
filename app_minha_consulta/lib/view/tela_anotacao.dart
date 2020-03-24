@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TelaContato extends StatefulWidget {
+class TelaAnotacao extends StatefulWidget {
   @override
-  _TelaContatoState createState() => _TelaContatoState();
+  _TelaAnotacaoState createState() => _TelaAnotacaoState();
 }
 
-class _TelaContatoState extends State<TelaContato> {
+class _TelaAnotacaoState extends State<TelaAnotacao> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contato"),
+        title: Text("Anotacao"),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -1,12 +1,23 @@
+import 'dart:io';
+import 'package:app_minha_consulta/simuladorAGHU/simuladorAGHU.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:app_minha_consulta/utils.dart' as utils;
 
-import 'view/tela_login.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main(){
-  runApp(
-    MaterialApp(
-      //home: HomePage(),
-      home: TelaLogin(),
-      )
-  );
+  print("## main(): Inicio do Minha Consulta 2.0");
+
+  startMeUp() async {
+    Directory docsDir = await getApplicationDocumentsDirectory();
+
+    utils.docsDir = docsDir;
+
+    print("## main(): utils.docsDir = $docsDir !");
+    print("## main(): realizar entrada de dados para teste!");
+    runApp(MaterialApp(home: SimuladorAGHU()));
+  }
+
+  startMeUp();
 }
