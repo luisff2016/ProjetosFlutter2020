@@ -1,19 +1,20 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "ConsultasDB.dart";
-import "ConsultasList.dart";
-import "ConsultasModel.dart" show ConsultasModel, consultasModel;
+import "NotificacoesDB.dart";
+import "NotificacoesList.dart";
+import "NotificacoesForm.dart";
+import "NotificacoesModel.dart" show NotificacoesModel, notificacoesModel;
 
 /// ********************************************************************************************************************
-/// The Consultas screen.
+/// The Notificacoes screen.
 /// ********************************************************************************************************************
-class Consultas extends StatelessWidget {
+class Notificacoes extends StatelessWidget {
   /// Constructor.
-  Consultas() {
-    print("##140 Consultas.constructor");
+  Notificacoes() {
+    print("##  notificacao Notificacoes.constructor");
 
     // Initial load of data.
-    consultasModel.loadData("consulta", ConsultasDB.db);
+    notificacoesModel.loadData("notificacoes", NotificacoesDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -21,16 +22,16 @@ class Consultas extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## Consultas.build()");
+    print("## notificacao Notificacoes.build()");
 
-    return ScopedModel<ConsultasModel>(
-        model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(builder:
+    return ScopedModel<NotificacoesModel>(
+        model: notificacoesModel,
+        child: ScopedModelDescendant<NotificacoesModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    ConsultasModel inModel) {
+                    NotificacoesModel inModel) {
           return IndexedStack(index: inModel.indicePilha, children: [
-            ConsultasList(),
-            ConsultasList(),
+            NotificacoesList(),
+            NotificacoesForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */

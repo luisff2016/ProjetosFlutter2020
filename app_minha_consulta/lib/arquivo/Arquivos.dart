@@ -14,7 +14,7 @@ class Arquivos extends StatelessWidget {
     print("##140 Arquivos.constructor");
 
     // Initial load of data.
-    arquivosModel.loadData("arquivos", ArquivosDB.db);
+    arquivosModel.loadData("arquivo", ArquivosDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -29,7 +29,7 @@ class Arquivos extends StatelessWidget {
         child: ScopedModelDescendant<ArquivosModel>(builder:
                 (BuildContext inContext, Widget inChild,
                     ArquivosModel inModel) {
-          return IndexedStack(index: inModel.stackIndex, children: [
+          return IndexedStack(index: inModel.indicePilha, children: [
             ArquivosList(),
             ArquivosForm()
           ] /* End IndexedStack children. */

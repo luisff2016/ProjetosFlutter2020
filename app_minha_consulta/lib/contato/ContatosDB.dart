@@ -24,11 +24,11 @@ class ContatosDB {
         _db = await init();
       }
 
-      print("##80 contatoss ContatosDB.get-database(): _db = $_db");
+      print("## contatoss ContatosDB.get-database(): _db = $_db");
 
       return _db;
     } catch (e) {
-      print("##81 ERRO get database: try_catch($e)");
+      print("## ERRO get database: try_catch($e)");
     }
   } /* End database getter. */
 
@@ -36,13 +36,13 @@ class ContatosDB {
   ///
   /// @return A Database instance.
   Future<Database> init() async {
-    print("contatoss ContatosDB.init()");
+    print("contato ContatosDB.init()");
 
-    String path = join(utils.docsDir.path, "contatoss.db");
+    String path = join(utils.docsDir.path, "contatos.db");
     print("##82 contatoss ContatosDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
-      await inDB.execute("CREATE TABLE IF NOT EXISTS contatoss ("
+      await inDB.execute("CREATE TABLE IF NOT EXISTS contatos ("
           "id INTEGER PRIMARY KEY,"
           "name TEXT,"
           "email TEXT,"

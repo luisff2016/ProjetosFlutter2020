@@ -14,7 +14,7 @@ class Anotacoes extends StatelessWidget {
     print("##140 Anotacoes.constructor");
 
     // Initial load of data.
-    anotacoesModel.loadData("anotacoes", AnotacoesDB.db);
+    anotacoesModel.loadData("anotacao", AnotacoesDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -29,7 +29,7 @@ class Anotacoes extends StatelessWidget {
         child: ScopedModelDescendant<AnotacoesModel>(builder:
                 (BuildContext inContext, Widget inChild,
                     AnotacoesModel inModel) {
-          return IndexedStack(index: inModel.stackIndex, children: [
+          return IndexedStack(index: inModel.indicePilha, children: [
             AnotacoesList(),
             AnotacoesForm()
           ] /* End IndexedStack children. */

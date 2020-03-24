@@ -6,26 +6,26 @@ import "package:flutter_slidable/flutter_slidable.dart";
 import "package:intl/intl.dart";
 import "package:scoped_model/scoped_model.dart";
 
-import "AnotacoesDB.dart";
-import "AnotacoesModel.dart" show Anotacao, AnotacoesModel, anotacoesModel;
-import 'Anotacoes.dart';
+import "NotificacoesDB.dart";
+import "notificacoesModel.dart" show Notificacao, NotificacoesModel, notificacoesModel;
+import 'Notificacoes.dart';
 
 /// ********************************************************************************************************************
-/// The Anotacoess List sub-screen.
+/// The Notificacoes List sub-screen.
 /// ********************************************************************************************************************
-class AnotacoesList extends StatelessWidget {
+class NotificacoesList extends StatelessWidget {
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##97 AnotacoesList.build()");
+    print("## notificacao NotificacoesList.build()");
 
-    // The list of dates with anotacoess.
+    // The list of dates with Notificacoes.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < anotacoesModel.listaEntidades.length; i++) {
-      Anotacao anotacao = anotacoesModel.listaEntidades[i];
-      List dateParts = anotacao.apptDate.split(",");
+    for (int i = 0; i < notificacoesModel.listaEntidades.length; i++) {
+      Notificacao notificacao = notificacoesModel.listaEntidades[i];
+      List dateParts = notificacao.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
       _markedDateMap.add(
@@ -36,23 +36,23 @@ class AnotacoesList extends StatelessWidget {
     }
 
     // Return widget.
-    return ScopedModel<AnotacoesModel>(
-        model: anotacoesModel,
-        child: ScopedModelDescendant<AnotacoesModel>(
+    return ScopedModel<NotificacoesModel>(
+        model: notificacoesModel,
+        child: ScopedModelDescendant<NotificacoesModel>(
             builder: (inContext, inChild, inModel) {
           return Scaffold(
-              // Add anotacoes.
+              // Add Notificacoes.
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () async {
-                    anotacoesModel.entidadeSendoEditada = Anotacoes();
+                    notificacoesModel.entidadeSendoEditada = Notificacoes();
                     DateTime now = DateTime.now();
-                    anotacoesModel.entidadeSendoEditada.apptDate =
+                    notificacoesModel.entidadeSendoEditada.apptDate =
                         "${now.year},${now.month},${now.day}";
-                    anotacoesModel.definirDataEscolhida(
+                    notificacoesModel.definirDataEscolhida(
                         DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                    anotacoesModel.setApptTime(null);
-                    anotacoesModel.definirIndicePilha(1);
+                    notificacoesModel.setApptTime(null);
+                    notificacoesModel.definirIndicePilha(1);
                   }),
               body: Column(children: [
                 Expanded(
@@ -64,7 +64,7 @@ class AnotacoesList extends StatelessWidget {
                             markedDatesMap: _markedDateMap,
                             onDayPressed:
                                 (DateTime inDate, List<Event> inEvents) {
-                              _showAnotacoess(inDate, inContext);
+                              _showNotificacoes(inDate, inContext);
                             }) /* End CalendarCarousel. */
                         ) /* End Container. */
                     ) /* End Expanded. */
@@ -76,27 +76,27 @@ class AnotacoesList extends StatelessWidget {
         ); /* End ScopedModel. */
   } /* End build(). */
 
-  /// Show a bottom sheet to see the anotacoess for the selected day.
+  /// Show a bottom sheet to see the Notificacoes for the selected day.
   ///
   /// @param inDate    The date selected.
   /// @param inContext The build context of the parent widget.
-  void _showAnotacoess(DateTime inDate, BuildContext inContext) async {
+  void _showNotificacoes(DateTime inDate, BuildContext inContext) async {
     print(
-        "##98 AnotacoessList._showAnotacoess(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
+        "## notificacao NotificacoesList._showNotificacoes(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
 
-    print("##99 AnotacoessList._showAnotacoess(): "
-        "anotacoesModel.listaEntidades.length = ${anotacoesModel.listaEntidades.length}");
-    print("##100 AnotacoessList._showAnotacoess(): "
-        "anotacoesModel.listaEntidades = ${anotacoesModel.listaEntidades}");
+    print("## notificacao NotificacoesList._showNotificacoes(): "
+        "notificacoesModel.listaEntidades.length = ${notificacoesModel.listaEntidades.length}");
+    print("## notificacao NotificacoesList._showNotificacoes(): "
+        "notificacoesModel.listaEntidades = ${notificacoesModel.listaEntidades}");
 
     showModalBottomSheet(
         context: inContext,
         builder: (BuildContext inContext) {
-          return ScopedModel<AnotacoesModel>(
-              model: anotacoesModel,
-              child: ScopedModelDescendant<AnotacoesModel>(builder:
+          return ScopedModel<NotificacoesModel>(
+              model: notificacoesModel,
+              child: ScopedModelDescendant<NotificacoesModel>(builder:
                       (BuildContext inContext, Widget inChild,
-                          AnotacoesModel inModel) {
+                          NotificacoesModel inModel) {
                 return Scaffold(
                     body: Container(
                         child: Padding(
@@ -114,34 +114,34 @@ class AnotacoesList extends StatelessWidget {
                               Expanded(
                                   child: ListView.builder(
                                       itemCount:
-                                          anotacoesModel.listaEntidades.length,
+                                          notificacoesModel.listaEntidades.length,
                                       itemBuilder: (BuildContext inBuildContext,
                                           int inIndex) {
-                                        Anotacao anotacao =
-                                            anotacoesModel.listaEntidades[inIndex];
+                                        Notificacao notificacao =
+                                            notificacoesModel.listaEntidades[inIndex];
                                         print(
-                                            "##101 AnotacoessList._showAnotacao().ListView.builder(): "
-                                            "anotacao = $anotacao");
-                                        // Filter out any anotacoes that isn't for the specified date.
-                                        if (anotacao.apptDate !=
+                                            "## notificacao NotificacoesList._showNotificacao().ListView.builder(): "
+                                            "Notificacao = $notificacao");
+                                        // Filter out any Notificacoes that isn't for the specified date.
+                                        if (notificacao.apptDate !=
                                             "${inDate.year},${inDate.month},${inDate.day}") {
                                           return Container(height: 0);
                                         }
                                         print(
-                                            "##102 AnotacoessList._showAnotacoess().ListView.builder(): "
-                                            "INCLUDING Anotacao = $Anotacao");
-                                        // If the anotacoes has a time, format it for display.
+                                            "## notificacao NotificacoesList._showNotificacoes().ListView.builder(): "
+                                            "INCLUDING Notificacao = $notificacao");
+                                        // If the Notificacoes has a time, format it for display.
                                         String apptTime = "";
-                                        if (anotacao.apptTime != null) {
+                                        if (notificacao.apptTime != null) {
                                           List timeParts =
-                                              anotacao.apptTime.split(",");
+                                              notificacao.apptTime.split(",");
                                           TimeOfDay at = TimeOfDay(
                                               hour: int.parse(timeParts[0]),
                                               minute: int.parse(timeParts[1]));
                                           apptTime =
                                               " (${at.format(inContext)})";
                                         }
-                                        // Return a widget for the anotacoes since it's for the correct date.
+                                        // Return a widget for the Notificacoes since it's for the correct date.
                                         return Slidable(
                                             actionPane:
                                                 SlidableBehindActionPane(), //delegate : SlidableDrawerDelegate(),
@@ -152,25 +152,25 @@ class AnotacoesList extends StatelessWidget {
                                                 color: Colors.grey.shade300,
                                                 child: ListTile(
                                                     title: Text(
-                                                        "${anotacao.title}$apptTime"),
-                                                    subtitle: anotacao
+                                                        "${notificacao.title}$apptTime"),
+                                                    subtitle: notificacao
                                                                 .description ==
                                                             null
                                                         ? null
                                                         : Text(
-                                                            "${anotacao.description}"),
-                                                    // Edit existing anotacoes.
+                                                            "${notificacao.description}"),
+                                                    // Edit existing Notificacoes.
                                                     onTap: () async {
-                                                      _editAnotacao(
-                                                          inContext, anotacao);
+                                                      _editNotificacao(
+                                                          inContext, notificacao);
                                                     })),
                                             secondaryActions: [
                                               IconSlideAction(
                                                   caption: "Delete",
                                                   color: Colors.red,
                                                   icon: Icons.delete,
-                                                  onTap: () => _deleteAnotacao(
-                                                      inBuildContext, anotacao))
+                                                  onTap: () => _deleteNotificacao(
+                                                      inBuildContext, notificacao))
                                             ]); /* End Slidable. */
                                       } /* End itemBuilder. */
                                       ) /* End ListView.builder. */
@@ -186,47 +186,47 @@ class AnotacoesList extends StatelessWidget {
               ); /* End ScopedModel(). */
         } /* End dialog.builder. */
         ); /* End showModalBottomSheet(). */
-  } /* End _showAnotacoess(). */
+  } /* End _showNotificacoes(). */
 
-  /// Handle taps on an anotacoes to trigger editing.
+  /// Handle taps on an Notificacoes to trigger editing.
   ///
   /// @param inContext     The BuildContext of the parent widget.
-  /// @param inAnotacao The Anotacoes being edited.
-  void _editAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
-    print("##103 AnotacoessList._editAnotacao(): inAnotacao = $inAnotacao");
+  /// @param inNotificacao The Notificacoes being edited.
+  void _editNotificacao(BuildContext inContext, Notificacao inNotificacao) async {
+    print("##103 NotificacoesList._editNotificacao(): inNotificacao = $inNotificacao");
 
     // Get the data from the database and send to the edit view.
-    anotacoesModel.entidadeSendoEditada = await AnotacoesDB.db.get(inAnotacao.id);
+    notificacoesModel.entidadeSendoEditada = await NotificacoesDB.db.get(inNotificacao.id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (anotacoesModel.entidadeSendoEditada.apptDate == null) {
-      anotacoesModel.definirDataEscolhida(null);
+    if (notificacoesModel.entidadeSendoEditada.apptDate == null) {
+      notificacoesModel.definirDataEscolhida(null);
     } else {
-      List dateParts = anotacoesModel.entidadeSendoEditada.apptDate.split(",");
+      List dateParts = notificacoesModel.entidadeSendoEditada.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
-      anotacoesModel
+      notificacoesModel
           .definirDataEscolhida(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
-    if (anotacoesModel.entidadeSendoEditada.apptTime == null) {
-      anotacoesModel.setApptTime(null);
+    if (notificacoesModel.entidadeSendoEditada.apptTime == null) {
+      notificacoesModel.setApptTime(null);
     } else {
-      List timeParts = anotacoesModel.entidadeSendoEditada.apptTime.split(",");
+      List timeParts = notificacoesModel.entidadeSendoEditada.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
           hour: int.parse(timeParts[0]), minute: int.parse(timeParts[1]));
-      anotacoesModel.setApptTime(apptTime.format(inContext));
+      notificacoesModel.setApptTime(apptTime.format(inContext));
     }
-    anotacoesModel.definirIndicePilha(1);
+    notificacoesModel.definirIndicePilha(1);
     Navigator.pop(inContext);
-  } /* End _editAnotacao. */
+  } /* End _editNotificacao. */
 
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext     The parent build context.
-  /// @param  inAnotacao The anotacoes (potentially) being deleted.
+  /// @param  inNotificacao The Notificacoes (potentially) being deleted.
   /// @return               Future.
-  Future _deleteAnotacao(BuildContext inContext, Anotacao inAnotacao) async {
-    print("##104 AnotacoessList._deleteAnotacao(): inAnotacao = $inAnotacao");
+  Future _deleteNotificacao(BuildContext inContext, Notificacao inNotificacao) async {
+    print("##104 NotificacoesList._deleteNotificacao(): inNotificacao = $inNotificacao");
 
     return showDialog(
         context: inContext,
@@ -235,7 +235,7 @@ class AnotacoesList extends StatelessWidget {
           return AlertDialog(
               title: Text("Excluir Anotação"),
               content:
-                  Text("Are you sure you want to delete ${inAnotacao.title}?"),
+                  Text("Are you sure you want to delete ${inNotificacao.title}?"),
               actions: [
                 FlatButton(
                     child: Text("Cancelar"),
@@ -247,17 +247,17 @@ class AnotacoesList extends StatelessWidget {
                     child: Text("Delete"),
                     onPressed: () async {
                       // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                      await AnotacoesDB.db.delete(inAnotacao.id);
+                      await NotificacoesDB.db.delete(inNotificacao.id);
                       Navigator.of(inAlertContext).pop();
                       Scaffold.of(inContext).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
-                          content: Text("Anotacoes deleted")));
+                          content: Text("Notificacoes deleted")));
                       // Reload data from database to update list.
-                      anotacoesModel.loadData("anotacoess", AnotacoesDB.db);
+                      notificacoesModel.loadData("Notificacoes", NotificacoesDB.db);
                     })
               ]);
         });
-  } /* End _deleteAnotacao(). */
+  } /* End _deleteNotificacao(). */
 
 } /* End class. */

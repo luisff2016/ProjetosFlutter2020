@@ -28,17 +28,17 @@ class MedicamentosList extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: Colors.white),
                   onPressed: () async {
-                    medicamentosModel.entityBeingEdited = Medicamento();
-                    medicamentosModel.setChosenDate(null);
-                    medicamentosModel.setStackIndex(1);
+                    medicamentosModel.entidadeSendoEditada = Medicamento();
+                    medicamentosModel.definirDataEscolhida(null);
+                    medicamentosModel.definirIndicePilha(1);
                   }),
               body: ListView.builder(
                   // Get the first Card out of the shadow.
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  itemCount: medicamentosModel.entityList.length,
+                  itemCount: medicamentosModel.listaEntidades.length,
                   itemBuilder: (BuildContext inBuildContext, int inIndex) {
                     Medicamento medicamento =
-                        medicamentosModel.entityList[inIndex];
+                        medicamentosModel.listaEntidades[inIndex];
                     // Get the date, if any, in a human-readable format.
                     String sDueDate;
                     if (medicamento.dueDate != null) {
@@ -72,10 +72,7 @@ class MedicamentosList extends StatelessWidget {
                                       color: Theme.of(inContext).disabledColor,
                                       decoration: TextDecoration.lineThrough)
                                   : TextStyle(
-                                      color: Theme.of(inContext)
-                                          .textTheme
-                                          .headline
-                                          .color)),
+                                    color: Colors.blueGrey)),
                           subtitle: medicamento.dueDate == null
                               ? null
                               : Text(sDueDate,
@@ -86,28 +83,24 @@ class MedicamentosList extends StatelessWidget {
                                               Theme.of(inContext).disabledColor,
                                           decoration:
                                               TextDecoration.lineThrough)
-                                      : TextStyle(
-                                          color: Theme.of(inContext)
-                                              .textTheme
-                                              .headline
-                                              .color)),
-                          // Edit existing medicamento.
+                                      : TextStyle(color: Colors.blueGrey)),
+                        // Edit existing medicamento.
                           onTap: () async {
                             // Can't edit a completed medicamento.
                             if (medicamento.completed == "true") {
                               return;
                             }
                             // Get the data from the database and send to the edit view.
-                            medicamentosModel.entityBeingEdited =
+                            medicamentosModel.entidadeSendoEditada =
                                 await MedicamentosDB.db.get(medicamento.id);
                             // Parse out the due date, if any, and set it in the model for display.
-                            if (medicamentosModel.entityBeingEdited.dueDate ==
+                            if (medicamentosModel.entidadeSendoEditada.dueDate ==
                                 null) {
-                              medicamentosModel.setChosenDate(null);
+                              medicamentosModel.definirDataEscolhida(null);
                             } else {
-                              medicamentosModel.setChosenDate(sDueDate);
+                              medicamentosModel.definirDataEscolhida(sDueDate);
                             }
-                            medicamentosModel.setStackIndex(1);
+                            medicamentosModel.definirIndicePilha(1);
                           }),
                       secondaryActions: [
                         IconSlideAction(

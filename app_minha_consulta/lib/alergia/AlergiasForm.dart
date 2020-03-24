@@ -26,10 +26,10 @@ class AlergiasForm extends StatelessWidget {
 
     // Attach event listeners to controllers to capture entries in model.
     _titleEditingController.addListener(() {
-      alergiasModel.entityBeingEdited.title = _titleEditingController.text;
+      alergiasModel.entidadeSendoEditada.title = _titleEditingController.text;
     });
     _contentEditingController.addListener(() {
-      alergiasModel.entityBeingEdited.content = _contentEditingController.text;
+      alergiasModel.entidadeSendoEditada.content = _contentEditingController.text;
     });
 
   } /* End constructor. */
@@ -44,8 +44,8 @@ class AlergiasForm extends StatelessWidget {
     print("##41 AlergiasForm.build()");
 
     // Set value of controllers.
-    _titleEditingController.text = alergiasModel.entityBeingEdited.title;
-    _contentEditingController.text = alergiasModel.entityBeingEdited.content;
+    _titleEditingController.text = alergiasModel.entidadeSendoEditada.title;
+    _contentEditingController.text = alergiasModel.entidadeSendoEditada.content;
 
     // Return widget.
     return ScopedModel(
@@ -63,7 +63,7 @@ class AlergiasForm extends StatelessWidget {
                       // Hide soft keyboard.
                       FocusScope.of(inContext).requestFocus(FocusNode());
                       // Go back to the list view.
-                      inModel.setStackIndex(0);
+                      inModel.definirIndicePilha(0);
                     }
                   ),
                   Spacer(),
@@ -119,7 +119,7 @@ class AlergiasForm extends StatelessWidget {
                             )
                           ),
                           onTap : () {
-                            alergiasModel.entityBeingEdited.color = "red";
+                            alergiasModel.entidadeSendoEditada.color = "red";
                             alergiasModel.setColor("red");
                           }
                         ),
@@ -135,7 +135,7 @@ class AlergiasForm extends StatelessWidget {
                             )
                           ),
                           onTap : () {
-                            alergiasModel.entityBeingEdited.color = "green";
+                            alergiasModel.entidadeSendoEditada.color = "green";
                             alergiasModel.setColor("green");
                           }
                         ),
@@ -151,7 +151,7 @@ class AlergiasForm extends StatelessWidget {
                             )
                           ),
                           onTap : () {
-                            alergiasModel.entityBeingEdited.color = "blue";
+                            alergiasModel.entidadeSendoEditada.color = "blue";
                             alergiasModel.setColor("blue");
                           }
                         ),
@@ -167,7 +167,7 @@ class AlergiasForm extends StatelessWidget {
                             )
                           ),
                           onTap : () {
-                            alergiasModel.entityBeingEdited.color = "yellow";
+                            alergiasModel.entidadeSendoEditada.color = "yellow";
                             alergiasModel.setColor("yellow");
                           }
                         ),
@@ -183,7 +183,7 @@ class AlergiasForm extends StatelessWidget {
                             )
                           ),
                           onTap : () {
-                            alergiasModel.entityBeingEdited.color = "grey";
+                            alergiasModel.entidadeSendoEditada.color = "grey";
                             alergiasModel.setColor("grey");
                           }
                         ),
@@ -199,7 +199,7 @@ class AlergiasForm extends StatelessWidget {
                             )
                           ),
                           onTap : () {
-                            alergiasModel.entityBeingEdited.color = "purple";
+                            alergiasModel.entidadeSendoEditada.color = "purple";
                             alergiasModel.setColor("purple");
                           }
                         )
@@ -229,16 +229,16 @@ class AlergiasForm extends StatelessWidget {
     if (!_formKey.currentState.validate()) { return; }
 
     // Creating a new note.
-    if (inModel.entityBeingEdited.id == null) {
+    if (inModel.entidadeSendoEditada.id == null) {
 
-      print("##43 AlergiasForm._save(): Creating: ${inModel.entityBeingEdited}");
-      await AlergiasDB.db.create(alergiasModel.entityBeingEdited);
+      print("##43 AlergiasForm._save(): Creating: ${inModel.entidadeSendoEditada}");
+      await AlergiasDB.db.create(alergiasModel.entidadeSendoEditada);
 
     // Updating an existing note.
     } else {
 
-      print("##44 AlergiasForm._save(): Updating: ${inModel.entityBeingEdited}");
-      await AlergiasDB.db.update(alergiasModel.entityBeingEdited);
+      print("##44 AlergiasForm._save(): Updating: ${inModel.entidadeSendoEditada}");
+      await AlergiasDB.db.update(alergiasModel.entidadeSendoEditada);
 
     }
 
@@ -246,7 +246,7 @@ class AlergiasForm extends StatelessWidget {
     alergiasModel.loadData("alergias", AlergiasDB.db);
 
     // Go back to the list view.
-    inModel.setStackIndex(0);
+    inModel.definirIndicePilha(0);
 
     // Show SnackBar.
     Scaffold.of(inContext).showSnackBar(

@@ -18,7 +18,7 @@ class Contatos extends StatelessWidget {
     print("##95 Contacts.constructor");
 
     // Initial load of data.
-    contatosModel.loadData("contacts", ContatosDB.db);
+    contatosModel.loadData("contato", ContatosDB.db);
 
   } /* End constructor. */
 
@@ -36,7 +36,7 @@ class Contatos extends StatelessWidget {
       child : ScopedModelDescendant<ContatosModel>(
         builder : (BuildContext inContext, Widget inChild, ContatosModel inModel) {
           return IndexedStack(
-            index : inModel.stackIndex,
+            index : inModel.indicePilha,
             children : [
               ContatosList(),
               ContatosForm()
