@@ -11,48 +11,52 @@ import 'dart:async';
 class SimuladorAGHU extends StatelessWidget {
   /// Constructor.
   SimuladorAGHU() {
-    print("##200 SimuladorAGHU ok ");
+    print("## simuladorAGHU SimuladorAGHU: ok ");
   } /* End constructor. */
 
   Future<void> _inserirDadosExemplo() async {
     WidgetsFlutterBinding.ensureInitialized();
     try {
-      var dbSimuladorAGHU = new SimuladorAGHUBD();
-      int contagem = await dbSimuladorAGHU.pegarContagem(dbSimuladorAGHU.tabelaRegistro);
-      if (contagem <= 0) {
-        _inserirRegistros(dbSimuladorAGHU);
-        _listarRegistros(dbSimuladorAGHU);
-        print("existem $contagem Registros cadastrados");
-        _inserirConsultas(dbSimuladorAGHU);
-        _listarConsultas(dbSimuladorAGHU);
+      var bancoTeste = new SimuladorAGHUBD();
+      int contagem =
+          await bancoTeste.pegarContagem(bancoTeste.tabelaRegistro);
+      if (contagem <= 1) {
+        _inserirRegistros(bancoTeste);
+        _listarRegistros(bancoTeste);
+        _inserirConsultas(bancoTeste);
+        _listarConsultas(bancoTeste);
+        
       } else {
-        print("Banco tem $contagem itens");
+        print(
+            "## simuladorAGHU SimuladorAGHU._inserirDadosExemplo: Banco tem $contagem itens");
       }
     } catch (e) {
-      print("Erro ao criar o banco SimuladorAGHUBD(): $e");
+      print("## simuladorAGHU SimuladorAGHU._inserirDadosExemplo: Erro ao criar o banco de teste=> $e");
     }
   }
 
-  _inserirRegistros(SimuladorAGHUBD dbSimuladorAGHU) async {
+  _inserirRegistros(SimuladorAGHUBD bancoTeste) async {
     int registroSalvo;
     // Registro (prontuario,cpf,nome);
     var registro3 = new Registro("000001", "10101010101", "Luis Fernando");
-    registroSalvo = await dbSimuladorAGHU.inserirRegistro(registro3);
+    registroSalvo = await bancoTeste.inserirRegistro(registro3);
     print("Registro inserido: $registroSalvo");
 
     var registro2 = new Registro("000002", "20202020202", "Anderson Garcia");
-    registroSalvo = await dbSimuladorAGHU.inserirRegistro(registro2);
+    registroSalvo = await bancoTeste.inserirRegistro(registro2);
     print("Registro inserido: $registroSalvo");
 
-    Registro regSimuladorAGHU = (await dbSimuladorAGHU.pegarRegistro(1));
-    print(regSimuladorAGHU.toString());
+  var contagem =
+            await bancoTeste.pegarContagem(bancoTeste.tabelaRegistro);
+        print(
+            "## simuladorAGHU SimuladorAGHU._inserirDadosExemplo: existem $contagem Registros cadastrados");
+      
   }
 
-  _listarRegistros(SimuladorAGHUBD dbSimuladorAGHU) async {
+  _listarRegistros(SimuladorAGHUBD bancoTeste) async {
     List _todosRegistros;
 
-    _todosRegistros =
-        await dbSimuladorAGHU.pegarTodos(dbSimuladorAGHU.tabelaRegistro);
+    _todosRegistros = await bancoTeste.pegarTodos(bancoTeste.tabelaRegistro);
 
     for (int i = 0; i < _todosRegistros.length; i++) {
       Registro registro = Registro.map(_todosRegistros[i]);
@@ -61,28 +65,32 @@ class SimuladorAGHU extends StatelessWidget {
     }
   }
 
-  Future<void> _inserirConsultas(SimuladorAGHUBD dbSimuladorAGHU) async {
+  _inserirConsultas(SimuladorAGHUBD bancoTeste) async {
+   
     int consultaSalva;
 
-    int nRegistros = await dbSimuladorAGHU.pegarContagem(dbSimuladorAGHU.tabelaRegistro);
+    var nRegistros = await bancoTeste.pegarContagem(bancoTeste.tabelaRegistro);
     // Registro (prontuario,cpf,nome);
     for (int i = 1; i < nRegistros; i++) {
       for (int j = 1; j < 10; j++) {
         var consulta =
-            new Consulta("Dr. Hider", "geral", "Consultorio" + j.toString(), i);
+            new Consulta("Dr. Hyder", "geral", "Consultorio" + j.toString(), i);
 
-        consultaSalva = await dbSimuladorAGHU.inserirConsulta(consulta);
+        consultaSalva = await bancoTeste.inserirConsulta(consulta);
 
         print("Consulta inserida: $consultaSalva");
       }
     }
+    var contagem =
+            await bancoTeste.pegarContagem(bancoTeste.tabelaConsulta);
+        print(
+            "## simuladorAGHU SimuladorAGHU._inserirDadosExemplo: existem $contagem Consultas cadastradas");
   }
 
-  _listarConsultas(SimuladorAGHUBD dbSimuladorAGHU) async {
+  _listarConsultas(SimuladorAGHUBD bancoTeste) async {
     List _todasConsultas;
 
-    _todasConsultas =
-        await dbSimuladorAGHU.pegarTodos(dbSimuladorAGHU.tabelaConsulta);
+    _todasConsultas = await bancoTeste.pegarTodos(bancoTeste.tabelaConsulta);
 
     for (int i = 0; i < _todasConsultas.length; i++) {
       Consulta consulta = Consulta.map(_todasConsultas[i]);

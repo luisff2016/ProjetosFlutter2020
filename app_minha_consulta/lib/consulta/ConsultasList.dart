@@ -10,7 +10,7 @@ import "ConsultasDB.dart";
 import "ConsultasModel.dart" show Consulta, ConsultasModel, consultasModel;
 
 /// ********************************************************************************************************************
-/// The Consulta, List sub-screen.
+/// Subtela para exibir a lista de consultas agendadas
 /// ********************************************************************************************************************
 class ConsultasList extends StatelessWidget {
   /// The build() method.
