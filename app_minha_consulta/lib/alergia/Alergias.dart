@@ -9,28 +9,19 @@ import 'AlergiasList.dart';
 /// The Alergias screen.
 /// ********************************************************************************************************************
 class Alergia extends StatelessWidget {
-
-
   /// Constructor.
   Alergia() {
-
     print("## alergia Alergias.constructor");
-
     // Initial load of data.
     alergiasModel.loadData("alergia", AlergiasDB.db);
-    
-
   } /* End constructor. */
-
 
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-
     print("##63 Alergias.build()");
-
     return ScopedModel<AlergiasModel>(
       model : alergiasModel,
       child : ScopedModelDescendant<AlergiasModel>(
@@ -45,8 +36,6 @@ class Alergia extends StatelessWidget {
         } /* End ScopedModelDescendant builder(). */
       ) /* End ScopedModelDescendant. */
     ); /* End ScopedModel. */
-
   } /* End build(). */
-
 
 } /* End class. */
