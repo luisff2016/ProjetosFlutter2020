@@ -10,7 +10,6 @@ class AlergiasDB {
   /// Static instance and private constructor, since this is a singleton.
   AlergiasDB._();
   static final AlergiasDB db = AlergiasDB._();
-
   /// The one and only database instance.
   Database _db;
 
@@ -35,7 +34,6 @@ class AlergiasDB {
   /// @return A Database instance.
   Future<Database> init() async {
     print("alergias AlergiasDB.init()");
-
     String path = join(utils.docsDir.path, "alergias.db");
     print("##47 alergias AlergiasDB.init(): path = $path");
     Database db = await openDatabase(path, version: 1, onOpen: (db) {},
@@ -53,22 +51,18 @@ class AlergiasDB {
   /// Create a NAlergia from a Map.
   Alergia alergiaFromMap(Map inMap) {
     print("##48 alergias AlergiasDB.alergiaFromMap(): inMap = $inMap");
-
     Alergia alergia = Alergia();
     alergia.id = inMap["id"];
     alergia.title = inMap["title"];
     alergia.content = inMap["content"];
     alergia.color = inMap["color"];
-
     print("##49 alergias AlergiasDB.alergiaFromMap(): alergia = $alergia");
-
     return alergia;
   } /* End nAlergiaFromMap(); */
 
   /// Create a Map from a NAlergia.
   Map<String, dynamic> alergiaToMap(Alergia inAlergia) {
     print("##50 Alergias AlergiasDB.alergiaToMap(): inAlergia = $inAlergia");
-
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inAlergia.id;
     map["title"] = inAlergia.title;
@@ -84,16 +78,13 @@ class AlergiasDB {
   /// @return        Future.
   Future create(Alergia inAlergia) async {
     print("##52 Alergias AlergiasDB.create(): inAlergia = $inAlergia");
-
     Database db = await database;
-
     // Get largest current id in the table, plus one, to be the new ID.
     var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM alergias");
     int id = val.first["id"];
     if (id == null) {
       id = 1;
     }
-
     // Insert into table.
     return await db.rawInsert(
         "INSERT INTO alergias (id, title, content, color) VALUES (?, ?, ?, ?)",
@@ -106,12 +97,9 @@ class AlergiasDB {
   /// @return      The corresponding NAlergia object.
   Future<Alergia> get(int inID) async {
     print("##53 Alergias AlergiasDB.get(): inID = $inID");
-
     Database db = await database;
     var rec = await db.query("alergias", where: "id = ?", whereArgs: [inID]);
-
     print("##54 Alergias AlergiasDB.get(): rec.first = $rec.first");
-
     return alergiaFromMap(rec.first);
   } /* End get(). */
 
@@ -125,9 +113,7 @@ class AlergiasDB {
       var recs = await db.query("alergias");
       var list =
           recs.isNotEmpty ? recs.map((m) => alergiaFromMap(m)).toList() : [];
-
       print("##56 Alergias AlergiasDB.getAll(): list = $list");
-
       return list;
     } catch (e) {
       print("##57 ERRO getAll(): $e ");
@@ -163,4 +149,5 @@ class AlergiasDB {
       print("##61 ERRO AlergiasDB.delete(): $e ");
     }
   } /* End delete(). */
+  
 } /* End class. */

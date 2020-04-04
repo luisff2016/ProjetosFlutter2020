@@ -9,6 +9,7 @@ import 'AlergiasList.dart';
 /// The Alergias screen.
 /// ********************************************************************************************************************
 class Alergia extends StatelessWidget {
+  
   /// Constructor.
   Alergia() {
     print("## alergia Alergias.constructor");
@@ -21,7 +22,7 @@ class Alergia extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##63 Alergias.build()");
+    print("##63 alergia Alergias.build()");
     return ScopedModel<AlergiasModel>(
       model : alergiasModel,
       child : ScopedModelDescendant<AlergiasModel>(
