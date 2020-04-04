@@ -21,7 +21,7 @@ class _TelaAlergiaState extends State<TelaAlergia> {
                 height: 75,
                 width: 500,
                 child: Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/logo_hu1.jpg',
                 ),
               ),
               Padding(
@@ -33,22 +33,7 @@ class _TelaAlergiaState extends State<TelaAlergia> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......." +
-                    "escrever texto aqui ......."),
+                child: Text("Em construção... ......." ),
               )
             ],
           ),

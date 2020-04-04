@@ -4,7 +4,7 @@ import "../utils.dart" as utils;
 import 'ArquivosModel.dart';
 
 /// ********************************************************************************************************************
-/// Database provider class for arquivoss.
+/// Database provider class for arquivos.
 /// ********************************************************************************************************************
 class ArquivosDB {
   /// Static instance and private constructor, since this is a singleton.
@@ -51,7 +51,7 @@ class ArquivosDB {
 
   /// Create a arquivos from a Map.
   Arquivo arquivoFromMap(Map inMap) {
-    print("##124 arquivoss ArquivosDB.arquivoFromMap(): inMap = $inMap");
+    print("##124 arquivos ArquivosDB.arquivoFromMap(): inMap = $inMap");
     Arquivo arquivo = Arquivo();
     arquivo.id = inMap["id"];
     arquivo.title = inMap["title"];
@@ -64,8 +64,8 @@ class ArquivosDB {
   } /* End arquivoFromMap(); */
 
   /// Create a Map from a arquivos.
-  Map<String, dynamic> arquivosToMap(Arquivo inArquivo) {
-    print("##126 arquivoss ArquivosDB.arquivosToMap(): inArquivo = $inArquivo");
+  Map<String, dynamic> arquivoToMap(Arquivo inArquivo) {
+    print("##126 arquivoss ArquivosDB.arquivoToMap(): inArquivo = $inArquivo");
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inArquivo.id;
     map["title"] = inArquivo.title;
@@ -75,7 +75,7 @@ class ArquivosDB {
     print("##127 arquivos ArquivosDB.arquivoToMap(): map = $map");
 
     return map;
-  } /* End arquivosToMap(). */
+  } /* End arquivoToMap(). */
 
   /// Create a arquivos.
   ///
@@ -109,11 +109,11 @@ class ArquivosDB {
   /// @param  inID The ID of the arquivos to get.
   /// @return      The corresponding arquivos object.
   Future<Arquivo> get(int inID) async {
-    print("##129 arquivoss ArquivosDB.get(): inID = $inID");
+    print("##129 arquivos ArquivosDB.get(): inID = $inID");
 
     Database db = await database;
     var rec = await db.query("arquivos", where: "id = ?", whereArgs: [inID]);
-    print("##130 arquivoss ArquivosDB.get(): rec.first = $rec.first");
+    print("##130 arquivos ArquivosDB.get(): rec.first = $rec.first");
     return arquivoFromMap(rec.first);
   } /* End get(). */
 
@@ -141,7 +141,7 @@ class ArquivosDB {
     print("##133 arquivos ArquivosDB.update(): inArquivo = $inArquivo");
 
     Database db = await database;
-    return await db.update("arquivos", arquivosToMap(inArquivo),
+    return await db.update("arquivos", arquivoToMap(inArquivo),
         where: "id = ?", whereArgs: [inArquivo.id]);
   } /* End update(). */
 

@@ -7,17 +7,18 @@ import 'registro.dart';
 import 'consulta.dart';
 
 class SimuladorAGHUBD {
+  ///Simulando o acesso ao Sistema AGHU, para validar o usuario e obter os dados sobre as consultas
   SimuladorAGHUBD._internal();
   static final SimuladorAGHUBD _instance = new SimuladorAGHUBD._internal();
 
   factory SimuladorAGHUBD() => _instance;
-  // Tabela de registro simulando os dados do Sistema AGHU
+  // Tabela de registro simulando os dados obtidos do Sistema AGHU
   final String tabelaRegistro = "tabelaRegistro";
   final String colunaIdRegistro = "idRegistro";
   final String colunaProntuario = "prontuario";
   final String colunaCpf = "cpf";
   final String colunaNome = "nome";
-   // Tabela de consultas simulando os dados do Sistema AGHU
+   // Tabela de consultas simulando os dados obtidos do Sistema AGHU
   final String tabelaConsulta = "tabelaConsulta";
   final String colunaIdConsulta = "idConsulta";
   final String colunaMedico = "medico";
@@ -116,7 +117,7 @@ class SimuladorAGHUBD {
 
     if (res.length == 0) return null;
 
-    return new Consulta.fromMap(res.first);
+    return new Consulta.map(res.first);
   }
 
   Future<Registro> validarRegistro(String prontuario, String cpf) async {
@@ -128,7 +129,7 @@ class SimuladorAGHUBD {
 
     if (res.length == 0) return null;
 
-    return new Registro.fromMap(res.first);
+    return new Registro.map(res.first); //conferir
   }
 
   Future<int> apagarRegistro(int id) async {

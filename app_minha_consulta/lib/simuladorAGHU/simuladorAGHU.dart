@@ -69,7 +69,18 @@ class SimuladorAGHU extends StatelessWidget {
     for (int i = 1; i < nRegistros; i++) {
       for (int j = 1; j < 10; j++) {
         var consulta =
-            new Consulta("Dr. Hider", "geral", "Consultorio" + j.toString(), i);
+            new Consulta(
+              medico: "Dr. Hider", 
+              especialidade: "geral", 
+              dataConsulta: "01/01/2020", 
+              horaConsulta: "15:00", 
+              predio: "HU",
+              sala :"sala " + j.toString(),
+              tipoConsulta: "primeira vez",
+              status: "agendada",
+              fkConsulta: j,
+              idConsulta: i
+              );
 
         consultaSalva = await dbSimuladorAGHU.inserirConsulta(consulta);
 
@@ -86,9 +97,7 @@ class SimuladorAGHU extends StatelessWidget {
 
     for (int i = 0; i < _todasConsultas.length; i++) {
       Consulta consulta = Consulta.map(_todasConsultas[i]);
-      print("Consulta: medico=${consulta.medico},"
-          " especialidade=${consulta.especialidade},"
-          " consultorio=${consulta.consultorio}");
+      print(consulta.toString());
     }
   }
 

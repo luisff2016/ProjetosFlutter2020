@@ -4,7 +4,7 @@ import "../utils.dart" as utils;
 import "AnotacoesModel.dart";
 
 /// ********************************************************************************************************************
-/// Database provider class for anotacoess.
+/// Database provider class for anotacoes.
 /// ********************************************************************************************************************
 class AnotacoesDB {
   /// Static instance and private constructor, since this is a singleton.
@@ -51,7 +51,7 @@ class AnotacoesDB {
 
   /// Create a anotacoes from a Map.
   Anotacao anotacaoFromMap(Map inMap) {
-    print("##124 anotacoess AnotacoesDB.anotacoesFromMap(): inMap = $inMap");
+    print("##124 anotacao AnotacoesDB.anotacoesFromMap(): inMap = $inMap");
     Anotacao anotacao = Anotacao();
     anotacao.id = inMap["id"];
     anotacao.title = inMap["title"];
@@ -67,27 +67,27 @@ class AnotacoesDB {
   /// Create a Map from a anotacoes.
   Map<String, dynamic> anotacaoToMap(Anotacao inAnotacao) {
     print(
-        "##126 anotacoess AnotacoesDB.anotacoesToMap(): inAnotacao = $inAnotacao");
+        "##126 anotacao AnotacoesDB.anotacaoToMap(): inAnotacao = $inAnotacao");
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inAnotacao.id;
     map["title"] = inAnotacao.title;
     map["description"] = inAnotacao.description;
     map["apptDate"] = inAnotacao.apptDate;
     map["apptTime"] = inAnotacao.apptTime;
-    print("##127 anotacoess AnotacoesDB.anotacaoToMap(): map = $map");
+    print("##127 anotacao AnotacoesDB.anotacaoToMap(): map = $map");
     return map;
-  } /* End anotacoesToMap(). */
+  } /* End anotacaoToMap(). */
 
   /// Create a anotacoes.
   ///
   /// @param inAnotacao the anotacoes object to create.
   Future create(Anotacao inAnotacao) async {
-    print("##128 anotacoess AnotacoesDB.create(): inAnotacao = $inAnotacao");
+    print("##128 anotacao AnotacoesDB.create(): inAnotacao = $inAnotacao");
 
     Database db = await database;
 
     // Get largest current id in the table, plus one, to be the new ID.
-    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM anotacoess");
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM anotacoes");
     int id = val.first["id"];
     if (id == null) {
       id = 1;
@@ -95,7 +95,7 @@ class AnotacoesDB {
 
     // Insert into table.
     return await db.rawInsert(
-        "INSERT INTO anotacoess (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO anotacao (id, title, description, apptDate, apptTime) VALUES (?, ?, ?, ?, ?)",
         [
           id,
           inAnotacao.title,
@@ -114,11 +114,11 @@ class AnotacoesDB {
 
     Database db = await database;
     var rec = await db.query("anotacoes", where: "id = ?", whereArgs: [inID]);
-    print("##130 anotacoess AnotacoesDB.get(): rec.first = $rec.first");
+    print("##130 anotacao AnotacoesDB.get(): rec.first = $rec.first");
     return anotacaoFromMap(rec.first);
   } /* End get(). */
 
-  /// Get all anotacoess.
+  /// Get all anotacao.
   ///
   /// @return A List of anotacoes objects.
   Future<List> getAll() async {
@@ -139,7 +139,7 @@ class AnotacoesDB {
   ///
   /// @param inAnotacao The anotacoes to update.
   Future update(Anotacao inAnotacao) async {
-    print("##133 anotacoess AnotacoesDB.update(): inAnotacao = $inAnotacao");
+    print("##133 anotacao AnotacoesDB.update(): inAnotacao = $inAnotacao");
 
     Database db = await database;
     return await db.update("anotacoes", anotacaoToMap(inAnotacao),
@@ -150,7 +150,7 @@ class AnotacoesDB {
   ///
   /// @param inID The ID of the anotacoes to delete.
   Future delete(int inID) async {
-    print("##134 anotacoess AnotacoesDB.delete(): inID = $inID");
+    print("##134 anotacao AnotacoesDB.delete(): inID = $inID");
 
     Database db = await database;
     return await db.delete("anotacoes", where: "id = ?", whereArgs: [inID]);

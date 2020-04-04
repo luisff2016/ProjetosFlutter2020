@@ -80,7 +80,7 @@ class _LoginPageState extends State<TelaLogin> {
                     height: 100,
                     width: 500,
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/logo_hu1.jpg',
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -137,11 +137,11 @@ class _LoginPageState extends State<TelaLogin> {
                                   MaterialPageRoute(
                                       builder: (context) => HomePage()));
                             } else {
-                              print("usuario nao reconhecido");
+                              print("Usuário nao reconhecido");
                               showDialog(
                                 context: context,
                                 builder: (_) => AlertDialog(
-                                  title: Text("erro de login"),
+                                  title: Text("Login não autorizado!"),
                                   content: Text("Tente novamente!"),
                                   actions: <Widget>[
                                     FlatButton(
@@ -210,7 +210,7 @@ class PrimaryColorOverride extends StatelessWidget {
             height:150,
             width: 350,
             child: Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logo_hu1.jpg',
             ),
           ),
           Padding(

@@ -5,11 +5,11 @@ import "PacientesModel.dart";
 
 
 /// ********************************************************************************************************************
-/// Classe do provedor de banco de dados
+/// Classe do provedor de banco de dados: pacientes
 /// ********************************************************************************************************************
 
 class PacientesDB {
-  /// Static instance and private constructor, since this is a singleton.
+  /// Instancia 'static final' do construtor privado, seguindo o padrao singleton.
   PacientesDB._();
   static final PacientesDB db = PacientesDB._();
 
@@ -63,16 +63,16 @@ class PacientesDB {
 
   /// Create a Map from a pacientes.
   Map<String, dynamic> pacienteToMap(Paciente inPacientes) {
-    print("## paciente PacientessDB.pacientesToMap(): inPacientes = $inPacientes");
+    print("## paciente PacientessDB.pacienteToMap(): inPacientes = $inPacientes");
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inPacientes.id;
     map["protocolo"] = inPacientes.protocolo;
     map["cpf"] = inPacientes.cpf;
     map["nome"] = inPacientes.nome;
     map["color"] = inPacientes.color;
-    print("## pacientes pacientessDB.pacientesToMap(): map = $map");
+    print("## pacientes pacientessDB.pacienteToMap(): map = $map");
     return map;
-  } /* End pacientesToMap(). */
+  } /* End pacienteToMap(). */
 
   /// Create a pacientes.
   ///

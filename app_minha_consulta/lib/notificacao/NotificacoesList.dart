@@ -121,7 +121,7 @@ class NotificacoesList extends StatelessWidget {
                                             notificacoesModel.listaEntidades[inIndex];
                                         print(
                                             "## notificacao NotificacoesList._showNotificacao().ListView.builder(): "
-                                            "Notificacao = $notificacao");
+                                            "notificacao = $notificacao");
                                         // Filter out any Notificacoes that isn't for the specified date.
                                         if (notificacao.apptDate !=
                                             "${inDate.year},${inDate.month},${inDate.day}") {
@@ -193,7 +193,7 @@ class NotificacoesList extends StatelessWidget {
   /// @param inContext     The BuildContext of the parent widget.
   /// @param inNotificacao The Notificacoes being edited.
   void _editNotificacao(BuildContext inContext, Notificacao inNotificacao) async {
-    print("##103 NotificacoesList._editNotificacao(): inNotificacao = $inNotificacao");
+    print("##103 norificacao NotificacoesList._editNotificacao(): inNotificacao = $inNotificacao");
 
     // Get the data from the database and send to the edit view.
     notificacoesModel.entidadeSendoEditada = await NotificacoesDB.db.get(inNotificacao.id);
@@ -226,14 +226,14 @@ class NotificacoesList extends StatelessWidget {
   /// @param  inNotificacao The Notificacoes (potentially) being deleted.
   /// @return               Future.
   Future _deleteNotificacao(BuildContext inContext, Notificacao inNotificacao) async {
-    print("##104 NotificacoesList._deleteNotificacao(): inNotificacao = $inNotificacao");
+    print("##104 notificacao NotificacoesList._deleteNotificacao(): inNotificacao = $inNotificacao");
 
     return showDialog(
         context: inContext,
         barrierDismissible: false,
         builder: (BuildContext inAlertContext) {
           return AlertDialog(
-              title: Text("Excluir Anotação"),
+              title: Text("Excluir Notificação"),
               content:
                   Text("Are you sure you want to delete ${inNotificacao.title}?"),
               actions: [
@@ -254,7 +254,7 @@ class NotificacoesList extends StatelessWidget {
                           duration: Duration(seconds: 2),
                           content: Text("Notificacoes deleted")));
                       // Reload data from database to update list.
-                      notificacoesModel.loadData("Notificacoes", NotificacoesDB.db);
+                      notificacoesModel.loadData("notificacoes", NotificacoesDB.db);
                     })
               ]);
         });

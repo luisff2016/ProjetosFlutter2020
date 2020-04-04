@@ -6,10 +6,11 @@ import 'PacientesList.dart';
 import "PacientesModel.dart" show PacientesModel, pacientesModel;
 
 /// ***********************************************************************************************************
-/// Tela de UPacientes.
+/// Tela de Pacientes.
 /// ********************************************************************************************************************
+
 class Pacientes extends StatelessWidget {
-  /// Constructor.
+  /// Construtor.
   Pacientes() {
     print("## paciente Pacientes.constructor");
 

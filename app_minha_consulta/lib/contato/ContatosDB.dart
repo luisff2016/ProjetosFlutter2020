@@ -73,7 +73,7 @@ class ContatosDB {
   /// Create a Map from a contatos.
   Map<String, dynamic> contatoToMap(Contato inContato) {
     print(
-        "##85 contatoss ContatosDB.contatosToMap(): inContato = $inContato");
+        "##85 contato ContatosDB.contatoToMap(): inContato = $inContato");
 
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inContato.id;
@@ -82,10 +82,10 @@ class ContatosDB {
     map["email"] = inContato.email;
     map["birthday"] = inContato.birthday;
 
-    print("##86 contatoss ContatosDB.contatosToMap(): map = $map");
+    print("##86 contato ContatosDB.contatoToMap(): map = $map");
 
     return map;
-  } /* End contatosToMap(). */
+  } /* End contatoToMap(). */
 
   /// Create a contatos.
   ///

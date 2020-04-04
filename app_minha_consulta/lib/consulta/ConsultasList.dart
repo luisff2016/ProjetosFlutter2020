@@ -123,7 +123,7 @@ class ConsultasList extends StatelessWidget {
                                         }
                                         print(
                                             "##102 ConsultasList._showConsulta().ListView.builder(): "
-                                            "INCLUDING Consulta = $Consulta");
+                                            "INCLUDING Consulta = $consulta");
                                         // If the Consulta,has a time, format it for display.
                                         String apptTime = "";
                                         if (consulta.apptTime != null) {

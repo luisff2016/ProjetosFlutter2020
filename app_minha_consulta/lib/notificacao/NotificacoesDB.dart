@@ -4,7 +4,7 @@ import "../utils.dart" as utils;
 import "NotificacoesModel.dart";
 
 /// ********************************************************************************************************************
-/// Database provider class for aNotificacoess.
+/// Database provider class for notificacoes.
 /// ********************************************************************************************************************
 class NotificacoesDB {
   /// Static instance and private constructor, since this is a singleton.
@@ -49,7 +49,7 @@ class NotificacoesDB {
     return db;
   } /* End init(). */
 
-  /// Create a aNotificacoes from a Map.
+  /// Create a notificacoes from a Map.
   Notificacao notificacaoFromMap(Map inMap) {
     print("## notificacao NotificacoesDB.notificacoesFromMap(): inMap = $inMap");
     Notificacao notificacao = Notificacao();
@@ -64,10 +64,10 @@ class NotificacoesDB {
     return notificacao;
   } /* End aNotificacoesFromMap(); */
 
-  /// Create a Map from a aNotificacoes.
+  /// Create a Map from a notificacoes.
   Map<String, dynamic> notificacaoToMap(Notificacao inNotificacao) {
     print(
-        "## notificacao NotificacoesDB.notificacoesToMap(): inNotificacao = $inNotificacao");
+        "## notificacao NotificacoesDB.notificacaoToMap(): inNotificacao = $inNotificacao");
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inNotificacao.id;
     map["title"] = inNotificacao.title;
@@ -76,11 +76,11 @@ class NotificacoesDB {
     map["apptTime"] = inNotificacao.apptTime;
     print("## notificacao NotificacoesDB.notificacaoToMap(): map = $map");
     return map;
-  } /* End aNotificacoesToMap(). */
+  } /* End aNotificacaoToMap(). */
 
-  /// Create a aNotificacoes.
+  /// Create a notificacoes.
   ///
-  /// @param inANotificacao the aNotificacoes object to create.
+  /// @param inANotificacao the notificacoes object to create.
   Future create(Notificacao inNotificacao) async {
     print("## notificacao NotificacoesDB.create(): inNotificacao = $inNotificacao");
 
@@ -105,22 +105,22 @@ class NotificacoesDB {
         ]);
   } /* End create(). */
 
-  /// Get a specific aNotificacoes.
+  /// Get a specific notificacoes.
   ///
-  /// @param  inID The ID of the aNotificacoes to get.
-  /// @return      The corresponding aNotificacoes object.
+  /// @param  inID The ID of the notificacoes to get.
+  /// @return      The corresponding notificacoes object.
   Future<Notificacao> get(int inID) async {
     print("## notificacao NotificacoesDB.get(): inID = $inID");
 
     Database db = await database;
     var rec = await db.query("notificacoes", where: "id = ?", whereArgs: [inID]);
-    print("## notificacoes NotificacoesDB.get(): rec.first = $rec.first");
+    print("## notificacao NotificacoesDB.get(): rec.first = $rec.first");
     return notificacaoFromMap(rec.first);
   } /* End get(). */
 
-  /// Get all aNotificacoess.
+  /// Get all Notificacoes.
   ///
-  /// @return A List of aNotificacoes objects.
+  /// @return A List of notificacoes objects.
   Future<List> getAll() async {
     try {
       Database db = await database;

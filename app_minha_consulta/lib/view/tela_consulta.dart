@@ -1,3 +1,4 @@
+import 'package:app_minha_consulta/consulta/ConsultasHist.dart';
 import 'package:app_minha_consulta/consulta/ConsultasList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -29,7 +30,7 @@ class TelaConsulta extends StatelessWidget {
               body: TabBarView(
                 children: [
                   ConsultasList(),
-                  ConsultasList(),
+                  ConsultasHist(),
                 ],
               ),
             ),
@@ -52,7 +53,7 @@ class TelaConsulta extends StatelessWidget {
                   height: 75,
                   width: 500,
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logo_hu1.jpg',
                   ),
                 ),
                 Padding(
