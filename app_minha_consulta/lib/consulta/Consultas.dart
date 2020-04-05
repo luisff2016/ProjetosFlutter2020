@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "ConsultasDB.dart";
+import 'ConsultasHist.dart';
 import "ConsultasList.dart";
 import "ConsultasModel.dart" show ConsultasModel, consultasModel;
 
@@ -30,7 +31,7 @@ class Consultas extends StatelessWidget {
                     ConsultasModel inModel) {
           return IndexedStack(index: inModel.indicePilha, children: [
             ConsultasList(),
-            ConsultasList(),
+            ConsultasHist(),
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */

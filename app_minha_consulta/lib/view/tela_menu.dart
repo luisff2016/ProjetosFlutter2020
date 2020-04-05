@@ -1,10 +1,10 @@
-import 'package:app_minha_consulta/view/tela_alergia.dart';
-import 'package:app_minha_consulta/view/tela_anotacao.dart';
-import 'package:app_minha_consulta/view/tela_arquivo.dart';
-import 'package:app_minha_consulta/view/tela_consulta.dart';
-import 'package:app_minha_consulta/view/tela_contato.dart';
-import 'package:app_minha_consulta/view/tela_medicamento.dart';
 import 'package:flutter/material.dart';
+import '../alergia/tela_alergia.dart';
+import '../anotacao/tela_anotacao.dart';
+import '../arquivo/tela_arquivo.dart';
+import '../contato/tela_contato.dart';
+import '../medicamento/tela_medicamento.dart';
+import '../consulta/tela_consulta.dart';
 
 class TelaMenu extends StatefulWidget {
   @override

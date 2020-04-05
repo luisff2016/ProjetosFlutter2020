@@ -42,6 +42,7 @@ class ArqFotosList extends StatelessWidget {
       child : ScopedModelDescendant<ArqFotosModel>(
         builder : (inContext, inChild, inModel) {
           return Scaffold(
+            
             // Add arqFoto.
             floatingActionButton : FloatingActionButton(
               child : Icon(Icons.add, color : Colors.white),

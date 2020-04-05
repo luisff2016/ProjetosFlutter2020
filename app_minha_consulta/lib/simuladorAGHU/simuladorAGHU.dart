@@ -1,4 +1,4 @@
-import 'package:app_minha_consulta/view/tela_login.dart';
+import '../view/tela_login.dart';
 import "package:flutter/material.dart";
 import 'simuladorAGHUBD.dart';
 import 'registro.dart';

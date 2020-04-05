@@ -14,7 +14,7 @@ class ArqFotos extends StatelessWidget {
   /// Constructor.
   ArqFotos() {
 
-    print("##140 arqFotos ArqFotos.constructor");
+    print("##140 arqFoto ArqFotos.constructor");
     // Initial load of data.
     arqFotosModel.loadData("arqFotos", ArqFotosDB.db);
 
@@ -26,7 +26,7 @@ class ArqFotos extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
 
-    print("##141 arqFotos ArqFotos.build()");
+    print("##141 arqFoto ArqFotos.build()");
 
     return ScopedModel<ArqFotosModel>(
         model: arqFotosModel,

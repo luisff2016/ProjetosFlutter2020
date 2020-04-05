@@ -1,4 +1,3 @@
-import 'package:app_minha_consulta/view/tela_consulta.dart';
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
@@ -9,17 +8,19 @@ import "package:flutter_calendar_carousel/classes/event_list.dart";
 import "ConsultasDB.dart";
 import "ConsultasModel.dart" show Consulta, ConsultasModel, consultasModel;
 
+
 /// ********************************************************************************************************************
 /// The Consulta, List sub-screen.
 /// ********************************************************************************************************************
+
 class ConsultasList extends StatelessWidget {
+
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
     print("##97 ConsultasList.build()");
-
     // The list of dates with Consulta,.
     EventList<Event> _markedDateMap = EventList();
     for (int i = 0; i < consultasModel.listaEntidades.length; i++) {
@@ -33,7 +34,6 @@ class ConsultasList extends StatelessWidget {
               date: apptDate,
               icon: Container(decoration: BoxDecoration(color: Colors.blue))));
     }
-
     // Return widget.
     return ScopedModel<ConsultasModel>(
         model: consultasModel,
@@ -41,13 +41,6 @@ class ConsultasList extends StatelessWidget {
                 (BuildContext inContext, Widget inChild,
                     ConsultasModel inModel) {
           return Scaffold(
-              // Add Consulta,
-              floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.add, color: Colors.white),
-                onPressed: () async {
-                  TelaConsulta();
-                },
-              ),
               body: Column(children: [
                 Expanded(
                     child: Container(
@@ -77,13 +70,11 @@ class ConsultasList extends StatelessWidget {
   void _showConsulta(DateTime inDate, BuildContext inContext) async {
     print(
         "##98 Consulta,List._showConsulta,(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
-
     print(
         "##99 Consulta,List._showConsulta,(): consultasModel.listaEntidades.length = "
         "${consultasModel.listaEntidades.length}");
     print("##100 Consulta,List._showConsulta,(): consultasModel.listaEntidades = "
         "${consultasModel.listaEntidades}");
-
     showModalBottomSheet(
         context: inContext,
         builder: (BuildContext inContext) {
@@ -189,7 +180,6 @@ class ConsultasList extends StatelessWidget {
   /// @param inConsulta,The Consulta,being edited.
   void _editConsulta(BuildContext inContext, Consulta inConsulta) async {
     print("##103 ConsultasList._editConsulta: inConsulta = $inConsulta");
-
     // Get the data from the database and send to the edit view.
     // consultasModel.entidadeSendoEditada = await ConsultasDB.db.get(inConsulta,id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
@@ -222,7 +212,6 @@ class ConsultasList extends StatelessWidget {
   /// @return               Future.
   Future _deleteConsulta(BuildContext inContext, Consulta inConsulta) async {
     print("##104 ConsultasList._deleteConsulta: inConsulta = $inConsulta");
-
     return showDialog(
         context: inContext,
         barrierDismissible: false,
@@ -256,18 +245,3 @@ class ConsultasList extends StatelessWidget {
   } /* End _deleteConsulta,). */
 
 } /* End class. */
-
-/**
- * FloatingActionButton(
-                  child: Icon(Icons.add, color: Colors.white),
-                  onPressed: () async {
-                    consultasModel.entidadeSendoEditada = Consulta();
-                    DateTime now = DateTime.now();
-                    consultasModel.entidadeSendoEditada.apptDate =
-                        "${now.year},${now.month},${now.day}";
-                    consultasModel.definirDataEscolhida(
-                        DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                    consultasModel.setApptTime(null);
-                    consultasModel.definirIndicePilha(1);
-                  }),
- */

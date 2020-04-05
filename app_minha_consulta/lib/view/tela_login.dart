@@ -1,4 +1,4 @@
-import 'package:app_minha_consulta/view/home_page.dart';
+import 'home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Brightness, TextInputType;
 import 'package:app_minha_consulta/simuladorAGHU/registro.dart';

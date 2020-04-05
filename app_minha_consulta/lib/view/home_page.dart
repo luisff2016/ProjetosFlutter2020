@@ -1,4 +1,4 @@
-import 'package:app_minha_consulta/view/tela_menu.dart';
+import 'tela_menu.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

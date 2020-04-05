@@ -1,4 +1,4 @@
-import 'package:app_minha_consulta/view/tela_consulta.dart';
+import 'tela_consulta.dart';
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
@@ -41,28 +41,20 @@ class ConsultasHist extends StatelessWidget {
                 (BuildContext inContext, Widget inChild,
                     ConsultasModel inModel) {
           return Scaffold(
-              // Add Consulta,
-              floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.add, color: Colors.white),
-                onPressed: () async {
-                  TelaConsulta();
-                },
-              ),
               body: Column(children: [
-                Expanded(
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: CalendarCarousel<Event>(
-                            thisMonthDayBorderColor: Colors.grey,
-                            daysHaveCircularBorder: false,
-                            markedDatesMap: _markedDateMap,
-                            onDayPressed:
-                                (DateTime inDate, List<Event> inEvents) {
-                              _showConsulta(inDate, inContext);
-                            }) /* End CalendarCarousel. */
-                        ) /* End Container. */
-                    ) /* End Expanded. */
-              ] /* End Column.children. */
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: CalendarCarousel<Event>(
+                        thisMonthDayBorderColor: Colors.grey,
+                        daysHaveCircularBorder: false,
+                        markedDatesMap: _markedDateMap,
+                        onDayPressed: (DateTime inDate, List<Event> inEvents) {
+                          _showConsulta(inDate, inContext);
+                        }) /* End CalendarCarousel. */
+                    ) /* End Container. */
+                ) /* End Expanded. */
+          ] /* End Column.children. */
                   ) /* End Column. */
               ); /* End Scaffold. */
         } /* End ScopedModelDescendant builder(). */
@@ -81,7 +73,8 @@ class ConsultasHist extends StatelessWidget {
     print(
         "##99 Consulta,List._showConsulta,(): consultasModel.listaEntidades.length = "
         "${consultasModel.listaEntidades.length}");
-    print("##100 Consulta,List._showConsulta,(): consultasModel.listaEntidades = "
+    print(
+        "##100 Consulta,List._showConsulta,(): consultasModel.listaEntidades = "
         "${consultasModel.listaEntidades}");
 
     showModalBottomSheet(
@@ -112,8 +105,8 @@ class ConsultasHist extends StatelessWidget {
                                           consultasModel.listaEntidades.length,
                                       itemBuilder: (BuildContext inBuildContext,
                                           int inIndex) {
-                                        Consulta consulta =
-                                            consultasModel.listaEntidades[inIndex];
+                                        Consulta consulta = consultasModel
+                                            .listaEntidades[inIndex];
                                         print(
                                             "##101 Consulta.List._showConsulta().ListView.builder(): Consulta = $Consulta");
                                         // Filter out any Consulta,that isn't for the specified date.
@@ -188,7 +181,7 @@ class ConsultasHist extends StatelessWidget {
   /// @param inContext     The BuildContext of the parent widget.
   /// @param inConsulta,The Consulta,being edited.
   void _editConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##103 ConsultasHist._editConsulta: inConsulta = $inConsulta");
+    print("## 103 ConsultasHist._editConsulta: inConsulta = $inConsulta");
 
     // Get the data from the database and send to the edit view.
     // consultasModel.entidadeSendoEditada = await ConsultasDB.db.get(inConsulta,id);
@@ -200,8 +193,8 @@ class ConsultasHist extends StatelessWidget {
       List dateParts = consultasModel.entidadeSendoEditada.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
-      consultasModel
-          .definirDataEscolhida(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
+      consultasModel.definirDataEscolhida(
+          DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
     if (consultasModel.entidadeSendoEditada.apptTime == null) {
       consultasModel.setApptTime(null);
