@@ -12,28 +12,12 @@ class TelaArqAudio extends StatelessWidget {
         model: consultasModel,
         child: ScopedModelDescendant<ConsultasModel>(builder:
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
-          return DefaultTabController(
-            length: 2,
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text("Consultas"),
-                backgroundColor: Colors.blueAccent,
-                bottom: TabBar(tabs: [
-                  Tab(
-                    text: "AGENDADAS",
-                  ),
-                  Tab(
-                    text: "HISTORICO",
-                  ),
-                ]),
-              ),
-              body: TabBarView(
-                children: [
-                  ArqAudiosList(),
-                  ArqAudiosForm(),
-                ],
-              ),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Arquivos de Audio"),
+              backgroundColor: Colors.blueAccent,
             ),
+            body: ArqAudiosList(),
           );
         }));
   }

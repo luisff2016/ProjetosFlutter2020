@@ -11,16 +11,12 @@ class TelaArqDocumento extends StatelessWidget {
         model: consultasModel,
         child: ScopedModelDescendant<ConsultasModel>(builder:
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
-          return DefaultTabController(
-            length: 2,
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text("Documentos"),
-                backgroundColor: Colors.blueAccent,
-              ),
-              body: ArqDocumentosList(),
-              floatingActionButton: FloatingActionButton(onPressed: null),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Arquivo de Documentos (PDF)"),
+              backgroundColor: Colors.blueAccent,
             ),
+            body: ArqDocumentosList(),
           );
         }));
   }

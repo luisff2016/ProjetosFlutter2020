@@ -12,28 +12,12 @@ class TelaArqFoto extends StatelessWidget {
         model: consultasModel,
         child: ScopedModelDescendant<ConsultasModel>(builder:
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
-          return DefaultTabController(
-            length: 2,
-            child: Scaffold(
+          return Scaffold(
               appBar: AppBar(
                 title: Text("Fotos"),
                 backgroundColor: Colors.blueAccent,
-                bottom: TabBar(tabs: [
-                  Tab(
-                    text: "AGENDADAS",
-                  ),
-                  Tab(
-                    text: "HISTORICO",
-                  ),
-                ]),
-              ),
-              body: TabBarView(
-                children: [
-                  ArqFotosList(),
-                  ArqFotosForm(),
-                ],
-              ),
-            ),
+                              ),
+              body: ArqFotosList(),
           );
         }));
   }

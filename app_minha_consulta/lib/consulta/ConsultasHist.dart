@@ -44,13 +44,7 @@ class ConsultasHist extends StatelessWidget {
             Expanded(
                 child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: CalendarCarousel<Event>(
-                        thisMonthDayBorderColor: Colors.grey,
-                        daysHaveCircularBorder: false,
-                        markedDatesMap: _markedDateMap,
-                        onDayPressed: (DateTime inDate, List<Event> inEvents) {
-                          _showConsulta(inDate, inContext);
-                        }) /* End CalendarCarousel. */
+                    child: Text("historico de consultas")
                     ) /* End Container. */
                 ) /* End Expanded. */
           ] /* End Column.children. */
@@ -248,3 +242,13 @@ class ConsultasHist extends StatelessWidget {
   } /* End _deleteConsulta,). */
 
 } /* End class. */
+
+/**
+ * CalendarCarousel<Event>(
+                        thisMonthDayBorderColor: Colors.grey,
+                        daysHaveCircularBorder: false,
+                        markedDatesMap: _markedDateMap,
+                        onDayPressed: (DateTime inDate, List<Event> inEvents) {
+                          _showConsulta(inDate, inContext);
+                        }) /* End CalendarCarousel. */
+ */
