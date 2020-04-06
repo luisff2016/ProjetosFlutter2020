@@ -1,12 +1,11 @@
+import 'package:app_minha_consulta/alergia/AlergiasForm.dart';
 import 'package:flutter/material.dart';
 
 import 'Alergias.dart';
 
 class TelaAlergia extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: AppBar(
         title: Text("Alergia"),
@@ -32,14 +31,17 @@ class TelaAlergia extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Alergia(),
+                child: Text("listar dados alergicos ..."),
               )
             ],
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.white),
+          onPressed: () async {
+            AlergiasForm();
+          }),
     );
-    
   }
-
 }

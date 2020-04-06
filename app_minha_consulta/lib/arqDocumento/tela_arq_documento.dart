@@ -1,3 +1,4 @@
+import 'ArqDocumentosForm.dart';
 import 'ArqDocumentosList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -12,6 +13,11 @@ class TelaArqDocumento extends StatelessWidget {
         child: ScopedModelDescendant<ConsultasModel>(builder:
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.add, color: Colors.white),
+                onPressed: () async {
+                  ArqDocumentosForm();
+                }),
             appBar: AppBar(
               title: Text("Arquivo de Documentos (PDF)"),
               backgroundColor: Colors.blueAccent,

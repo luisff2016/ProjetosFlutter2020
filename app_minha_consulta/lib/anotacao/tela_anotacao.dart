@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'AnotacoesForm.dart';
 
 class TelaAnotacao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.white),
+          onPressed: () async {
+            AnotacoesForm();
+          }),
       appBar: AppBar(
         title: Text("Anotacao"),
       ),
@@ -23,20 +29,18 @@ class TelaAnotacao extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Sobre a empresa",
+                  "Listar as anotacoes ...",
                   style: TextStyle(fontSize: 20, color: Colors.deepOrange),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text("Em construção... ......." ),
+                child: Text("Em construção... ......."),
               )
             ],
           ),
         ),
       ),
     );
-
   }
-
 }

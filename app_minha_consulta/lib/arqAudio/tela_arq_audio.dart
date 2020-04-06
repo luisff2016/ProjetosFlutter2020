@@ -13,11 +13,16 @@ class TelaArqAudio extends StatelessWidget {
         child: ScopedModelDescendant<ConsultasModel>(builder:
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.white),
+          onPressed: () async {
+            ArqAudiosForm();
+          }),
             appBar: AppBar(
               title: Text("Arquivos de Audio"),
               backgroundColor: Colors.blueAccent,
             ),
-            body: ArqAudiosList(),
+            body: Text("listar arquivos d audio ..."),
           );
         }));
   }

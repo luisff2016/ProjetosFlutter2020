@@ -13,6 +13,11 @@ class TelaArqFoto extends StatelessWidget {
         child: ScopedModelDescendant<ConsultasModel>(builder:
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.white),
+          onPressed: () async {
+            ArqFotosForm();
+          }),
               appBar: AppBar(
                 title: Text("Fotos"),
                 backgroundColor: Colors.blueAccent,

@@ -18,6 +18,7 @@ class ArqAudiosList extends StatelessWidget {
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
     print("##97 arqAudio ArqAudiosList.build()");
+
     // The list of dates with audios.
     EventList<Event> _markedDateMap = EventList();
 
@@ -57,8 +58,8 @@ class ArqAudiosList extends StatelessWidget {
                 Expanded(
                     child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text("listar arquivos de audio ...")
-                        ) /* End Container. */
+                        child: Text(
+                            "listar arquivos de audio ...")) /* End Container. */
                     ) /* End Expanded. */
               ] /* End Column.children. */
                   ) /* End Column. */

@@ -23,7 +23,7 @@ class TelaMedicamento extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Sobre a empresa",
+                  "Listar medicamentos ...",
                   style: TextStyle(fontSize: 20, color: Colors.deepOrange),
                 ),
               ),

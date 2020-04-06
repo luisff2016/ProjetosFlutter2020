@@ -23,7 +23,7 @@ class TelaContato extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Sobre a empresa",
+                  "Lista dos telefones do HU ...",
                   style: TextStyle(fontSize: 20, color: Colors.deepOrange),
                 ),
               ),
