@@ -68,7 +68,7 @@ class _TelaArquivoState extends State<TelaArquivo> {
                         child: GestureDetector(
                           onTap: _abrirFoto,
                           child: Image.asset(
-                            'assets/images/consultas.png',
+                            'assets/images/icons-foto.png',
                             width: 100,
                             height: 100,
                           ),
@@ -85,7 +85,7 @@ class _TelaArquivoState extends State<TelaArquivo> {
                         child: GestureDetector(
                           onTap: _abrirDocumento,
                           child: Image.asset(
-                            'assets/images/arquivos.png',
+                            'assets/images/icons-documento.png',
                             width: 100,
                             height: 100,
                           ),
@@ -102,7 +102,7 @@ class _TelaArquivoState extends State<TelaArquivo> {
                         child: GestureDetector(
                           onTap: _abrirVideo,
                           child: Image.asset(
-                            'assets/images/agenda.png',
+                            'assets/images/icons-video.png',
                             width: 100,
                             height: 100,
                           ),
@@ -119,7 +119,7 @@ class _TelaArquivoState extends State<TelaArquivo> {
                         child: GestureDetector(
                           onTap: _abrirAudio,
                           child: Image.asset(
-                            'assets/images/horacerta.png',
+                            'assets/images/icons-audio.png',
                             width: 100,
                             height: 100,
                           ),

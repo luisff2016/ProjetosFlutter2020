@@ -1,5 +1,4 @@
 import 'ArqDocumentosForm.dart';
-import 'ArqDocumentosList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import "../consulta/ConsultasModel.dart" show ConsultasModel, consultasModel;
@@ -22,7 +21,7 @@ class TelaArqDocumento extends StatelessWidget {
               title: Text("Arquivo de Documentos (PDF)"),
               backgroundColor: Colors.blueAccent,
             ),
-            body: ArqDocumentosList(),
+            body: Text("listar arquivos em PDF ..."),
           );
         }));
   }

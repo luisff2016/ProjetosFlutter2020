@@ -1,5 +1,4 @@
 import 'ArqVideosForm.dart';
-import 'ArqVideosList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import "../consulta/ConsultasModel.dart" show ConsultasModel, consultasModel;
@@ -22,7 +21,8 @@ class TelaArqVideo extends StatelessWidget {
                 title: Text("Galeria de Videos"),
                 backgroundColor: Colors.blueAccent,
               ),
-              body: ArqVideosList());
+              body: Text("listar arquivos de video ..."),
+              );
         }));
   }
 }

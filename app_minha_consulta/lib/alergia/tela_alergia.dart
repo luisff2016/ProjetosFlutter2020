@@ -1,7 +1,6 @@
 import 'package:app_minha_consulta/alergia/AlergiasForm.dart';
 import 'package:flutter/material.dart';
 
-import 'Alergias.dart';
 
 class TelaAlergia extends StatelessWidget {
   @override

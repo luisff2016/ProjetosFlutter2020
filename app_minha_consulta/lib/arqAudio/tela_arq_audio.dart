@@ -1,5 +1,4 @@
 import 'ArqAudiosForm.dart';
-import 'ArqAudiosList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import "../consulta/ConsultasModel.dart" show ConsultasModel, consultasModel;
@@ -14,10 +13,10 @@ class TelaArqAudio extends StatelessWidget {
             (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
           return Scaffold(
             floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add, color: Colors.white),
-          onPressed: () async {
-            ArqAudiosForm();
-          }),
+                child: Icon(Icons.add, color: Colors.white),
+                onPressed: () async {
+                  ArqAudiosForm();
+                }),
             appBar: AppBar(
               title: Text("Arquivos de Audio"),
               backgroundColor: Colors.blueAccent,
