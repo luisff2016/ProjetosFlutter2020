@@ -82,7 +82,7 @@ class _TelaLoginState extends State<TelaLogin> {
                     height: 100,
                     width: 500,
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/logo_hu1.png',
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -212,7 +212,7 @@ class PrimaryColorOverride extends StatelessWidget {
             height:150,
             width: 350,
             child: Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logo_hu1.png',
             ),
           ),
           Padding(

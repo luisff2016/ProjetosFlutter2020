@@ -52,7 +52,7 @@ class TelaConsulta extends StatelessWidget {
                   height: 75,
                   width: 500,
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logo_hu1.png',
                   ),
                 ),
                 Padding(
