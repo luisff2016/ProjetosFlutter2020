@@ -5,11 +5,13 @@ import 'package:app_minha_consulta/simuladorAGHU/registro.dart';
 import 'package:app_minha_consulta/simuladorAGHU/simuladorAGHUBD.dart';
 
 class TelaLogin extends StatefulWidget {
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _TelaLoginState createState() => _TelaLoginState();
+
 }
 
-class _LoginPageState extends State<TelaLogin> {
+class _TelaLoginState extends State<TelaLogin> {
   final TextEditingController _prontuarioController = TextEditingController();
   final TextEditingController _cpfPacienteController = TextEditingController();
 
