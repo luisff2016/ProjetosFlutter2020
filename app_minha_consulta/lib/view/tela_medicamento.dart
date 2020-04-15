@@ -21,7 +21,7 @@ class _TelaMedicamentoState extends State<TelaMedicamento> {
                 height: 75,
                 width: 500,
                 child: Image.asset(
-                  'assets/images/logo_hu1.png',
+                  'assets/logo/logo_hu1.png',
                 ),
               ),
               Padding(

@@ -5,13 +5,12 @@ import 'package:app_minha_consulta/simuladorAGHU/registro.dart';
 import 'package:app_minha_consulta/simuladorAGHU/simuladorAGHUBD.dart';
 
 class TelaLogin extends StatefulWidget {
-
   @override
   _TelaLoginState createState() => _TelaLoginState();
-
 }
 
 class _TelaLoginState extends State<TelaLogin> {
+
   final TextEditingController _prontuarioController = TextEditingController();
   final TextEditingController _cpfPacienteController = TextEditingController();
 
@@ -82,7 +81,7 @@ class _TelaLoginState extends State<TelaLogin> {
                     height: 100,
                     width: 500,
                     child: Image.asset(
-                      'assets/images/logo_hu1.png',
+                      'assets/logo/logo_hu1.png',
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -212,7 +211,7 @@ class PrimaryColorOverride extends StatelessWidget {
             height:150,
             width: 350,
             child: Image.asset(
-              'assets/images/logo_hu1.png',
+              'assets/logo/logo_hu1.png',
             ),
           ),
           Padding(
