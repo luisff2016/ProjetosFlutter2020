@@ -21,7 +21,7 @@ class _TelaContatoState extends State<TelaContato> {
                 height: 75,
                 width: 500,
                 child: Image.asset(
-                  'assets/logo/logo_hu1.png',
+                  'assets/logo/logo_hu1.jpg',
                 ),
               ),
               Padding(
