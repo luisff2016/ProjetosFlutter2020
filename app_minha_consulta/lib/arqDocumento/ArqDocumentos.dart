@@ -1,20 +1,21 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "ConsultasDB.dart";
-import "ConsultasList.dart";
-import "ConsultasHist.dart";
-import "ConsultasModel.dart" show ConsultasModel, consultasModel;
+import "ArqDocumentosDB.dart";
+import "ArqDocumentosList.dart";
+import "ArqDocumentosForm.dart";
+import "ArqDocumentosModel.dart" show ArqDocumentosModel, arqDocumentosModel;
 
 /// ********************************************************************************************************************
-/// The Consultas screen.
+/// The ArqDocumentos screen.
 /// ********************************************************************************************************************
-class Consultas extends StatelessWidget {
+class ArqDocumentos extends StatelessWidget {
+  
   /// Constructor.
-  Consultas() {
-    print("##140 Consultas.constructor");
+  ArqDocumentos() {
+    print("##140 ArqDocumentos.constructor");
 
     // Initial load of data.
-    consultasModel.loadData("consulta", ConsultasDB.db);
+    arqDocumentosModel.loadData("arqDocumentos", ArqDocumentosDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -22,21 +23,22 @@ class Consultas extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## Consultas.build()");
+    print("##141 ArqDocumentos.build()");
 
-    return ScopedModel<ConsultasModel>(
-        model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(builder:
+    return ScopedModel<ArqDocumentosModel>(
+        model: arqDocumentosModel,
+        child: ScopedModelDescendant<ArqDocumentosModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    ConsultasModel inModel) {
+                    ArqDocumentosModel inModel) {
           return IndexedStack(index: inModel.indicePilha, children: [
-            ConsultasList(),
-            ConsultasHist(),
+            ArqDocumentosList(),
+            ArqDocumentosForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */
             ) /* End ScopedModelDescendant. */
         ); /* End ScopedModel. */
+  
   } /* End build(). */
 
 } /* End class. */

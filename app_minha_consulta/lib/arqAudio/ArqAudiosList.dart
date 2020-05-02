@@ -5,25 +5,27 @@ import "package:intl/intl.dart";
 import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
 import "package:flutter_calendar_carousel/classes/event.dart";
 import "package:flutter_calendar_carousel/classes/event_list.dart";
-import "ConsultasDB.dart";
-import "ConsultasModel.dart" show Consulta, ConsultasModel, consultasModel;
+import "ArqAudiosDB.dart";
+import "ArqAudiosModel.dart" show ArqAudio, ArqAudiosModel, arqAudiosModel;
 
 /// ********************************************************************************************************************
-/// The Consulta, List sub-screen.
+/// The ArqAudios List sub-screen.
 /// ********************************************************************************************************************
-class ConsultasList extends StatelessWidget {
+class ArqAudiosList extends StatelessWidget {
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##97 ConsultasList.build()");
-
-    // The list of dates with Consulta,.
+    print("##97 arqAudio ArqAudiosList.build()");
+    // The list of dates with audios.
     EventList<Event> _markedDateMap = EventList();
-    for (int i = 0; i < consultasModel.listaEntidades.length; i++) {
-      Consulta consulta = consultasModel.listaEntidades[i];
-      List dateParts = consulta.apptDate.split(",");
+
+    for (int i = 0; i < arqAudiosModel.listaEntidades.length; i++) {
+      ArqAudio arqAudio = arqAudiosModel.listaEntidades[i];
+
+      List dateParts = arqAudio.apptDate.split(",");
+
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
       _markedDateMap.add(
@@ -32,15 +34,25 @@ class ConsultasList extends StatelessWidget {
               date: apptDate,
               icon: Container(decoration: BoxDecoration(color: Colors.blue))));
     }
-
     // Return widget.
-    return ScopedModel<ConsultasModel>(
-        model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(builder:
-                (BuildContext inContext, Widget inChild,
-                    ConsultasModel inModel) {
+    return ScopedModel<ArqAudiosModel>(
+        model: arqAudiosModel,
+        child: ScopedModelDescendant<ArqAudiosModel>(
+            builder: (inContext, inChild, inModel) {
           return Scaffold(
-             
+              // Add arqAudio.
+              floatingActionButton: FloatingActionButton(
+                  child: Icon(Icons.add, color: Colors.white),
+                  onPressed: () async {
+                    arqAudiosModel.entidadeSendoEditada = ArqAudio();
+                    DateTime now = DateTime.now();
+                    arqAudiosModel.entidadeSendoEditada.apptDate =
+                        "${now.year},${now.month},${now.day}";
+                    arqAudiosModel.definirDataEscolhida(
+                        DateFormat.yMMMMd("en_US").format(now.toLocal()));
+                    arqAudiosModel.setApptTime(null);
+                    arqAudiosModel.definirIndicePilha(1);
+                  }),
               body: Column(children: [
                 Expanded(
                     child: Container(
@@ -51,7 +63,7 @@ class ConsultasList extends StatelessWidget {
                             markedDatesMap: _markedDateMap,
                             onDayPressed:
                                 (DateTime inDate, List<Event> inEvents) {
-                              _showConsulta(inDate, inContext);
+                              _showAudios(inDate, inContext);
                             }) /* End CalendarCarousel. */
                         ) /* End Container. */
                     ) /* End Expanded. */
@@ -63,28 +75,27 @@ class ConsultasList extends StatelessWidget {
         ); /* End ScopedModel. */
   } /* End build(). */
 
-  /// Show a bottom sheet to see the Consulta, for the selected day.
+  /// Show a bottom sheet to see the audios for the selected day.
   ///
   /// @param inDate    The date selected.
   /// @param inContext The build context of the parent widget.
-  void _showConsulta(DateTime inDate, BuildContext inContext) async {
+  void _showAudios(DateTime inDate, BuildContext inContext) async {
     print(
-        "##98 Consulta,List._showConsulta,(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
-
+        "##98 arqAudio ArqAudiosList._showAudios(): inDate = $inDate (${inDate.year},${inDate.month},${inDate.day})");
     print(
-        "##99 Consulta,List._showConsulta,(): consultasModel.listaEntidades.length = "
-        "${consultasModel.listaEntidades.length}");
-    print("##100 Consulta,List._showConsulta,(): consultasModel.listaEntidades = "
-        "${consultasModel.listaEntidades}");
-
+        "##99 arqAudio ArqAudiosList._showAudios(): arqAudiosModel.listaEntidades.length = "
+        "${arqAudiosModel.listaEntidades.length}");
+    print(
+        "##100 arqAudio ArqAudiosList._showAudios(): arqAudiosModel.listaEntidades = "
+        "${arqAudiosModel.listaEntidades}");
     showModalBottomSheet(
         context: inContext,
         builder: (BuildContext inContext) {
-          return ScopedModel<ConsultasModel>(
-              model: consultasModel,
-              child: ScopedModelDescendant<ConsultasModel>(builder:
+          return ScopedModel<ArqAudiosModel>(
+              model: arqAudiosModel,
+              child: ScopedModelDescendant<ArqAudiosModel>(builder:
                       (BuildContext inContext, Widget inChild,
-                          ConsultasModel inModel) {
+                          ArqAudiosModel inModel) {
                 return Scaffold(
                     body: Container(
                         child: Padding(
@@ -102,33 +113,34 @@ class ConsultasList extends StatelessWidget {
                               Expanded(
                                   child: ListView.builder(
                                       itemCount:
-                                          consultasModel.listaEntidades.length,
+                                          arqAudiosModel.listaEntidades.length,
                                       itemBuilder: (BuildContext inBuildContext,
                                           int inIndex) {
-                                        Consulta consulta =
-                                            consultasModel.listaEntidades[inIndex];
+                                        ArqAudio arqAudio = arqAudiosModel
+                                            .listaEntidades[inIndex];
                                         print(
-                                            "##101 Consulta.List._showConsulta().ListView.builder(): Consulta = $Consulta");
-                                        // Filter out any Consulta,that isn't for the specified date.
-                                        if (consulta.apptDate !=
+                                            "##101 ArqAudiosList._showAudios().ListView.builder(): "
+                                            "arqAudio = $arqAudio");
+                                        // Filter out any audio that isn't for the specified date.
+                                        if (arqAudio.apptDate !=
                                             "${inDate.year},${inDate.month},${inDate.day}") {
                                           return Container(height: 0);
                                         }
                                         print(
-                                            "##102 ConsultasList._showConsulta().ListView.builder(): "
-                                            "INCLUDING Consulta = $Consulta");
-                                        // If the Consulta,has a time, format it for display.
+                                            "##102 arqAudio ArqAudiosList._showAudios().ListView.builder(): "
+                                            "INCLUINDO arqAudio = $arqAudio");
+                                        // If the audio has a time, format it for display.
                                         String apptTime = "";
-                                        if (consulta.apptTime != null) {
+                                        if (arqAudio.apptTime != null) {
                                           List timeParts =
-                                              consulta.apptTime.split(",");
+                                              arqAudio.apptTime.split(",");
                                           TimeOfDay at = TimeOfDay(
                                               hour: int.parse(timeParts[0]),
                                               minute: int.parse(timeParts[1]));
                                           apptTime =
                                               " (${at.format(inContext)})";
                                         }
-                                        // Return a widget for the Consulta,since it's for the correct date.
+                                        // Return a widget for the audio since it's for the correct date.
                                         return Slidable(
                                             actionPane:
                                                 SlidableBehindActionPane(), //delegate : SlidableDrawerDelegate(),
@@ -139,26 +151,25 @@ class ConsultasList extends StatelessWidget {
                                                 color: Colors.grey.shade300,
                                                 child: ListTile(
                                                     title: Text(
-                                                        "${consulta.title}$apptTime"),
-                                                    subtitle: consulta
+                                                        "${arqAudio.title}$apptTime"),
+                                                    subtitle: arqAudio
                                                                 .description ==
                                                             null
                                                         ? null
                                                         : Text(
-                                                            "${consulta.description}"),
-                                                    // Edit existing Consulta,
+                                                            "${arqAudio.description}"),
+                                                    // Edit existing arqAudio.
                                                     onTap: () async {
-                                                      _editConsulta(
-                                                          inContext, consulta);
+                                                      _editArqAudio(
+                                                          inContext, arqAudio);
                                                     })),
                                             secondaryActions: [
                                               IconSlideAction(
-                                                caption: "Delete",
-                                                color: Colors.red,
-                                                icon: Icons.delete,
-                                                onTap: () => _deleteConsulta(
-                                                    inBuildContext, consulta),
-                                              )
+                                                  caption: "Delete",
+                                                  color: Colors.red,
+                                                  icon: Icons.delete,
+                                                  onTap: () => _deleteArqAudio(
+                                                      inBuildContext, arqAudio))
                                             ]); /* End Slidable. */
                                       } /* End itemBuilder. */
                                       ) /* End ListView.builder. */
@@ -174,56 +185,57 @@ class ConsultasList extends StatelessWidget {
               ); /* End ScopedModel(). */
         } /* End dialog.builder. */
         ); /* End showModalBottomSheet(). */
-  } /* End _showConsulta,(). */
+  } /* End _showAudios(). */
 
-  /// Handle taps on an Consulta,to trigger editing.
+  /// Handle taps on an audio to trigger editing.
   ///
   /// @param inContext     The BuildContext of the parent widget.
-  /// @param inConsulta,The Consulta,being edited.
-  void _editConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##103 ConsultasList._editConsulta: inConsulta = $inConsulta");
-
+  /// @param inArqAudio The Audio being edited.
+  void _editArqAudio(BuildContext inContext, ArqAudio inArqAudio) async {
+    print(
+        "##103 arqAudio ArqAudiosList._editArqAudio(): inArqAudio = $inArqAudio");
     // Get the data from the database and send to the edit view.
-    // consultasModel.entidadeSendoEditada = await ConsultasDB.db.get(inConsulta,id);
+    arqAudiosModel.entidadeSendoEditada =
+        await ArqAudiosDB.db.get(inArqAudio.id);
     // Parse out the apptDate and apptTime, if any, and set them in the model
     // for display.
-    if (consultasModel.entidadeSendoEditada.apptDate == null) {
-      consultasModel.definirDataEscolhida(null);
+    if (arqAudiosModel.entidadeSendoEditada.apptDate == null) {
+      arqAudiosModel.definirDataEscolhida(null);
     } else {
-      List dateParts = consultasModel.entidadeSendoEditada.apptDate.split(",");
+      List dateParts = arqAudiosModel.entidadeSendoEditada.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
-      consultasModel
-          .definirDataEscolhida(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
+      arqAudiosModel.definirDataEscolhida(
+          DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
-    if (consultasModel.entidadeSendoEditada.apptTime == null) {
-      consultasModel.setApptTime(null);
+    if (arqAudiosModel.entidadeSendoEditada.apptTime == null) {
+      arqAudiosModel.setApptTime(null);
     } else {
-      List timeParts = consultasModel.entidadeSendoEditada.apptTime.split(",");
+      List timeParts = arqAudiosModel.entidadeSendoEditada.apptTime.split(",");
       TimeOfDay apptTime = TimeOfDay(
           hour: int.parse(timeParts[0]), minute: int.parse(timeParts[1]));
-      consultasModel.setApptTime(apptTime.format(inContext));
+      arqAudiosModel.setApptTime(apptTime.format(inContext));
     }
-    consultasModel.definirIndicePilha(1);
+    arqAudiosModel.definirIndicePilha(1);
     Navigator.pop(inContext);
-  } /* End _editConsulta, */
+  } /* End _editArqAudio. */
 
   /// Show a dialog requesting delete confirmation.
   ///
   /// @param  inContext     The parent build context.
-  /// @param  inConsulta,The Consulta,(potentially) being deleted.
+  /// @param  inArqAudio The audio (potentially) being deleted.
   /// @return               Future.
-  Future _deleteConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##104 ConsultasList._deleteConsulta: inConsulta = $inConsulta");
-
+  Future _deleteArqAudio(BuildContext inContext, ArqAudio inArqAudio) async {
+    print(
+        "##104 arqAudio ArqAudiosList._deleteArqAudio(): inArqAudio = $inArqAudio");
     return showDialog(
         context: inContext,
         barrierDismissible: false,
         builder: (BuildContext inAlertContext) {
           return AlertDialog(
-              title: Text("Delete Consulta"),
+              title: Text("Delete Audio"),
               content:
-                  Text("Are you sure you want to delete ${inConsulta.title}?"),
+                  Text("Are you sure you want to delete ${inArqAudio.title}?"),
               actions: [
                 FlatButton(
                     child: Text("Cancel"),
@@ -235,32 +247,16 @@ class ConsultasList extends StatelessWidget {
                     child: Text("Delete"),
                     onPressed: () async {
                       // Delete from database, then hide dialog, show SnackBar, then re-load data for the list.
-                      await ConsultasDB.db.delete(inConsulta.id);
+                      await ArqAudiosDB.db.delete(inArqAudio.id);
                       Navigator.of(inAlertContext).pop();
                       Scaffold.of(inContext).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
                           duration: Duration(seconds: 2),
-                          content: Text("Consulta excluida")));
+                          content: Text("Audio deleted")));
                       // Reload data from database to update list.
-                      consultasModel.loadData("consulta", ConsultasDB.db);
+                      arqAudiosModel.loadData("audios", ArqAudiosDB.db);
                     })
               ]);
         });
-  } /* End _deleteConsulta,). */
-
-} /* End class. */
-
-/**
- * FloatingActionButton(
-                  child: Icon(Icons.add, color: Colors.white),
-                  onPressed: () async {
-                    consultasModel.entidadeSendoEditada = Consulta();
-                    DateTime now = DateTime.now();
-                    consultasModel.entidadeSendoEditada.apptDate =
-                        "${now.year},${now.month},${now.day}";
-                    consultasModel.definirDataEscolhida(
-                        DateFormat.yMMMMd("en_US").format(now.toLocal()));
-                    consultasModel.setApptTime(null);
-                    consultasModel.definirIndicePilha(1);
-                  }),
- */
+  } /* End _deleteArqAudio(). */
+} /* End clrqAass. */

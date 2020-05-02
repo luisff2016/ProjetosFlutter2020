@@ -11,13 +11,13 @@ import "ConsultasModel.dart" show Consulta, ConsultasModel, consultasModel;
 /// ********************************************************************************************************************
 /// The Consulta, List sub-screen.
 /// ********************************************************************************************************************
-class ConsultasList extends StatelessWidget {
+class ConsultasHist extends StatelessWidget {
   /// The build() method.
   ///
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("##97 ConsultasList.build()");
+    print("##97 ConsultasHist.build()");
 
     // The list of dates with Consulta,.
     EventList<Event> _markedDateMap = EventList();
@@ -115,7 +115,7 @@ class ConsultasList extends StatelessWidget {
                                           return Container(height: 0);
                                         }
                                         print(
-                                            "##102 ConsultasList._showConsulta().ListView.builder(): "
+                                            "##102 ConsultasHist._showConsulta().ListView.builder(): "
                                             "INCLUDING Consulta = $Consulta");
                                         // If the Consulta,has a time, format it for display.
                                         String apptTime = "";
@@ -181,7 +181,7 @@ class ConsultasList extends StatelessWidget {
   /// @param inContext     The BuildContext of the parent widget.
   /// @param inConsulta,The Consulta,being edited.
   void _editConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##103 ConsultasList._editConsulta: inConsulta = $inConsulta");
+    print("##103 ConsultasHist._editConsulta: inConsulta = $inConsulta");
 
     // Get the data from the database and send to the edit view.
     // consultasModel.entidadeSendoEditada = await ConsultasDB.db.get(inConsulta,id);
@@ -214,7 +214,7 @@ class ConsultasList extends StatelessWidget {
   /// @param  inConsulta,The Consulta,(potentially) being deleted.
   /// @return               Future.
   Future _deleteConsulta(BuildContext inContext, Consulta inConsulta) async {
-    print("##104 ConsultasList._deleteConsulta: inConsulta = $inConsulta");
+    print("##104 ConsultasHist._deleteConsulta: inConsulta = $inConsulta");
 
     return showDialog(
         context: inContext,

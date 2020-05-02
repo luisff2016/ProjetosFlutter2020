@@ -1,20 +1,20 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "ConsultasDB.dart";
-import "ConsultasList.dart";
-import "ConsultasHist.dart";
-import "ConsultasModel.dart" show ConsultasModel, consultasModel;
+import "ArqAudiosDB.dart";
+import "ArqAudiosList.dart";
+import "ArqAudiosForm.dart";
+import "ArqAudiosModel.dart" show ArqAudiosModel, arqAudiosModel;
 
 /// ********************************************************************************************************************
-/// The Consultas screen.
+/// The AArqAudios screen.
 /// ********************************************************************************************************************
-class Consultas extends StatelessWidget {
+class ArqAudios extends StatelessWidget {
   /// Constructor.
-  Consultas() {
-    print("##140 Consultas.constructor");
+  ArqAudios() {
+    print("##140 ArqAudios.constructor");
 
     // Initial load of data.
-    consultasModel.loadData("consulta", ConsultasDB.db);
+    arqAudiosModel.loadData("arqAudios", ArqAudiosDB.db);
   } /* End constructor. */
 
   /// The build() method.
@@ -22,16 +22,16 @@ class Consultas extends StatelessWidget {
   /// @param  inContext The BuildContext for this widget.
   /// @return           A Widget.
   Widget build(BuildContext inContext) {
-    print("## Consultas.build()");
+    print("##141 ArqAudios.build()");
 
-    return ScopedModel<ConsultasModel>(
-        model: consultasModel,
-        child: ScopedModelDescendant<ConsultasModel>(builder:
+    return ScopedModel<ArqAudiosModel>(
+        model: arqAudiosModel,
+        child: ScopedModelDescendant<ArqAudiosModel>(builder:
                 (BuildContext inContext, Widget inChild,
-                    ConsultasModel inModel) {
+                    ArqAudiosModel inModel) {
           return IndexedStack(index: inModel.indicePilha, children: [
-            ConsultasList(),
-            ConsultasHist(),
+            ArqAudiosList(),
+            ArqAudiosForm()
           ] /* End IndexedStack children. */
               ); /* End IndexedStack. */
         } /* End ScopedModelDescendant builder(). */
