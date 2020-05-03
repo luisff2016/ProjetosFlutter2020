@@ -126,9 +126,8 @@ class SimuladorAGHUBD {
         where: " $colunaProntuario = ? AND $colunaCpf = ?",
         whereArgs: [prontuario, cpf]);
 
-    if (res.first == null) return null;
-
-    return new Registro.fromMap(res.first);
+    if (res.first != null) return new Registro.fromMap(res.first);
+    return null;    
   }
 
   Future<int> apagarRegistro(int id) async {
