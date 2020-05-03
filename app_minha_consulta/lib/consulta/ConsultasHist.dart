@@ -37,31 +37,22 @@ class ConsultasHist extends StatelessWidget {
     return ScopedModel<ConsultasModel>(
         model: consultasModel,
         child: ScopedModelDescendant<ConsultasModel>(builder:
-                (BuildContext inContext, Widget inChild,
-                    ConsultasModel inModel) {
+            (BuildContext inContext, Widget inChild, ConsultasModel inModel) {
           return Scaffold(
-             
               body: Column(children: [
-                Expanded(
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: CalendarCarousel<Event>(
-                            thisMonthDayBorderColor: Colors.grey,
-                            daysHaveCircularBorder: false,
-                            markedDatesMap: _markedDateMap,
-                            onDayPressed:
-                                (DateTime inDate, List<Event> inEvents) {
-                              _showConsulta(inDate, inContext);
-                            }) /* End CalendarCarousel. */
-                        ) /* End Container. */
-                    ) /* End Expanded. */
-              ] /* End Column.children. */
-                  ) /* End Column. */
-              ); /* End Scaffold. */
-        } /* End ScopedModelDescendant builder(). */
-            ) /* End ScopedModelDescendant. */
-        ); /* End ScopedModel. */
-  } /* End build(). */
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: CalendarCarousel<Event>(
+                        thisMonthDayBorderColor: Colors.grey,
+                        daysHaveCircularBorder: false,
+                        markedDatesMap: _markedDateMap,
+                        onDayPressed: (DateTime inDate, List<Event> inEvents) {
+                          _showConsulta(inDate, inContext);
+                        })))
+          ]));
+        }));
+  }
 
   /// Show a bottom sheet to see the Consulta, for the selected day.
   ///
@@ -74,7 +65,8 @@ class ConsultasHist extends StatelessWidget {
     print(
         "##99 Consulta,List._showConsulta,(): consultasModel.listaEntidades.length = "
         "${consultasModel.listaEntidades.length}");
-    print("##100 Consulta,List._showConsulta,(): consultasModel.listaEntidades = "
+    print(
+        "##100 Consulta,List._showConsulta,(): consultasModel.listaEntidades = "
         "${consultasModel.listaEntidades}");
 
     showModalBottomSheet(
@@ -83,8 +75,8 @@ class ConsultasHist extends StatelessWidget {
           return ScopedModel<ConsultasModel>(
               model: consultasModel,
               child: ScopedModelDescendant<ConsultasModel>(builder:
-                      (BuildContext inContext, Widget inChild,
-                          ConsultasModel inModel) {
+                  (BuildContext inContext, Widget inChild,
+                      ConsultasModel inModel) {
                 return Scaffold(
                     body: Container(
                         child: Padding(
@@ -105,8 +97,8 @@ class ConsultasHist extends StatelessWidget {
                                           consultasModel.listaEntidades.length,
                                       itemBuilder: (BuildContext inBuildContext,
                                           int inIndex) {
-                                        Consulta consulta =
-                                            consultasModel.listaEntidades[inIndex];
+                                        Consulta consulta = consultasModel
+                                            .listaEntidades[inIndex];
                                         print(
                                             "##101 Consulta.List._showConsulta().ListView.builder(): Consulta = $Consulta");
                                         // Filter out any Consulta,that isn't for the specified date.
@@ -159,22 +151,12 @@ class ConsultasHist extends StatelessWidget {
                                                 onTap: () => _deleteConsulta(
                                                     inBuildContext, consulta),
                                               )
-                                            ]); /* End Slidable. */
-                                      } /* End itemBuilder. */
-                                      ) /* End ListView.builder. */
-                                  ) /* End Expanded. */
-                            ] /* End Column.children. */
-                                    ) /* End Column. */
-                                ) /* End GestureDetector. */
-                            ) /* End Padding. */
-                        ) /* End Container. */
-                    ); /* End Scaffold. */
-              } /* End ScopedModel.builder. */
-                  ) /* End ScopedModelDescendant. */
-              ); /* End ScopedModel(). */
-        } /* End dialog.builder. */
-        ); /* End showModalBottomSheet(). */
-  } /* End _showConsulta,(). */
+                                            ]);
+                                      }))
+                            ])))));
+              }));
+        });
+  }
 
   /// Handle taps on an Consulta,to trigger editing.
   ///
@@ -193,8 +175,8 @@ class ConsultasHist extends StatelessWidget {
       List dateParts = consultasModel.entidadeSendoEditada.apptDate.split(",");
       DateTime apptDate = DateTime(int.parse(dateParts[0]),
           int.parse(dateParts[1]), int.parse(dateParts[2]));
-      consultasModel
-          .definirDataEscolhida(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
+      consultasModel.definirDataEscolhida(
+          DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
     if (consultasModel.entidadeSendoEditada.apptTime == null) {
       consultasModel.setApptTime(null);
@@ -206,7 +188,7 @@ class ConsultasHist extends StatelessWidget {
     }
     consultasModel.definirIndicePilha(1);
     Navigator.pop(inContext);
-  } /* End _editConsulta, */
+  }
 
   /// Show a dialog requesting delete confirmation.
   ///
@@ -246,9 +228,8 @@ class ConsultasHist extends StatelessWidget {
                     })
               ]);
         });
-  } /* End _deleteConsulta,). */
-
-} /* End class. */
+  }
+}
 
 /**
  * FloatingActionButton(
